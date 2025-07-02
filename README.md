@@ -79,14 +79,6 @@ Add the following line to run the script every day at 9 AM:
 ```
 Make sure to adjust the path to your Python interpreter and the script location.
 
-## Data Fetching
-
-Run the data fetching script to update market and research data:
-```sh
-python cron/fetch_data.py
-```
-This script can be scheduled to run periodically (e.g., daily) to keep your data up-to-date. You can also run it manually to fetch the latest data.
-
 ## Checkpointing
 
 Agentic PM supports workflow checkpointing using PostgreSQL. This allows you to save the state of the workflow and resume later. To enable checkpointing, ensure your DB_URI environment variable is set correctly. The system will automatically save the state after each major step in the workflow.
