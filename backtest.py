@@ -5,13 +5,13 @@ from main import daily_run
 START_DATE = datetime(2025, 1, 1)
 END_DATE = datetime(2025, 6, 30)
 
-def backtest():
+def backtest(start_date=START_DATE, end_date=END_DATE):
     """simulate backtest"""
-    date = START_DATE
-    while date <= END_DATE:
+    date = start_date
+    while date <= end_date:
         print(f"\nRunning backtest for {date.strftime('%Y-%m-%d')}")
         daily_run(today=date.strftime('%Y-%m-%d'), checkpoint=False, backtest=True)
         date += timedelta(days=1)
 
 if __name__ == '__main__':
-    backtest()
+    backtest(START_DATE, END_DATE)
