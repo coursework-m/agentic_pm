@@ -37,6 +37,13 @@ Ensure you have the access to the necessary LLM models on HuggingFace or other p
 5. **Set up PostgreSQL:**
 Ensure you have a PostgreSQL database running and create a database for Agentic PM. Update the DB_URI environment variable with your database connection string.
 
+## Configuration
+- **Prompts:** Edit agent instructions in `prompts/prompts.py` and `prompts/react_prompts.py` to customize agent behavior.
+- **LLM Setup:** Configure models in `models/llm_setup.py` and `models/hf_setup.py` to specify which LLMs to use.
+- **Tools:** Add or modify data tools in `tools/tools.py` to integrate additional data sources or utilities.
+- **Nodes:** Implement custom agent logic in `nodes/agent_nodes.py` to define how agents interact with data and make decisions.
+- **Workflow:** Adjust workflow orchestration in `workflow/workflow.py` to customize the sequence of agent interactions and data processing
+
 ## Usage
 Daily Run
 Run the daily agent workflow for the current day:
@@ -74,13 +81,6 @@ Run a backtest for a specific date range:
     python backtest.py --start_date 2025-01-01 --end_date 2025-12-31
 ```
 You can adjust the start and end dates as needed. The backtest will simulate the agent's decisions over the specified period and output performance metrics.
-
-## Customization
-Prompts: Edit agent instructions in prompts/prompts.py and prompts/react_prompts.py.
-LLM Setup: Configure models in models/llm_setup.py and models/hf_setup.py.
-Tools: Add or modify data tools in tools/tools.py.
-Nodes: Implement custom agent logic in nodes/agent_nodes.py.
-Workflow: Adjust workflow orchestration in workflow/workflow.py.
 
 ## Contributing
 For academic and research use. Contributions welcome!
