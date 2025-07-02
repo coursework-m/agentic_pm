@@ -61,7 +61,7 @@ Ensure you have a PostgreSQL database running and create a database for Agentic 
 
 ## Usage
 
-Daily Run
+**Daily Run**
 Run the daily agent workflow for the current day:
 ```sh
     python main.py
