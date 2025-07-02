@@ -37,8 +37,13 @@ Agentic Portfolio Management (Agentic PM) is a multi-agent system for automated 
 3. **Set up environment variables:**
 DB_URI: PostgreSQL connection string for checkpointing and state storage.
 HF_TOKEN: (Optional) HuggingFace token for LLM access.
+AV_TOKEN: (Optional) Alpha Vantage API token for market data.
 You can use a .env file or export variables in your shell.
-AV_TOKREN: (Optional) Alpha Vantage API token for market data.
+```sh
+    export DB_URI='postgresql://user:password@localhost:5432/agentic_pm'
+    export HF_TOKEN='your_huggingface_token'
+    export AV_TOKEN='your_alpha_vantage_token'
+```
 
 4. **Download LLM models:**
 Ensure you have the access to the necessary LLM models on HuggingFace or other providers. The models will be downloaded automatically when you run the script for the first time.
