@@ -25,6 +25,7 @@ def daily_run(today=TODAY, checkpoint=False, backtest=False):
         # store.setup()
         # checkpointer.setup()
 
+        # llm = get_llm('ollama')  # Get the LLM instance
         llm = get_llm('hf')  # Get the LLM instance
         app = build_workflow(store, checkpointer, checkpoint=checkpoint)
 

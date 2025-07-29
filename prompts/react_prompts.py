@@ -47,3 +47,41 @@ researcher_system_prompt = SystemMessage(content=f"""
 """,
 name="researcher"
     )
+
+analyst_prompt = HumanMessage(content="""
+    You are a financial data analyst. Your task is to analyse the latest securities data and issue a
+    BUY, HOLD, or SELL recommendation for each.
+
+    First, analyse the securities data and think through each stock using fundamentals, 
+    market data and news. Then, for each security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+
+    ```json
+    [
+        {{
+            "ticker": "AAPL",
+            "summary": "Apple Inc. is showing ...",
+            "recommendation": "BUY"
+        }},
+        {{
+            "ticker": "GOOG",
+            "summary": "Google's fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        // ... one object per ticker
+    ]
+    ```
+    name="analyst"
+    """
+    )
