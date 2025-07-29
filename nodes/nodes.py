@@ -96,60 +96,6 @@ def data_node(state: CustomState, config: dict) -> dict:
         "messages": state["messages"] + [data_message]
     }
 
-# def analyst_node(state: CustomState, config: dict) -> dict:
-#     """Call Analyst Node"""
-#     analyst_config = config
-#     securities_data = state["securities_data"]
-#     analyst_prompt = HumanMessage(content=f"""
-#         You are a financial data analyst. Your task is to analyse the latest securities data and issue a
-#         BUY, HOLD, or SELL recommendation for each.
-
-#         First, analyse the securities data and think through each stock using fundamentals, 
-#         market data and news. Then, for each security:
-
-#         1. Examine and interpret all available data, including:
-#             - Market Data (price, change, volume, etc.)
-#             - Fundamentals (P/E, EPS, beta, etc.)
-#             - News and recent headlines
-#             - Analyst recommendations
-
-#         2. Use detailed analysis and reasoning to justify your conclusion.
-
-#         Finally, summarize your conclusions in the following JSON format:
-                                  
-#         Here are my recommendations:
-        
-#         [
-#             {{
-#                 "ticker": "...",
-#                 "summary": "...",
-#                 "recommendation": "BUY/HOLD/SELL"
-#             }},
-#             ...
-#         ]
-
-#         Here is the securities data:         
-#         {securities_data}
-#         """,
-#         name="analyst"
-#     )
-
-#     analyst_messages = [analyst_system_prompt, analyst_prompt]
-#     llm = analyst_config["configurable"]["llm"]
-#     analyst_response = llm.invoke({"messages": analyst_messages}, analyst_config)
-#     # analyst_response = llm.invoke(analyst_messages, analyst_config)
-#     # print(analyst_response.tool_calls)
-#     content = analyst_response.content
-#     analyst_summary = parse_summary(content)
-#     filename = os.path.join(OUTPUT_DIR3, f"{datetime.now().strftime('%Y%m%d')}.json")
-#     with open(filename, "w", encoding="utf-8") as f:
-#         json.dump(analyst_summary, f, indent=2)
-#     return {
-#         **state,
-#         "analysis_summary": analyst_summary,
-#         "messages": state["messages"] + [analyst_response]
-#     }
-
 def analyst_node(state: CustomState, config: dict) -> dict:
     """Call Analyst Node"""
 
@@ -354,7 +300,7 @@ def trader_node(state: CustomState):
         if not approved:
             continue  # Skip unapproved tickers
 
-        # --- Rebalance Logic ---
+        # Rebalance Logic
         diff = current_value - target_value
 
         if diff > 0.01:  # Over-allocated → SELL

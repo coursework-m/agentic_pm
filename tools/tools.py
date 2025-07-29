@@ -1,4 +1,4 @@
-"""Financial data tools for Agentic PM."""
+"""Financial data tools for Agentic PM. NB. Docs and parameters were added by AI"""
 import os
 import json
 import asyncio
