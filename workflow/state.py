@@ -17,4 +17,8 @@ class CustomState(MessagesState, total=False):
     holdings: Dict[str, Dict[str, float]] # e.g., {"AAPL": {"quantity": 10, "buy_price": 175.0}}
     cash: float
     realized_pnl: float
+    unrealised_pnl: float
     reasoning: List[str]
+    total_market_value: float
+    total_pnl: float
+    portfolio_summary: Dict[str, Any]

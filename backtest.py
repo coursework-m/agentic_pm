@@ -3,16 +3,16 @@ from datetime import datetime, timedelta
 from models.llm_setup import get_llm
 from main import daily_run
 
-START_DATE = datetime(2020, 1, 1)
+START_DATE = datetime(2020, 4, 15)
 END_DATE = datetime(2020, 6, 30)
 
 def backtest(start_date=START_DATE, end_date=END_DATE, llm=None):
     """simulate backtest"""
     date = start_date
-    thread_id=f"backtest_{date.strftime('%Y%m%d')}"
+    thread_id=f"backtest_{START_DATE}_{END_DATE}"
     while date <= end_date:
         try:
-            print(f"\nRunning backtest for {date.strftime('%Y-%m-%d')}")
+            print(f"\nRunning backtest for {START_DATE}_{END_DATE}")
             daily_run(
                 today=date.strftime('%Y-%m-%d'),
                 checkpoint=False,

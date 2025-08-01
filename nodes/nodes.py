@@ -4,13 +4,14 @@ import os
 import json
 import traceback
 from datetime import datetime
+from json import JSONDecodeError
 from langgraph.prebuilt import ToolNode
 from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage #, ToolMessage
 from workflow.state import CustomState
 from tools.tools import search, search_news, scan_market, fetch_securities_data
 from utils.utils import parse_summary
-from utils.constants import TICKERS, OUTPUT_DIR3, OUTPUT_DIR4, OUTPUT_DIR5, OUTPUT_DIR6
+from utils.constants import TICKERS, OUTPUT_DIR2, OUTPUT_DIR3, OUTPUT_DIR4, OUTPUT_DIR5, OUTPUT_DIR6
 from prompts.prompts import analyst_system_prompt, researcher_system_prompt
 
 def router_node(state: CustomState):
@@ -47,15 +48,27 @@ def memory_node(state: dict, config: dict) -> dict:
     realised_pnl = safe_get("realised_pnl", 0.0)
     realised_pnl = realised_pnl["realised_pnl"] \
         if not isinstance(realised_pnl, float) else realised_pnl
-
+    unrealised_pnl = safe_get("unrealised_pnl", 0.0)
+    unrealised_pnl = unrealised_pnl["unrealised_pnl"] \
+        if not isinstance(unrealised_pnl, float) else unrealised_pnl
+    total_market_value = safe_get("total_market_value", 0.0)
+    total_market_value = total_market_value["total_market_value"] \
+        if not isinstance(total_market_value, float) else total_market_value
+    total_pnl = safe_get("total_pnl", 0.0)
+    total_pnl = total_pnl["total_pnl"] \
+        if not isinstance(total_pnl, float) else total_pnl
     print(f"[{thread_id}] Portfolio loaded from store.")
 
     return {
         **state,
         "holdings": holdings,
+        "total_market_value": total_market_value,
+        "total_pnl": total_pnl,
         "transactions": transactions,
         "cash": cash,
         "realised_pnl": realised_pnl,
+        "unrealised_pnl": unrealised_pnl,
+        "portfolio_summary": state.get("portfolio_summary", {}),
         "messages": state.get("messages", [])[-1:]  # Retain just last message
     }
 
@@ -66,7 +79,7 @@ def data_node(state: CustomState, config: dict) -> dict:
 
     if backtest:
         # For backtest, we load the pre-saved securities data
-        filename = os.path.join(OUTPUT_DIR5, f"{today}.json")
+        filename = os.path.join(OUTPUT_DIR2, f"{today}.json")
         if not os.path.exists(filename):
             raise FileNotFoundError(f"Backtest data file not found: {filename}")
         with open(filename, "r", encoding="utf-8") as f:
@@ -202,14 +215,43 @@ def analyst_node(state: CustomState, config: dict) -> dict:
             if not content:
                 # fallback: try to get first value
                 content = next(iter(analyst_response.values()))
-    except Exception:
+    except (AttributeError,
+            IndexError,
+            JSONDecodeError,
+            ValueError,
+            RuntimeError,
+            TypeError,
+            KeyError,
+            NotImplementedError
+            ):
         # Fallback: try as chat model
         analyst_response = llm.invoke(analyst_messages, analyst_config)
         content = analyst_response.content
 
     try:
         analyst_summary = parse_summary(content)
-    except Exception:
+    except (IndexError,
+            JSONDecodeError,
+            ValueError,
+            RuntimeError,
+            TypeError,
+            KeyError,
+            NotImplementedError
+            ):
+        # Fallback: try as chat model
+        analyst_response = llm.invoke(analyst_messages, analyst_config)
+        content = analyst_response.content
+
+    try:
+        analyst_summary = parse_summary(content)
+    except (IndexError,
+            JSONDecodeError,
+            ValueError,
+            RuntimeError,
+            TypeError,
+            KeyError,
+            NotImplementedError
+            ):
         print("Failed to parse summary. LLM output was:\n", content)
         raise
 
@@ -406,7 +448,7 @@ def trader_node(state: CustomState, config: dict) -> dict:
         else:
             print(f"No rebalancing needed for {ticker} (within target)")
 
-    filename = os.path.join(OUTPUT_DIR6, f"{today}.json")
+    filename = os.path.join(OUTPUT_DIR5, f"{today}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(research_summary, f, indent=2)
     trader_message = HumanMessage(
@@ -430,6 +472,7 @@ def portfolio_node(state: dict, config: dict) -> dict:
     """Save Portfolio Data and display a P&L summary."""
 
     holdings = state.get("holdings", {})
+    transactions = state.get("transactions", [])
     securities_data = state.get("securities_data", {})
     cash = state.get("cash", 0.0)
     realised_pnl = state.get("realised_pnl", 0.0)
@@ -465,7 +508,7 @@ def portfolio_node(state: dict, config: dict) -> dict:
     pnl_summary = (
         f"--- Portfolio Summary ---\n"
         f"Cash: ${cash:,.2f}\n"
-        f"Market Value: ${total_market_value:,.2f}\n"
+        f"TotalMarket Value: ${total_market_value:,.2f}\n"
         f"Realised PnL: ${realised_pnl:,.2f}\n"
         f"Unrealised PnL: ${unrealised_pnl:,.2f}\n"
         f"Total Portfolio Value: ${total_portfolio_value:,.2f}\n"
@@ -476,12 +519,13 @@ def portfolio_node(state: dict, config: dict) -> dict:
     pnl_summary_dict = {}
     pnl_summary_dict = {
         "cash": cash,
-        "market_value": total_market_value,
+        "total_market_value": total_market_value,
         "realised_pnl": realised_pnl,
         "unrealised_pnl": unrealised_pnl,
         "total_portfolio_value": total_portfolio_value,
         "total_pnl": total_pnl,
-        "holdings": holdings
+        "holdings": holdings,
+        "transactions": transactions,
     }
 
     # Save PnL summary to file
@@ -498,6 +542,7 @@ def portfolio_node(state: dict, config: dict) -> dict:
 
     return {
         **state,
+        **{key: value for key, value in pnl_summary_dict.items()},
         "messages": state["messages"] + [save_message]
     }
 
@@ -517,16 +562,68 @@ def store_node(state: dict, config: dict) -> dict:
         ("portfolio", thread_id), "holdings", state.get("holdings", {})
     )
     store.put(
-        ("portfolio", thread_id), "transactions", {"transactions": state.get("transactions", [])}
+        (
+            "portfolio", thread_id),
+            "transactions", {"transactions": state.get("transactions", [])
+        }
     )
     store.put(
-        ("portfolio", thread_id), "cash", {"cash": state.get("cash", 100_000.0)}
+        (
+            "portfolio", thread_id),
+            "unrealised_pnl",
+            {"unrealised_pnl": state.get("unrealised_pnl", 0.0)
+        }
     )
     store.put(
-        ("portfolio", thread_id), "realized_pnl", {"realized_pnl": state.get("realized_pnl", 0.0)}
+        ("portfolio", thread_id),
+        "cash", {
+            "cash": state.get("cash", 100_000.0)
+        }
     )
+    store.put(
+        ("portfolio", thread_id),
+        "realized_pnl", {
+            "realized_pnl": state.get("realized_pnl", 0.0)
+        }
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "total_market_value", {
+            "total_market_value": state.get("total_market_value", 0.0)
+        }
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "total_pnl", {
+            "total_pnl": state.get("total_pnl", 0.0)
+        }
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "portfolio_summary", {
+            "portfolio_summary": state.get("portfolio_summary", {})
+        }
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "messages", state.get("messages", [])
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "reasoning", state.get("reasoning", [])
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "analysis_summary", state.get("analysis_summary", [])
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "research_summary", state.get("research_summary", [])
+    )
+    with open(f"OUTPUT_DIR6/messages_{thread_id}.json", "w", encoding="utf-8") as f:
+        json.dump(state.get("messages", []), f, indent=2)
 
-    print(f"[{thread_id}] Portfolio saved: holdings, transactions, cash, and P&L.")
+    print(f"[{thread_id}] Portfolio saved to store.")
     return state
 
 tools = [search, search_news, scan_market, fetch_securities_data]

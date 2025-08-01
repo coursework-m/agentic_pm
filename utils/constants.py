@@ -17,17 +17,17 @@ END_DATE = datetime.now().strftime('%Y%m%d') # Today
 TODAY = datetime.now() # Today
 
 # Directory for saving output
-OUTPUT_DIR = "./data/alpha_vantage_data"
+OUTPUT_DIR = "./data/backtest/alpha_vantage"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-OUTPUT_DIR2 = "./data/securities_data"
+OUTPUT_DIR2 = "./data/backtest/securities_data"
 os.makedirs(OUTPUT_DIR2, exist_ok=True)
-OUTPUT_DIR3 = "./data/analysts_summary"
+OUTPUT_DIR3 = "./data/backtest/analysts_summary"
 os.makedirs(OUTPUT_DIR3, exist_ok=True)
-OUTPUT_DIR4 = "./data/research_summary"
+OUTPUT_DIR4 = "./data/backtest/research_summary"
 os.makedirs(OUTPUT_DIR4, exist_ok=True)
-OUTPUT_DIR5 = "./data/securities_backtest_data"
+OUTPUT_DIR5 = "./data/backtest/transactions"
 os.makedirs(OUTPUT_DIR5, exist_ok=True)
-OUTPUT_DIR6 = "./data/transactions"
+OUTPUT_DIR6 = "./data/backtest/portfolio_summary"
 os.makedirs(OUTPUT_DIR6, exist_ok=True)
 # API Base URL
 BASE_URL = "https://www.alphavantage.co/query"
