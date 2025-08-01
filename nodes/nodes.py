@@ -5,11 +5,12 @@ import json
 import traceback
 from datetime import datetime
 from langgraph.prebuilt import ToolNode
+from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage #, ToolMessage
 from workflow.state import CustomState
 from tools.tools import search, search_news, scan_market, fetch_securities_data
 from utils.utils import parse_summary
-from utils.constants import TICKERS, OUTPUT_DIR3, OUTPUT_DIR4
+from utils.constants import TICKERS, OUTPUT_DIR3, OUTPUT_DIR4, OUTPUT_DIR5, OUTPUT_DIR6
 from prompts.prompts import analyst_system_prompt, researcher_system_prompt
 
 def router_node(state: CustomState):
@@ -64,9 +65,8 @@ def data_node(state: CustomState, config: dict) -> dict:
     today = config.get("configurable", {}).get("today", datetime.now())
 
     if backtest:
-        # For backtesting, we can use a static data file or mock data
-        # Here we assume a static file exists with pre-fetched data
-        filename = os.path.join(OUTPUT_DIR3, f"{today}.json")
+        # For backtest, we load the pre-saved securities data
+        filename = os.path.join(OUTPUT_DIR5, f"{today}.json")
         if not os.path.exists(filename):
             raise FileNotFoundError(f"Backtest data file not found: {filename}")
         with open(filename, "r", encoding="utf-8") as f:
@@ -92,18 +92,20 @@ def data_node(state: CustomState, config: dict) -> dict:
     return {
         **state,
         "tickers": TICKERS,
-        "securities_data": data,
+        "securities_data": json_data,
         "messages": state["messages"] + [data_message]
     }
 
 def analyst_node(state: CustomState, config: dict) -> dict:
     """Call Analyst Node"""
-
     analyst_config = config
+    today = config.get("configurable", {}).get("today", datetime.now())
     securities_data = state["securities_data"]
     analyst_prompt = HumanMessage(content=f"""
         You are a financial data analyst. Your task is to analyse the latest securities data and issue a
         BUY, HOLD, or SELL recommendation for each.
+
+        Today's date is {today}.
 
         First, analyse the securities data and think through each stock using fundamentals, 
         market data and news. Then, for each security:
@@ -141,16 +143,62 @@ def analyst_node(state: CustomState, config: dict) -> dict:
         name="analyst"
     )
 
+    react_analyst_prompt = PromptTemplate(
+        input_variables=["input", "tools", "tool_names", "agent_scratchpad"],
+        template=f"""You are a financial analyst. Your task is to analyse the
+        securities data and issue a BUY, HOLD, or SELL recommendation for each. NOT 
+        to fix the JSON format, but to analyse the data and provide the recommendations.
+
+        Today's date is {today}.
+
+        First, analyse the securities data and think through each stock using fundamentals, 
+        market data and news. You may use Tools for more research if required. 
+        
+        Then, for each security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Summarise your conclusions using the following final answer
+        format below, Make sure you use detailed analysis and reasoning 
+        to justify your recommendation for each ticker in the summary.
+
+        Here is the final answer format:
+        ```json
+        [
+            {{
+                "ticker": "AAPL",
+                "summary": "Apple Inc. is showing ...",
+                "recommendation": "BUY"
+            }},
+            {{
+                "ticker": "GOOG",
+                "summary": "Google's fundamentals are ...",
+                "recommendation": "HOLD"
+            }}
+            // ... one object per ticker
+        ]
+        ```
+        Here is the securities data:         
+        {securities_data}
+        """)
+
     analyst_messages = [analyst_system_prompt, analyst_prompt]
     llm = analyst_config["configurable"]["llm"]
 
     # For AgentExecutor, pass a string prompt; for chat models, pass messages
     try:
         # Try as agent (AgentExecutor)
-        analyst_response = llm.invoke({"messages": [analyst_prompt.content]}, analyst_config)
+        # for step in llm.stream({"input": react_analyst_prompt}, analyst_config):
+        #     print(step)
+        analyst_response = llm.invoke({"input": react_analyst_prompt}, analyst_config)
         # AgentExecutor returns a dict with 'output' or 'return_values'
         if isinstance(analyst_response, dict):
-            content = analyst_response.get("response") or analyst_response.get("return_values", {}).get("output")
+            content = analyst_response.get("response") \
+                or analyst_response.get("return_values", {}).get("output")
             if not content:
                 # fallback: try to get first value
                 content = next(iter(analyst_response.values()))
@@ -165,7 +213,7 @@ def analyst_node(state: CustomState, config: dict) -> dict:
         print("Failed to parse summary. LLM output was:\n", content)
         raise
 
-    filename = os.path.join(OUTPUT_DIR3, f"{datetime.now().strftime('%Y%m%d')}.json")
+    filename = os.path.join(OUTPUT_DIR3, f"{today}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(analyst_summary, f, indent=2)
     return {
@@ -177,12 +225,17 @@ def analyst_node(state: CustomState, config: dict) -> dict:
 def researcher_node(state: CustomState, config: dict) -> dict:
     """Call Research Node"""
     researcher_config = config
+    today = config.get("configurable", {}).get("today", datetime.now())
     securities_data = state["securities_data"]
     analysis_summary = state["analysis_summary"]
     researcher_prompt = HumanMessage(content=f"""You are a financial research analyst.
-        Your task is to analyze the latest securities data and analysis summary then issue an APPROVED/DENIED recommendation for each.
-        
-        First, analyse the securities data and think through each stock using fundamentals, market data and news. 
+        Your task is to analyze the latest securities data and analysis summary then 
+        issue an APPROVED/DENIED recommendation for each.
+                                     
+        Today's date is {today}.
+
+        First, analyse the securities data and think through each stock using fundamentals,
+        market data and news. 
         
         For each security:
 
@@ -201,7 +254,7 @@ def researcher_node(state: CustomState, config: dict) -> dict:
             - "target_allocation_percent": % of total portfolio (float)
             - "reasoning": your reasoning for approval/denial
 
-        Finally, summarize your conclusions in the following JSON format:
+        Finally, summarise your conclusions in the following JSON format:
         
         Here are my recommendations:
         
@@ -231,7 +284,7 @@ def researcher_node(state: CustomState, config: dict) -> dict:
     print(researcher_response.tool_calls)
     content = researcher_response.content
     research_summary = parse_summary(content)
-    filename = os.path.join(OUTPUT_DIR4, f"{datetime.now().strftime('%Y%m%d')}.json")
+    filename = os.path.join(OUTPUT_DIR4, f"{today}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(research_summary, f, indent=2)
     return {
@@ -240,7 +293,7 @@ def researcher_node(state: CustomState, config: dict) -> dict:
         "messages": state["messages"] + [researcher_response]
     }
 
-def trader_node(state: CustomState):
+def trader_node(state: CustomState, config: dict) -> dict:
     """Call Trader node with full rebalance logic"""
     try:
         research_summary = state["research_summary"]
@@ -249,7 +302,7 @@ def trader_node(state: CustomState):
             "messages": state["messages"] + [AIMessage(
                 content=f"Error parsing research summary: {e}", name="trader")]
         }
-
+    today = config.get("configurable", {}).get("today", datetime.now())
     securities_data = state["securities_data"]
     analysis_summary = {rec["ticker"]: rec for rec in state.get("analysis_summary", [])}
     holdings = dict(state.get("holdings", {}))
@@ -353,6 +406,9 @@ def trader_node(state: CustomState):
         else:
             print(f"No rebalancing needed for {ticker} (within target)")
 
+    filename = os.path.join(OUTPUT_DIR6, f"{today}.json")
+    with open(filename, "w", encoding="utf-8") as f:
+        json.dump(research_summary, f, indent=2)
     trader_message = HumanMessage(
         content=f"""Rebalanced portfolio.\nHoldings:\n```json\n{
             json.dumps(holdings, indent=2)
@@ -370,14 +426,14 @@ def trader_node(state: CustomState):
         "messages": state["messages"] + [trader_message],
     }
 
-def portfolio_node(state: dict) -> dict:
+def portfolio_node(state: dict, config: dict) -> dict:
     """Save Portfolio Data and display a P&L summary."""
 
     holdings = state.get("holdings", {})
     securities_data = state.get("securities_data", {})
     cash = state.get("cash", 0.0)
     realised_pnl = state.get("realised_pnl", 0.0)
-
+    today = config.get("configurable", {}).get("today", datetime.now().strftime('%Y%m%d'))
     # Compute values
     total_market_value = 0.0
     unrealised_pnl = 0.0
@@ -417,6 +473,22 @@ def portfolio_node(state: dict) -> dict:
         f"-------------------------\n\n" +
         "\n".join(summary_lines)
     )
+    pnl_summary_dict = {}
+    pnl_summary_dict = {
+        "cash": cash,
+        "market_value": total_market_value,
+        "realised_pnl": realised_pnl,
+        "unrealised_pnl": unrealised_pnl,
+        "total_portfolio_value": total_portfolio_value,
+        "total_pnl": total_pnl,
+        "holdings": holdings
+    }
+
+    # Save PnL summary to file
+    output_file = os.path.join(OUTPUT_DIR6, f"portfolio_summary_{today}.json")
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(pnl_summary_dict, f, indent=2)
+    print(f"Portfolio summary saved to {output_file}")
 
     # Append message
     save_message = HumanMessage(

@@ -10,7 +10,11 @@ from models.llm_setup import get_llm
 # import yf
 # yf.enable_debug_mode()
 
-def daily_run(today=TODAY, checkpoint=False, backtest=False):
+def daily_run(today=TODAY,
+              checkpoint=False,
+              backtest=False,
+              thread_id=None,
+              llm=None):
     """Run the daily cycle of the Agentic PM workflow."""
 
     # Ensure the database URI is set correctly
@@ -25,12 +29,15 @@ def daily_run(today=TODAY, checkpoint=False, backtest=False):
         # store.setup()
         # checkpointer.setup()
 
-        # llm = get_llm('ollama')  # Get the LLM instance
-        llm = get_llm('hf')  # Get the LLM instance
         app = build_workflow(store, checkpointer, checkpoint=checkpoint)
-
-        config = {"configurable": {"thread_id": "agent_run_daily_003"}}
-        # Initialise the configuration for the app
+        # Set the thread ID for the run
+        config = {"configurable": {"thread_id": thread_id}}
+        if thread_id and backtest:
+            config["configurable"]["thread_id"] = thread_id
+        else:
+            # Default thread ID if not provided
+            config["configurable"]["thread_id"] = "agent_run_daily"
+        # Set the LLM configuration
         config["configurable"]["today"] = today
         config["configurable"]["store"] = store
         config["configurable"]["backtest"] = backtest
@@ -48,4 +55,6 @@ def daily_run(today=TODAY, checkpoint=False, backtest=False):
                     msg.pretty_print()
 
 if __name__ == "__main__":
-    daily_run(TODAY, False)
+    # ollama_llm = get_llm('ollama')  # Use 'ollama' backend for LLM
+    hf_llm = get_llm('hf')  # Use 'hf' backend for LLM
+    daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")

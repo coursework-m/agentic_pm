@@ -53,7 +53,7 @@ Ensure you have a PostgreSQL database running and create a database for Agentic 
 
 ## Configuration
 
-- **Prompts:** Edit agent instructions in `prompts/prompts.py` and `prompts/react_prompts.py` to customize agent behavior.
+- **Prompts:** Edit agent instructions in `prompts/prompts.py` and `prompts/react_prompts.py` to customise agent behavior.
 - **LLM Setup:** Configure models in `models/llm_setup.py` and `models/hf_setup.py` to specify which LLMs to use.
 - **Tools:** Add or modify data tools in `tools/tools.py` to integrate additional data sources or utilities.
 - **Nodes:** Implement custom agent logic in `nodes/agent_nodes.py` to define how agents interact with data and make decisions.

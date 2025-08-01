@@ -37,7 +37,7 @@ async def get_ticker_data(ticker: str, delay: float = 2.5) -> Dict:
                 article = {
                     "title": story['content']['title'],
                     "summary": story['content']['summary'],
-                    "publihed_date": story['content']['pubDate'],
+                    "published_date": story['content']['pubDate'],
                     "url": story['content']['canonicalUrl']['url'],
                     "provider": story['content']['provider']['displayName'],
                     "provider_url": story['content']['provider']['url']
