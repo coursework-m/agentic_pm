@@ -26,6 +26,6 @@ def backtest(start_date=START_DATE, end_date=END_DATE, llm=None):
             date += timedelta(days=1)
 
 if __name__ == '__main__':
-    # ollama_llm = get_llm('ollama')  # Use 'ollama' backend for LLM
+    # ollama_llm = get_llm('ollama')  # Use 'ollama' backend for LLM (ReAct enabled)
     hf_llm = get_llm('hf')  # Use 'hf' backend for LLM
     backtest(START_DATE, END_DATE, llm=hf_llm)
