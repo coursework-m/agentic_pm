@@ -1,0 +1,85 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 01 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the latest securities data and issue a
+        BUY, HOLD, or SELL recommendation for each.
+
+        Today's date is 2020-02-20.
+
+        First, analyse the securities data and think through each stock using fundamentals, 
+        market data and news. Then, for each security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        [
+            {
+                "ticker": "AAPL",
+                "summary": "Apple Inc. is showing ...",
+                "recommendation": "BUY"
+            },
+            {
+                "ticker": "GOOG",
+                "summary": "Google's fundamentals are ...",
+                "recommendation": "HOLD"
+            }
+            // ... one object per ticker
+        ]
+        ```
+        Here is the securities data:         
+        {'AAPL': {'company': 'Apple Inc.', 'ticker': 'AAPL', 'market_data': {'price': 80.07499694824219, 'change': -0.5825042724609375, 'percent_change': -0.7221947911168621, 'volume': 100566000.0, 'day_high': 81.1624984741211, 'day_low': 79.55249786376953, 'market_cap': 1195984124045.1562, 'summary': 'Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.'}, 'fundamentals': {'pe_ratio': 30.415888, 'forward_pe': 23.498194, 'eps': 6.42, 'dividend_yield': 53.0, 'beta': 1.275, 'sector': 'Technology', 'industry': 'Consumer Electronics'}, 'news': [], 'analyst_recommendation_score': 2.08696}, 'GOOGL': {'company': 'Alphabet Inc.', 'ticker': 'GOOGL', 'market_data': {'price': 75.84950256347656, 'change': -0.1009979248046875, 'percent_change': -0.13297861654021745, 'volume': 25962000.0, 'day_high': 76.35350036621094, 'day_low': 75.21299743652344, 'market_cap': 441444124336.90625, 'summary': 'Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers AI infrastructure, Vertex AI platform, cybersecurity, data and analytics, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California.'}, 'fundamentals': {'pe_ratio': 18.802456, 'forward_pe': 18.802456, 'eps': 8.96, 'dividend_yield': 50.0, 'beta': 1.01, 'sector': 'Communication Services', 'industry': 'Internet Content & Information'}, 'news': [], 'analyst_recommendation_score': 1.58209}, 'MSFT': {'company': 'Microsoft Corporation', 'ticker': 'MSFT', 'market_data': {'price': 184.4199981689453, 'change': -2.529998779296875, 'percent_change': -1.3533023913326485, 'volume': 36862400.0, 'day_high': 187.25, 'day_low': 181.10000610351562, 'market_cap': 1370709042697.8125, 'summary': 'Microsoft Corporation develops and supports software, services, devices and solutions worldwide. The Productivity and Business Processes segment offers office, exchange, SharePoint, Microsoft Teams, office 365 Security and Compliance, Microsoft viva, and Microsoft 365 copilot; and office consumer services, such as Microsoft 365 consumer subscriptions, Office licensed on-premises, and other office services. This segment also provides LinkedIn; and dynamics business solutions, including Dynamics 365, a set of intelligent, cloud-based applications across ERP, CRM, power apps, and power automate; and on-premises ERP and CRM applications. The Intelligent Cloud segment offers server products and cloud services, such as azure and other cloud services; SQL and windows server, visual studio, system center, and related client access licenses, as well as nuance and GitHub; and enterprise services including enterprise support services, industry solutions, and nuance professional services. The More Personal Computing segment offers Windows, including windows OEM licensing and other non-volume licensing of the Windows operating system; Windows commercial comprising volume licensing of the Windows operating system, windows cloud services, and other Windows commercial offerings; patent licensing; and windows Internet of Things; and devices, such as surface, HoloLens, and PC accessories. Additionally, this segment provides gaming, which includes Xbox hardware and content, and first- and third-party content; Xbox game pass and other subscriptions, cloud gaming, advertising, third-party disc royalties, and other cloud services; and search and news advertising, which includes Bing, Microsoft News and Edge, and third-party affiliates. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online, and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington.'}, 'fundamentals': {'pe_ratio': 34.84365, 'forward_pe': 30.112375, 'eps': 12.92, 'dividend_yield': 74.0, 'beta': 0.985, 'sector': 'Technology', 'industry': 'Software - Infrastructure'}, 'news': [], 'analyst_recommendation_score': 1.41667}}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+Based on the provided securities data, I have analyzed the latest market trends, news, and fundamentals for each stock. Here are my recommendations:
+
+```json
+[
+    {
+        "ticker": "AAPL",
+        "summary": "Apple Inc. has a strong financial position with a high P/E ratio and a dividend yield of 0.53%. The company's recent decline in stock price may be due to market volatility, but its fundamentals remain solid. Apple's strong brand, diverse product portfolio, and growing services segment provide a solid foundation for long-term growth.",
+        "recommendation": "BUY"
+    },
+    {
+        "ticker": "GOOGL",
+        "summary": "Alphabet Inc. has a high P/E ratio and a strong track record of innovation, but its recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on its advertising business. However, the company's diversified revenue streams and growing cloud business provide a solid foundation for long-term growth.",
+        "recommendation": "HOLD"
+    },
+    {
+        "ticker": "MSFT",
+        "summary": "Microsoft Corporation has a strong financial position with a high P/E ratio and a growing cloud business. However, its recent decline in stock price may be due to market volatility and concerns about the impact of the COVID-19 pandemic on its business. Microsoft's diversified revenue streams and strong brand provide a solid foundation for long-term growth.",
+        "recommendation": "HOLD"
+    }
+]
+```
+
+Rationale:
+
+* Apple Inc. (AAPL) has a high P/E ratio of 30.42 and a dividend yield of 0.53%, indicating a strong financial position. The company's recent decline in stock price may be due to market volatility, but its fundamentals remain solid. Apple's strong brand, diverse product portfolio, and growing services segment provide a solid foundation for long-term growth.
+* Alphabet Inc. (GOOGL) has a high P/E ratio of 18.80 and a strong track record of innovation. However, its recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on its advertising business. The company's diversified revenue streams and growing cloud business provide a solid foundation for long-term growth.
+* Microsoft Corporation (MSFT) has a high P/E ratio of 34.84 and a growing cloud business. However, its recent decline in stock price may be due to market volatility and concerns about the impact of the COVID-19 pandemic on its business. Microsoft's diversified revenue streams and strong brand provide a solid foundation for long-term growth.
+
+Note: The analyst recommendation scores are based on the provided data and are not adjusted for any external factors that may have influenced the stock prices.

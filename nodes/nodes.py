@@ -10,9 +10,18 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.messages import HumanMessage, AIMessage #, ToolMessage
 from workflow.state import CustomState
 from tools.tools import search, search_news, scan_market, fetch_securities_data
-from utils.utils import parse_summary
-from utils.constants import TICKERS, OUTPUT_DIR2, OUTPUT_DIR3, OUTPUT_DIR4, OUTPUT_DIR5, OUTPUT_DIR6
 from prompts.prompts import analyst_system_prompt, researcher_system_prompt
+from utils.utils import parse_summary
+from utils.constants import (
+    TICKERS,
+    OUTPUT_DIR2,
+    OUTPUT_DIR3,
+    OUTPUT_DIR4,
+    OUTPUT_DIR5,
+    OUTPUT_DIR6,
+    OUTPUT_DIR7,
+    OUTPUT_DIR8
+)
 
 def router_node(state: CustomState):
     """Should Continue Router"""
@@ -112,6 +121,7 @@ def data_node(state: CustomState, config: dict) -> dict:
 def analyst_node(state: CustomState, config: dict) -> dict:
     """Call Analyst Node"""
     analyst_config = config
+    thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
     today = config.get("configurable", {}).get("today", datetime.now())
     securities_data = state["securities_data"]
     analyst_prompt = HumanMessage(content=f"""
@@ -258,15 +268,19 @@ def analyst_node(state: CustomState, config: dict) -> dict:
     filename = os.path.join(OUTPUT_DIR3, f"{today}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(analyst_summary, f, indent=2)
+    with open(f"{OUTPUT_DIR7}/{today}.txt", "w", encoding="utf-8") as f:
+        f.write(content)
     return {
         **state,
         "analysis_summary": analyst_summary,
+        "analyst_response": content,
         "messages": state["messages"] + [analyst_response]
     }
 
 def researcher_node(state: CustomState, config: dict) -> dict:
     """Call Research Node"""
     researcher_config = config
+    thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
     today = config.get("configurable", {}).get("today", datetime.now())
     securities_data = state["securities_data"]
     analysis_summary = state["analysis_summary"]
@@ -319,19 +333,20 @@ def researcher_node(state: CustomState, config: dict) -> dict:
         """,
         name="researcher"
     )
-
     researcher_messages = [researcher_system_prompt, researcher_prompt]
     llm = researcher_config["configurable"]["llm"]
     researcher_response = llm.invoke(researcher_messages, researcher_config)
-    print(researcher_response.tool_calls)
     content = researcher_response.content
     research_summary = parse_summary(content)
-    filename = os.path.join(OUTPUT_DIR4, f"{today}.json")
+    filename = f"{OUTPUT_DIR4}/{today}.json"
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(research_summary, f, indent=2)
+    with open(f"{OUTPUT_DIR8}/{today}.txt", "w", encoding="utf-8") as f:
+        f.write(content)
     return {
         **state,
         "research_summary": research_summary,
+        "researcher_response": content,
         "messages": state["messages"] + [researcher_response]
     }
 
@@ -423,7 +438,7 @@ def trader_node(state: CustomState, config: dict) -> dict:
             })
             print(f"Rebalanced: Sold {qty_to_sell:.2f} of {ticker} (over-allocated)")
 
-        elif diff < -0.01:  # Under-allocated → BUY
+        elif diff < -0.01:  # Under allocated → BUY
             amount_to_buy = min(cash, -diff)
             qty_to_buy = amount_to_buy / price
             new_total_qty = current_qty + qty_to_buy
@@ -448,9 +463,9 @@ def trader_node(state: CustomState, config: dict) -> dict:
         else:
             print(f"No rebalancing needed for {ticker} (within target)")
 
-    filename = os.path.join(OUTPUT_DIR5, f"{today}.json")
+    filename = f"{OUTPUT_DIR5}/{today}.json"
     with open(filename, "w", encoding="utf-8") as f:
-        json.dump(research_summary, f, indent=2)
+        json.dump(transactions, f, indent=2)
     trader_message = HumanMessage(
         content=f"""Rebalanced portfolio.\nHoldings:\n```json\n{
             json.dumps(holdings, indent=2)
@@ -529,7 +544,7 @@ def portfolio_node(state: dict, config: dict) -> dict:
     }
 
     # Save PnL summary to file
-    output_file = os.path.join(OUTPUT_DIR6, f"portfolio_summary_{today}.json")
+    output_file = f"{OUTPUT_DIR6}/{today}.json"
     with open(output_file, "w", encoding="utf-8") as f:
         json.dump(pnl_summary_dict, f, indent=2)
     print(f"Portfolio summary saved to {output_file}")
@@ -550,7 +565,6 @@ def store_node(state: dict, config: dict) -> dict:
     """Save Portfolio Data"""
     thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
     store = config.get("configurable", {}).get("store", None)
-    print(thread_id)
     # Uncomment to delete portfolio tables from store (Useful for corrupted data)
     # store.delete(("portfolio", thread_id), "cash")
     # store.delete(("portfolio", thread_id), "realized_pnl")
@@ -606,10 +620,6 @@ def store_node(state: dict, config: dict) -> dict:
     )
     store.put(
         ("portfolio", thread_id),
-        "messages", state.get("messages", [])
-    )
-    store.put(
-        ("portfolio", thread_id),
         "reasoning", state.get("reasoning", [])
     )
     store.put(
@@ -620,8 +630,14 @@ def store_node(state: dict, config: dict) -> dict:
         ("portfolio", thread_id),
         "research_summary", state.get("research_summary", [])
     )
-    with open(f"OUTPUT_DIR6/messages_{thread_id}.json", "w", encoding="utf-8") as f:
-        json.dump(state.get("messages", []), f, indent=2)
+    store.put(
+        ("portfolio", thread_id),
+        "analysis_response", state.get("analysis_response", "")
+    )
+    store.put(
+        ("portfolio", thread_id),
+        "research_response", state.get("research_response", "")
+    )
 
     print(f"[{thread_id}] Portfolio saved to store.")
     return state

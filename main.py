@@ -57,4 +57,13 @@ def daily_run(today=TODAY,
 if __name__ == "__main__":
     # ollama_llm = get_llm('ollama')  # Use 'ollama' backend for LLM
     hf_llm = get_llm('hf')  # Use 'hf' backend for LLM
-    daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")
+    TIMEIT = False  # Set to True to enable timing
+    if TIMEIT:
+        import time
+        start_time = time.time()
+        daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")
+        print(f"Execution time: {time.time() - start_time} seconds")
+    else:
+        # Run the daily workflow without timing
+        print(f"Running daily workflow for {TODAY}")
+        daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")

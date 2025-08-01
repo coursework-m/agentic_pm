@@ -1,0 +1,97 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 01 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+        Your task is to analyze the latest securities data and analysis summary then 
+        issue an APPROVED/DENIED recommendation for each.
+                                     
+        Today's date is 2020-03-11.
+
+        First, analyse the securities data and think through each stock using fundamentals,
+        market data and news. 
+        
+        For each security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+            - The Analysis summary
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+        
+        For each security, return:
+            - "ticker"
+            - "approved": true or false
+            - "target_allocation_percent": % of total portfolio (float)
+            - "reasoning": your reasoning for approval/denial
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+        
+        ```json
+        [
+            {
+                "ticker": "AAPL",
+                "approved": true,
+                "target_allocation_percent": 4.0,
+                "reasoning": "AAPL is stable and aligns with a conservative portfolio."
+            },
+            ...
+        ]
+                                     
+        Here is the securities data:         
+        {'AAPL': {'company': 'Apple Inc.', 'ticker': 'AAPL', 'market_data': {'price': 68.85749816894531, 'change': -0.4900054931640625, 'percent_change': -0.7065942785072384, 'volume': 255598800.0, 'day_high': 70.30500030517578, 'day_low': 67.96499633789062, 'market_cap': 1028441807931.0938, 'summary': 'Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California.'}, 'fundamentals': {'pe_ratio': 30.415888, 'forward_pe': 23.498194, 'eps': 6.42, 'dividend_yield': 53.0, 'beta': 1.275, 'sector': 'Technology', 'industry': 'Consumer Electronics'}, 'news': [], 'analyst_recommendation_score': 2.08696}, 'GOOGL': {'company': 'Alphabet Inc.', 'ticker': 'GOOGL', 'market_data': {'price': 60.54499816894531, 'change': -1.8685035705566406, 'percent_change': -2.9937489781542754, 'volume': 54732000.0, 'day_high': 62.846500396728516, 'day_low': 59.55699920654297, 'market_cap': 352371904842.78125, 'summary': 'Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers AI infrastructure, Vertex AI platform, cybersecurity, data and analytics, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California.'}, 'fundamentals': {'pe_ratio': 18.802456, 'forward_pe': 18.802456, 'eps': 8.96, 'dividend_yield': 50.0, 'beta': 1.01, 'sector': 'Communication Services', 'industry': 'Internet Content & Information'}, 'news': [], 'analyst_recommendation_score': 1.58209}, 'MSFT': {'company': 'Microsoft Corporation', 'ticker': 'MSFT', 'market_data': {'price': 153.6300048828125, 'change': -3.5, 'percent_change': -2.227454904370619, 'volume': 56371600.0, 'day_high': 157.6999969482422, 'day_low': 151.14999389648438, 'market_cap': 1141861181072.5, 'summary': 'Microsoft Corporation develops and supports software, services, devices and solutions worldwide. The Productivity and Business Processes segment offers office, exchange, SharePoint, Microsoft Teams, office 365 Security and Compliance, Microsoft viva, and Microsoft 365 copilot; and office consumer services, such as Microsoft 365 consumer subscriptions, Office licensed on-premises, and other office services. This segment also provides LinkedIn; and dynamics business solutions, including Dynamics 365, a set of intelligent, cloud-based applications across ERP, CRM, power apps, and power automate; and on-premises ERP and CRM applications. The Intelligent Cloud segment offers server products and cloud services, such as azure and other cloud services; SQL and windows server, visual studio, system center, and related client access licenses, as well as nuance and GitHub; and enterprise services including enterprise support services, industry solutions, and nuance professional services. The More Personal Computing segment offers Windows, including windows OEM licensing and other non-volume licensing of the Windows operating system; Windows commercial comprising volume licensing of the Windows operating system, windows cloud services, and other Windows commercial offerings; patent licensing; and windows Internet of Things; and devices, such as surface, HoloLens, and PC accessories. Additionally, this segment provides gaming, which includes Xbox hardware and content, and first- and third-party content; Xbox game pass and other subscriptions, cloud gaming, advertising, third-party disc royalties, and other cloud services; and search and news advertising, which includes Bing, Microsoft News and Edge, and third-party affiliates. The company sells its products through OEMs, distributors, and resellers; and directly through digital marketplaces, online, and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington.'}, 'fundamentals': {'pe_ratio': 34.84365, 'forward_pe': 30.112375, 'eps': 12.92, 'dividend_yield': 74.0, 'beta': 0.985, 'sector': 'Technology', 'industry': 'Software - Infrastructure'}, 'news': [], 'analyst_recommendation_score': 1.41667}}
+
+        Here is the analysis data:
+        [{'ticker': 'AAPL', 'summary': "Apple Inc. is a leader in the technology industry with a strong brand and diverse product portfolio. Despite the recent decline in stock price, the company's fundamentals remain robust, with a forward P/E ratio of 23.5 and EPS of $6.42. The analyst recommendation score is 2.09, indicating a generally positive outlook. However, the recent decline in stock price may be a buying opportunity.", 'recommendation': 'BUY'}, {'ticker': 'GOOGL', 'summary': "Alphabet Inc. has a strong track record of innovation and growth, with a forward P/E ratio of 18.8 and EPS of $8.96. However, the recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the advertising industry. The analyst recommendation score is 1.58, indicating a neutral outlook. Given the company's strong fundamentals and potential for long-term growth, I recommend holding onto the stock.", 'recommendation': 'HOLD'}, {'ticker': 'MSFT', 'summary': "Microsoft Corporation has a strong position in the software industry, with a forward P/E ratio of 30.1 and EPS of $12.92. However, the recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the enterprise software market. The analyst recommendation score is 1.42, indicating a neutral outlook. Given the company's strong fundamentals and potential for long-term growth, I recommend holding onto the stock.", 'recommendation': 'HOLD'}]<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+After analyzing the provided securities data and analysis summary, I have made the following recommendations:
+
+```json
+[
+    {
+        "ticker": "AAPL",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "AAPL is stable and aligns with a conservative portfolio. The recent decline in stock price may be a buying opportunity, and the company's fundamentals remain robust with a forward P/E ratio of 23.5 and EPS of $6.42."
+    },
+    {
+        "ticker": "GOOGL",
+        "approved": false,
+        "target_allocation_percent": 0.0,
+        "reasoning": "GOOGL's recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the advertising industry, and the analyst recommendation score is neutral. While the company has a strong track record of innovation and growth, I do not see a compelling reason to allocate to this stock at this time."
+    },
+    {
+        "ticker": "MSFT",
+        "approved": false,
+        "target_allocation_percent": 0.0,
+        "reasoning": "MSFT's recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the enterprise software market, and the analyst recommendation score is neutral. While the company has a strong position in the software industry, I do not see a compelling reason to allocate to this stock at this time."
+    }
+]
+```
+
+My reasoning for the recommendations is as follows:
+
+* AAPL: Despite the recent decline in stock price, the company's fundamentals remain robust, with a forward P/E ratio of 23.5 and EPS of $6.42. The analyst recommendation score is 2.09, indicating a generally positive outlook. I believe that AAPL is a stable stock that aligns with a conservative portfolio.
+* GOOGL: The recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the advertising industry, and the analyst recommendation score is neutral. While the company has a strong track record of innovation and growth, I do not see a compelling reason to allocate to this stock at this time.
+* MSFT: The recent decline in stock price may be due to concerns about the impact of the COVID-19 pandemic on the enterprise software market, and the analyst recommendation score is neutral. While the company has a strong position in the software industry, I do not see a compelling reason to allocate to this stock at this time.
+
+Note that these recommendations are based on the provided data and analysis summary, and may not reflect the current market situation or future performance of the stocks.

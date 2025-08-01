@@ -85,7 +85,7 @@ Agentic PM supports workflow checkpointing using PostgreSQL. This allows you to 
 
 ## Backtest Setup
 
-To run backtests, ensure you have historical market data available in the `data/` directory. The backtest script will use this data to simulate the agent's decisions over a specified date range. You can download historical data from various financial data providers or use your own datasets.
+To run backtests, ensure you have historical market data available in the `data/backtest/securities_data` directory. The backtest script will use this data to simulate the agent's decisions over a specified date range. You can download historical data from various financial data providers or use your own datasets.
 
 ## Backtesting
 

@@ -21,4 +21,6 @@ class CustomState(MessagesState, total=False):
     reasoning: List[str]
     total_market_value: float
     total_pnl: float
+    analysis_response: str
+    research_response: str
     portfolio_summary: Dict[str, Any]
