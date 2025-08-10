@@ -86,7 +86,7 @@ async def get_ticker_data(ticker: str, delay: float = 2.5) -> Dict:
 
 async def get_full_securities_data_async(
         tickers: List[str],
-        throttle: float = 2.5) -> Dict[str, Dict]:
+        throttle: float = 2.5) -> List[Dict]:
     """Fetches financial data for a list of tickers asynchronously.
 
     Args:
@@ -94,12 +94,13 @@ async def get_full_securities_data_async(
         throttle (float, optional): Delay multiplier between requests. Defaults to 2.5.
 
     Returns:
-        Dict[str, Dict]: Dictionary mapping tickers to their data.
+        List[Dict]: List of dictionaries containing ticker data.
     """
     tasks = [get_ticker_data(ticker, delay=throttle * i) for i, ticker in enumerate(tickers)]
     results = await asyncio.gather(*tasks)
-    pprint(results)
-    results = {result["ticker"]: result for result in results}
+    # pprint(results)
+    results = [{result["ticker"]: result} for result in results]
+    # pprint(results)
     filename = os.path.join(OUTPUT_DIR2, f"{datetime.now().strftime('%Y%m%d')}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)
@@ -113,7 +114,7 @@ def fetch_securities_data(tickers: List[str]) -> Dict[str, Dict]:
         tickers (List[str]): List of stock ticker symbols.
 
     Returns:
-        Dict[str, Dict]: Dictionary mapping tickers to their data.
+        List[Dict]: List of dictionaries containing ticker data.
     """
     return asyncio.run(get_full_securities_data_async(tickers))
 

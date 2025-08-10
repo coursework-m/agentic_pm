@@ -2,6 +2,7 @@
 from langchain_ollama.chat_models import ChatOllama
 from langchain.agents import create_react_agent
 from langchain.agents.agent import AgentExecutor
+# from langgraph.prebuilt import create_react_agent
 # from langchain.agents import AgentOutputParser
 from pydantic import BaseModel
 from models.load_model import load_llm
@@ -15,20 +16,21 @@ class AnalystSchema(BaseModel):
     response: list
 
 
-def get_llm(backend: str = "hf", model_name: str = "gemma3:latest"):
+def get_llm(backend: str = "hf", model_name: str = "gpt-oss:20b"):
     """Initialize and return the LLM model based on the configuration."""
     # mistral:v0.3
     # llama3:latest
     # qwen3:latest
     # gemma3:latest
     # deepseek-r1:latest
+    # gpt-oss:20b
     tools = [fetch_economic_data, search_news, search]
     if backend == "ollama":
         llm = ChatOllama(
             # format="json",
             model=model_name,
             temperature=0.15,
-            num_ctx=4096,
+            num_ctx=8192,
             num_gpu=1
         )
         # llm = llm.bind_tools(tools)

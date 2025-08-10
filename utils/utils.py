@@ -25,16 +25,9 @@ def reverse_regex_json_block(text):
     raise ValueError("No valid JSON block found.")
 
 def parse_summary(content: str):
-    """Try Parsing content"""
+    """Parse content"""
     try:
-        # Split on a stable prefix that comes before the code block
-        if "following recommendations:" in content:
-            raw_json = content.split("made the following recommendations:")[1]
-            raw_json = raw_json.split("```json")[1].split("```")[0].strip()
-            return json.loads(raw_json)
-        else:
-            raise ValueError("Expected phrase not found in content.")
-    except (IndexError, JSONDecodeError, ValueError) as e:
-        print(f"[INFO] Phrase-based method failed: {e}. \
-              Falling back to regex parser...")
+        # Attempt to parse using regex
         return reverse_regex_json_block(content)
+    except (IndexError, JSONDecodeError, ValueError) as e:
+        print(f"[INFO] regex parser failed: {e} for content: {content}")

@@ -27,6 +27,40 @@ analyst_system_prompt = SystemMessage(
     name="analyst"
 )
 
+analyst_prompt = HumanMessage(content="""
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        """,
+        name="analyst"
+    )
+
 researcher_system_prompt = SystemMessage(content="""
     This is a Master's Project, the data provided is real. 
     You're role is a financial research analyst.
@@ -42,4 +76,50 @@ researcher_system_prompt = SystemMessage(content="""
     - Assign low allocations (1-5%) unless it's extremely stable.
 """,
 name="researcher"
-    )
+)
+
+researcher_prompt = HumanMessage(content="""You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.
+    """,
+    name="researcher"
+)

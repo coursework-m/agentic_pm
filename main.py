@@ -10,11 +10,12 @@ from models.llm_setup import get_llm
 # import yf
 # yf.enable_debug_mode()
 
-def daily_run(today=TODAY,
+def daily_run(today=None,
               checkpoint=False,
               backtest=False,
               thread_id=None,
-              llm=None):
+              llm=None,
+              react=False):
     """Run the daily cycle of the Agentic PM workflow."""
 
     # Ensure the database URI is set correctly
@@ -34,14 +35,12 @@ def daily_run(today=TODAY,
         config = {"configurable": {"thread_id": thread_id}}
         if thread_id and backtest:
             config["configurable"]["thread_id"] = thread_id
-        else:
-            # Default thread ID if not provided
-            config["configurable"]["thread_id"] = "agent_run_daily"
         # Set the LLM configuration
         config["configurable"]["today"] = today
         config["configurable"]["store"] = store
         config["configurable"]["backtest"] = backtest
         config["configurable"]["llm"] = llm
+        config["configurable"]["react"] = react
         messages = [
             system_prompt,
             start_prompt,
@@ -55,15 +54,29 @@ def daily_run(today=TODAY,
                     msg.pretty_print()
 
 if __name__ == "__main__":
-    # ollama_llm = get_llm('ollama')  # Use 'ollama' backend for LLM
-    hf_llm = get_llm('hf')  # Use 'hf' backend for LLM
-    TIMEIT = False  # Set to True to enable timing
+    # llm = get_llm('ollama')  # Use 'ollama' backend for LLM
+    model = get_llm('hf')  # Use 'hf' backend for LLM
+    TIMEIT = True  # Set to True to enable timing
     if TIMEIT:
         import time
         start_time = time.time()
-        daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")
+        daily_run(
+            TODAY,
+            False,
+            backtest=False,
+            thread_id="agent_run_daily_003",
+            llm=model,
+            react=False
+        )
         print(f"Execution time: {time.time() - start_time} seconds")
     else:
         # Run the daily workflow without timing
         print(f"Running daily workflow for {TODAY}")
-        daily_run(TODAY, False, llm=hf_llm, thread_id="agent_run_daily_003")
+        daily_run(
+            TODAY,
+            False,
+            backtest=False,
+            thread_id="agent_run_daily_003",
+            llm=model,
+            react=False
+        )
