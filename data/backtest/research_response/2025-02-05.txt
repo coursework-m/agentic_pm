@@ -1,0 +1,1113 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Apple Inc.",
+  "ticker": "AAPL",
+  "market_data": {
+    "price": 232.47000122070312,
+    "change": 3.94000244140625,
+    "percent_change": 1.7240635638436739,
+    "volume": 39620300.0,
+    "day_high": 232.6699981689453,
+    "day_low": 228.27000427246094,
+    "market_cap": 3449947776359.5625,
+    "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California."
+  },
+  "fundamentals": {
+    "pe_ratio": 34.75,
+    "forward_pe": 27.599277,
+    "eps": 6.6,
+    "dividend_yield": 0.47,
+    "beta": 1.165,
+    "sector": "Technology",
+    "industry": "Consumer Electronics"
+  },
+  "news": [
+    {
+      "title": "Apple Raises Monthly AppleCare+ Prices For All iPhones- And You Can No Longer Buy The Warranty Upfront In Stores - Apple  ( NASDAQ:AAPL ) ",
+      "summary": "Apple Inc. AAPL has increased the monthly subscription cost for its AppleCare+ service across all iPhone models in the U.S. What Happened: Apple has raised the monthly fee for AppleCare+ by 50 cents. The standard AppleCare+ for the iPhone 16 now costs $10.49 per month, up from $9.99, reported ...",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.151996,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/media/25/02/43485288/apple-raises-monthly-applecare-prices-for-all-iphones-and-you-can-no-longer-buy-the-warranty-upfront-in-sto",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    },
+    {
+      "title": "1 Wall Street Analyst Thinks Apple Stock Is Going to $260. Is It a Buy?",
+      "summary": "Apple ( NASDAQ: AAPL ) is a stock that has frequently delivered for its shareholders and is set to continue doing so deeper into 2025. This is the view of one analyst tracking the stock who feels it's poised for a double-digit increase in price.His latest take on the company reflected a generally ...",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.312962,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.fool.com/investing/2025/02/05/1-wall-street-analyst-thinks-apple-stock-is-going/",
+      "provider": "Motley Fool",
+      "provider_url": "https://www.fool.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.93182
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "AAPL",
+  "summary": "AAPL's recent price increase and analyst recommendations suggest a positive outlook, while the company's fundamentals indicate a strong position in the consumer electronics market. However, the recent price hike for AppleCare+ may be a concern for some investors.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AAPL",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "AAPL's recent price increase and analyst recommendations suggest a positive outlook, while the company's fundamentals indicate a strong position in the consumer electronics market. However, the recent price hike for AppleCare+ may be a concern for some investors. Considering these factors, I allocate 3.5% of the portfolio to AAPL, which balances the potential upside with the potential downside risk."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Alphabet Inc.",
+  "ticker": "GOOG",
+  "market_data": {
+    "price": 193.3000030517578,
+    "change": 0.1999969482421875,
+    "percent_change": 0.1035716944177488,
+    "volume": 43666400.0,
+    "day_high": 194.5500030517578,
+    "day_low": 189.91000366210938,
+    "market_cap": 1049619041313.4453,
+    "summary": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers AI infrastructure, Vertex AI platform, cybersecurity, data and analytics, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California."
+  },
+  "fundamentals": {
+    "pe_ratio": 21.56777,
+    "forward_pe": 22.579887,
+    "eps": 9.37,
+    "dividend_yield": 0.43,
+    "beta": 1.014,
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information"
+  },
+  "news": [
+    {
+      "title": "AMD, Alphabet, Snap, Chipotle, And Tesla: Why These 5 Stocks Are On Investors' Radars Today - Advanced Micro Devices  ( NASDAQ:AMD ) , Chipotle Mexican Grill  ( NYSE:CMG ) ",
+      "summary": "The U.S. stock market showed a positive trend on Tuesday, with the Nasdaq Composite surging by over 260 points to end the day at 19,654.02. The Dow Jones Industrial Average also rose by 0.3% to 44,556.04, while the S&P 500 gained 0.7% to 6,037.88.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.167618,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/25/02/43485175/amd-alphabet-snap-chipotle-and-tesla-why-these-5-stocks-are-on-investors-radars-today",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    },
+    {
+      "title": "Nikon Announces NIKKOR 35mm F1.2 S Lens, COOLPIX P1100 Super-Zoom Camera; First Look YouTube Video P1100 Camera and NIKKOR 35mm F1.2 S Lens: Preorder and More Info at B&H",
+      "summary": "Nikon releases P1100 a new super-zoom camera, the 125x optical zoom COOLPIX P1100 Digital Camera, along with a long-awaited fast wide-angle prime lens, the NIKKOR 35mm f/1.2 S.",
+      "sentiment": "Bullish",
+      "sentiment_score": 0.368581,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/pressreleases/25/02/n43485484/nikon-announces-nikkor-35mm-f1-2-s-lens-coolpix-p1100-super-zoom-camera-first-look-youtube-video-p",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.54412
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "GOOG",
+  "summary": "Alphabet Inc.'s strong fundamentals, driven by its dominant position in the tech industry, and a positive market trend, make it an attractive investment opportunity. The company's high P/E ratio and forward P/E ratio indicate a high growth potential, while its EPS and dividend yield suggest a stable financial position. The recent news about the launch of new products, such as the NIKKOR 35mm F1.2 S Lens and the COOLPIX P1100 Super-Zoom Camera, may also contribute to the company's growth. However, the sentiment score from Benzinga indicates a somewhat-bullish sentiment, which may be a mixed signal. Overall, considering the company's strong fundamentals and the positive market trend, I recommend a BUY recommendation for Alphabet Inc.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "GOOG",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "Alphabet Inc.'s strong fundamentals, driven by its dominant position in the tech industry, and a positive market trend, make it an attractive investment opportunity. The company's high P/E ratio and forward P/E ratio indicate a high growth potential, while its EPS and dividend yield suggest a stable financial position. The recent news about the launch of new products, such as the NIKKOR 35mm F1.2 S Lens and the COOLPIX P1100 Super-Zoom Camera, may also contribute to the company's growth. However, the sentiment score from Benzinga indicates a somewhat-bullish sentiment, which may be a mixed signal. Considering the company's strong fundamentals and the positive market trend, I recommend a moderate allocation of 3.5% to Alphabet Inc. to balance risk and potential returns."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Microsoft Corporation",
+  "ticker": "MSFT",
+  "market_data": {
+    "price": 413.2900085449219,
+    "change": 0.94000244140625,
+    "percent_change": 0.22796227173336658,
+    "volume": 16316700.0,
+    "day_high": 413.8299865722656,
+    "day_low": 410.3999938964844,
+    "market_cap": 3072054859752.6562,
+    "summary": "Microsoft Corporation develops and supports software, services, devices, and solutions worldwide. The company's Productivity and Business Processes segment offers Microsoft 365 Commercial, Enterprise Mobility + Security, Windows Commercial, Power BI, Exchange, SharePoint, Microsoft Teams, Security and Compliance, and Copilot; Microsoft 365 Commercial products, such as Windows Commercial on-premises and Office licensed services; Microsoft 365 Consumer products and cloud services, such as Microsoft 365 Consumer subscriptions, Office licensed on-premises, and other consumer services; LinkedIn; Dynamics products and cloud services, such as Dynamics 365, cloud-based applications, and on-premises ERP and CRM applications. Its Intelligent Cloud segment provides Server products and cloud services, such as Azure and other cloud services, GitHub, Nuance Healthcare, virtual desktop offerings, and other cloud services; Server products, including SQL and Windows Server, Visual Studio and System Center related Client Access Licenses, and other on-premises offerings; Enterprise and partner services, including Enterprise Support and Nuance professional Services, Industry Solutions, Microsoft Partner Network, and Learning Experience. The company's Personal Computing segment provides Windows and Devices, such as Windows OEM licensing and Devices and Surface and PC accessories; Gaming services and solutions, such as Xbox hardware, content, and services, first- and third-party content Xbox Game Pass, subscriptions, and Cloud Gaming, advertising, and other cloud services; search and news advertising services, such as Bing and Copilot, Microsoft News and Edge, and third-party affiliates. It sells its products through OEMs, distributors, and resellers; and online and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington."
+  },
+  "fundamentals": {
+    "pe_ratio": 38.160816,
+    "forward_pe": 34.919064,
+    "eps": 13.68,
+    "dividend_yield": 0.64,
+    "beta": 1.055,
+    "sector": "Technology",
+    "industry": "Software - Infrastructure"
+  },
+  "news": [
+    {
+      "title": "This Magnificent Artificial Intelligence  ( AI )  Stock Has Shot Up Over 175% in Just 3 Months, and It Could Soar Higher in 2025",
+      "summary": "SoundHound AI has soared over 175% in the past three months, and could jump even higher in 2025.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.256266,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.fool.com/investing/2025/02/04/this-magnificent-artificial-intelligence-ai-stock/",
+      "provider": "Motley Fool",
+      "provider_url": "https://www.fool.com"
+    },
+    {
+      "title": "Live Streaming Market To Grow By USD 20.64 Billion From 2025-2029, Rising Smartphone Penetration And Internet Access Boosting Growth, Report On AI-Powered Market Evolution - Technavio",
+      "summary": "NEW YORK, Feb. 5, 2025 /PRNewswire/ -- Report on how AI is driving market transformation - The global live streaming market size is estimated to grow by USD 20.64 billion from 2025-2029, according to Technavio. The market is estimated to grow at a CAGR of 16.6% during the forecast period.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.334304,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/pressreleases/25/02/n43486001/live-streaming-market-to-grow-by-usd-20-64-billion-from-2025-2029-rising-smartphone-penetration-an",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.27586
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "MSFT",
+  "summary": "Microsoft Corporation's fundamentals are strong, driven by its dominant position in the software industry, a growing cloud business, and a solid dividend yield. The recent news and analyst recommendations suggest a positive outlook for the company. However, the stock's high price-to-earnings ratio and beta may indicate some volatility.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "MSFT",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "Microsoft Corporation's strong fundamentals, driven by its dominant position in the software industry, a growing cloud business, and a solid dividend yield, align with a conservative portfolio. The recent positive news and analyst recommendations further support the BUY recommendation. However, the stock's high price-to-earnings ratio and beta may indicate some volatility, which is mitigated by the overall positive outlook. Therefore, a target allocation of 3.5% is recommended."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Meta Platforms, Inc.",
+  "ticker": "META",
+  "market_data": {
+    "price": 704.8699951171875,
+    "change": 1.32000732421875,
+    "percent_change": 0.1876209718032408,
+    "volume": 17778200.0,
+    "day_high": 718.1400146484375,
+    "day_low": 699.010009765625,
+    "market_cap": 1528834824609.375,
+    "summary": "Meta Platforms, Inc. engages in the development of products that enable people to connect and share with friends and family through mobile devices, personal computers, virtual reality and mixed reality headsets, augmented reality, and wearables worldwide. It operates through two segments, Family of Apps (FoA) and Reality Labs (RL). The FoA segment offers Facebook, which enables people to build community through feed, reels, stories, groups, marketplace, and other; Instagram that brings people closer through instagram feed, stories, reels, live, and messaging; Messenger, a messaging application for people to connect with friends, family, communities, and businesses across platforms and devices through text, audio, and video calls; Threads, an application for text-based updates and public conversations; and WhatsApp, a messaging application that is used by people and businesses to communicate and transact in a private way. The RL segment provides virtual, augmented, and mixed reality related products comprising consumer hardware, software, and content that help people feel connected, anytime, and anywhere. The company was formerly known as Facebook, Inc. and changed its name to Meta Platforms, Inc. in October 2021. The company was incorporated in 2004 and is headquartered in Menlo Park, California."
+  },
+  "fundamentals": {
+    "pe_ratio": 27.8934,
+    "forward_pe": 30.407116,
+    "eps": 27.58,
+    "dividend_yield": 0.28,
+    "beta": 1.273,
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information"
+  },
+  "news": [
+    {
+      "title": "ROSEN, LEADING INVESTOR COUNSEL, Encourages Integral Ad Science Holding Corp. Investors to Secure Counsel Before Important Deadline in Securities Class Action - IAS - Integral Ad Science  ( NASDAQ:IAS ) ",
+      "summary": "NEW YORK, Feb. 04, 2025 ( GLOBE NEWSWIRE ) -- WHY: Rosen Law Firm, a global investor rights law firm, announces the filing of a class action lawsuit on behalf of purchasers of common stock of Integral Ad Science Holding Corp. IAS between March 2, 2023 and February 27, 2024, inclusive ( the ...",
+      "sentiment": "Neutral",
+      "sentiment_score": 0.074998,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/pressreleases/25/02/g43484163/rosen-leading-investor-counsel-encourages-integral-ad-science-holding-corp-investors-to-secure-cou",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    },
+    {
+      "title": "This Magnificent Artificial Intelligence  ( AI )  Stock Has Shot Up Over 175% in Just 3 Months, and It Could Soar Higher in 2025",
+      "summary": "SoundHound AI has soared over 175% in the past three months, and could jump even higher in 2025.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.256266,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.fool.com/investing/2025/02/04/this-magnificent-artificial-intelligence-ai-stock/",
+      "provider": "Motley Fool",
+      "provider_url": "https://www.fool.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.44118
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "META",
+  "summary": "Meta Platforms, Inc.'s fundamentals are strong, with a relatively low P/E ratio and a high EPS, indicating a potential for growth. The company's beta is slightly above 1, indicating some volatility, but its market capitalization is substantial, which can help mitigate this risk. The recent news and analyst recommendations suggest a somewhat-bullish sentiment, with some analysts expecting the company to continue its growth trajectory. However, the neutral sentiment surrounding a class action lawsuit against Integral Ad Science Holding Corp. may indicate some potential risks to consider.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "META",
+  "approved": false,
+  "target_allocation_percent": 0.0,
+  "reasoning": "Although the analyst's summary highlights the company's strong fundamentals, including a relatively low P/E ratio and high EPS, the neutral sentiment surrounding a class action lawsuit against Integral Ad Science Holding Corp. may indicate some potential risks to consider. Additionally, the somewhat-bullish sentiment from recent news and analyst recommendations may not be enough to outweigh the potential risks, resulting in a denial of approval."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Tesla, Inc.",
+  "ticker": "TSLA",
+  "market_data": {
+    "price": 378.1700134277344,
+    "change": -9.339996337890625,
+    "percent_change": -2.4102593746003285,
+    "volume": 57223300.0,
+    "day_high": 388.3900146484375,
+    "day_low": 375.5299987792969,
+    "market_cap": 1219768463759.7656,
+    "summary": "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally. The company operates in two segments, Automotive; and Energy Generation and Storage. The Automotive segment offers electric vehicles, as well as sells automotive regulatory credits; and non-warranty after-sales vehicle, used vehicles, body shop and parts, supercharging, retail merchandise, and vehicle insurance services. This segment also provides sedans and sport utility vehicles through direct and used vehicle sales, a network of Tesla Superchargers, and in-app upgrades; purchase financing and leasing services; services for electric vehicles through its company-owned service locations and Tesla mobile service technicians; and vehicle limited warranties and extended service plans. The Energy Generation and Storage segment engages in the design, manufacture, installation, sale, and leasing of solar energy generation and energy storage products, and related services to residential, commercial, and industrial customers and utilities through its website, stores, and galleries, as well as through a network of channel partners. This segment also provides services and repairs to its energy product customers, including under warranty; and various financing options to its residential customers. The company was formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in February 2017. Tesla, Inc. was incorporated in 2003 and is headquartered in Austin, Texas."
+  },
+  "fundamentals": {
+    "pe_ratio": 196.22025,
+    "forward_pe": 101.74383,
+    "eps": 1.68,
+    "dividend_yield": 0,
+    "beta": 2.331,
+    "sector": "Consumer Cyclical",
+    "industry": "Auto Manufacturers"
+  },
+  "news": [
+    {
+      "title": "Every Lucid Group Investor Should Keep an Eye on This Number",
+      "summary": "Lucid Group ( NASDAQ: LCID ) is entering one of the most exciting years in its history. Following the recent launch of its Gravity SUV platform, analysts expect the company to more than double its sales this year. That's a big reason why shares are priced at a lofty 11 times sales.If you're ...",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.199289,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.fool.com/investing/2025/02/04/every-lucid-group-investor-should-keep-an-eye-on-t/",
+      "provider": "Motley Fool",
+      "provider_url": "https://www.fool.com"
+    },
+    {
+      "title": "The MicroStrategy copycats: companies turn to bitcoin to boost share price",
+      "summary": "Firms buy 'kryptonite for short sellers' as they try to emulate US software group's success ...",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.273942,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.ft.com/content/f964fe30-cb6e-427d-b7a7-9adf2ab8a457",
+      "provider": "Financial Times",
+      "provider_url": "https://www.ft.com"
+    }
+  ],
+  "analyst_recommendation_score": 2.67391
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "TSLA",
+  "summary": "Tesla, Inc. has a strong fundamental profile with a high P/E ratio and a beta of 2.331, indicating a high growth potential. However, the recent decline in price and the high forward P/E ratio may indicate overvaluation. The company's energy generation and storage segment is growing rapidly, but the automotive segment is facing intense competition. The recent news articles suggest a somewhat-bullish sentiment, but the analyst recommendation score is neutral. Overall, the company's fundamentals and growth potential are strong, but the valuation and competition in the industry are concerns.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "TSLA",
+  "approved": false,
+  "target_allocation_percent": 0.0,
+  "reasoning": "Although Tesla, Inc. has a strong fundamental profile with a high P/E ratio and a beta of 2.331, indicating a high growth potential, the recent decline in price and the high forward P/E ratio may indicate overvaluation. Additionally, the company's energy generation and storage segment is growing rapidly, but the automotive segment is facing intense competition. The neutral analyst recommendation score and somewhat-bullish sentiment from recent news articles do not outweigh the concerns regarding valuation and competition in the industry. Therefore, I do not recommend allocating a significant portion of the portfolio to Tesla, Inc. at this time."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "NVIDIA Corporation",
+  "ticker": "NVDA",
+  "market_data": {
+    "price": 124.83000183105469,
+    "change": 3.0699996948242188,
+    "percent_change": 2.5213531873869117,
+    "volume": 262230800.0,
+    "day_high": 125.0,
+    "day_low": 120.76000213623047,
+    "market_cap": 3044304200589.75,
+    "summary": "NVIDIA Corporation, a computing infrastructure company, provides graphics and compute and networking solutions in the United States, Singapore, Taiwan, China, Hong Kong, and internationally. The Compute & Networking segment includes its Data Centre accelerated computing platforms and artificial intelligence solutions and software; networking; automotive platforms and autonomous and electric vehicle solutions; Jetson for robotics and other embedded platforms; and DGX Cloud computing services. The Graphics segment offers GeForce GPUs for gaming and PCs, the GeForce NOW game streaming service and related infrastructure, and solutions for gaming platforms; Quadro/NVIDIA RTX GPUs for enterprise workstation graphics; virtual GPU or vGPU software for cloud-based visual and virtual computing; automotive platforms for infotainment systems; and Omniverse software for building and operating industrial AI and digital twin applications. It also customized agentic solutions designed in collaboration with NVIDIA to accelerate enterprise AI adoption. The company's products are used in gaming, professional visualization, data center, and automotive markets. It sells its products to original equipment manufacturers, original device manufacturers, system integrators and distributors, independent software vendors, cloud service providers, consumer internet companies, add-in board manufacturers, distributors, automotive manufacturers and tier-1 automotive suppliers, and other ecosystem participants. NVIDIA Corporation was incorporated in 1993 and is headquartered in Santa Clara, California."
+  },
+  "fundamentals": {
+    "pe_ratio": 58.557693,
+    "forward_pe": 44.34466,
+    "eps": 3.12,
+    "dividend_yield": 0.02,
+    "beta": 2.145,
+    "sector": "Technology",
+    "industry": "Semiconductors"
+  },
+  "news": [
+    {
+      "title": "This Magnificent Artificial Intelligence  ( AI )  Stock Has Shot Up Over 175% in Just 3 Months, and It Could Soar Higher in 2025",
+      "summary": "SoundHound AI has soared over 175% in the past three months, and could jump even higher in 2025.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.256266,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.fool.com/investing/2025/02/04/this-magnificent-artificial-intelligence-ai-stock/",
+      "provider": "Motley Fool",
+      "provider_url": "https://www.fool.com"
+    },
+    {
+      "title": "MPWR INVESTOR ALERT: Robbins Geller Rudman & Dowd LLP Files Class Action Lawsuit Against Monolithic Power Systems, Inc. and Announces Opportunity for Investors with Substantial Losses to Lead the Monolithic Power Systems Class Action Lawsuit - Monolithic Power Systems  ( NASDAQ:MPWR ) ",
+      "summary": "SAN DIEGO, Feb. 04, 2025 ( GLOBE NEWSWIRE ) -- Robbins Geller Rudman & Dowd LLP announces that purchasers of Monolithic Power Systems, Inc.",
+      "sentiment": "Neutral",
+      "sentiment_score": 0.012206,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.benzinga.com/pressreleases/25/02/g43484972/mpwr-investor-alert-robbins-geller-rudman-dowd-llp-files-class-action-lawsuit-against-monolithic-p",
+      "provider": "Benzinga",
+      "provider_url": "https://www.benzinga.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.41538
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "NVDA",
+  "summary": "NVIDIA Corporation's strong fundamentals, driven by its dominant position in the graphics and compute markets, and its growing presence in emerging technologies such as artificial intelligence and autonomous vehicles, make it an attractive investment opportunity. The recent surge in its stock price, driven by positive news and analyst recommendations, is a testament to its strong potential for growth. However, the company's high price-to-earnings ratio and beta suggest that it may be vulnerable to market fluctuations. Overall, the recommendation is to BUY, but with caution.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NVDA",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "NVDA's strong fundamentals, driven by its dominant position in the graphics and compute markets, and its growing presence in emerging technologies such as artificial intelligence and autonomous vehicles, make it an attractive investment opportunity. The recent surge in its stock price, driven by positive news and analyst recommendations, is a testament to its strong potential for growth. However, the company's high price-to-earnings ratio and beta suggest that it may be vulnerable to market fluctuations. Considering these factors, I recommend allocating 3.5% of the portfolio to NVDA, as it offers a balance between growth potential and risk management."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Amazon.com, Inc.",
+  "ticker": "AMZN",
+  "market_data": {
+    "price": 236.1699981689453,
+    "change": -0.850006103515625,
+    "percent_change": -0.35862209441972664,
+    "volume": 38727300.0,
+    "day_high": 238.32000732421875,
+    "day_low": 235.1999969482422,
+    "market_cap": 2518729315225.2656,
+    "summary": "Amazon.com, Inc. engages in the retail sale of consumer products, advertising, and subscriptions service through online and physical stores in North America and internationally. The company operates through three segments: North America, International, and Amazon Web Services (AWS). It also manufactures and sells electronic devices, including Kindle, fire tablets, fire TVs, echo, ring, blink, and eero; and develops and produces media content. In addition, the company offers programs that enable sellers to sell their products in its stores; and programs that allow authors, independent publishers, musicians, filmmakers, Twitch streamers, skill and app developers, and others to publish and sell content. Further, it provides compute, storage, database, analytics, machine learning, and other services, as well as advertising services through programs, such as sponsored ads, display, and video advertising. Additionally, the company offers Amazon Prime, a membership program. The company's products offered through its stores include merchandise and content purchased for resale and products offered by third-party sellers. It serves consumers, sellers, developers, enterprises, content creators, advertisers, and employees. Amazon.com, Inc. was incorporated in 1994 and is headquartered in Seattle, Washington."
+  },
+  "fundamentals": {
+    "pe_ratio": 33.946648,
+    "forward_pe": 36.209755,
+    "eps": 6.56,
+    "dividend_yield": 0,
+    "beta": 1.314,
+    "sector": "Consumer Cyclical",
+    "industry": "Internet Retail"
+  },
+  "news": [
+    {
+      "title": "Zacks Investment Ideas feature highlights: Meta Platforms, Amazon and Interactive Brokers",
+      "summary": "Meta Platforms, Amazon and Interactive Brokers have been highlighted in this Investment Ideas article.",
+      "sentiment": "Bullish",
+      "sentiment_score": 0.457878,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.zacks.com/stock/news/2409720/zacks-investment-ideas-feature-highlights-meta-platforms-amazon-and-interactive-brokers",
+      "provider": "Zacks Commentary",
+      "provider_url": "https://www.zacks.com"
+    },
+    {
+      "title": "Zacks Investment Ideas feature highlights: Amazon, eBay, Alibaba, JD.com and Microsoft",
+      "summary": "Amazon, eBay, Alibaba, JD.com and Microsoft have been highlighted in this Investment Ideas article.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.321577,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.zacks.com/stock/news/2409724/zacks-investment-ideas-feature-highlights-amazon-ebay-alibaba-jdcom-and-microsoft",
+      "provider": "Zacks Commentary",
+      "provider_url": "https://www.zacks.com"
+    }
+  ],
+  "analyst_recommendation_score": 1.31884
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "AMZN",
+  "summary": "Amazon.com, Inc.'s fundamentals are strong, with a forward P/E ratio of 36.21 and an EPS of $6.56, indicating a promising growth outlook. The company's beta of 1.31 suggests a relatively high volatility, but its market capitalization of $2.52 trillion provides a cushion against potential market fluctuations. The recent news highlights from Zacks Commentary are mostly bullish, with two articles highlighting Amazon's potential for growth. However, the sentiment scores are not extremely high, indicating a balanced view. Considering these factors, I recommend a HOLD position on AMZN.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AMZN",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "Amazon.com, Inc.'s strong fundamentals, including a forward P/E ratio of 36.21 and an EPS of $6.56, indicate a promising growth outlook. The company's beta of 1.31 suggests a relatively high volatility, but its market capitalization of $2.52 trillion provides a cushion against potential market fluctuations. The recent news highlights from Zacks Commentary are mostly bullish, with two articles highlighting Amazon's potential for growth. However, the sentiment scores are not extremely high, indicating a balanced view. Considering these factors, I recommend a HOLD position on AMZN, with a target allocation of 3.5% to the portfolio."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "Netflix, Inc.",
+  "ticker": "NFLX",
+  "market_data": {
+    "price": 1011.1099853515625,
+    "change": 23.3800048828125,
+    "percent_change": 2.3670441664347357,
+    "volume": 3993400.0,
+    "day_high": 1011.8300170898438,
+    "day_low": 986.6799926757812,
+    "market_cap": 429646937813.2578,
+    "summary": "Netflix, Inc. provides entertainment services. The company offers television (TV) series, documentaries, feature films, and games across various genres and languages. It also provides members the ability to receive streaming content through a host of internet-connected devices, including TVs, digital video players, TV set-top boxes, and mobile devices. The company operates approximately in 190 countries. Netflix, Inc. was incorporated in 1997 and is headquartered in Los Gatos, California."
+  },
+  "fundamentals": {
+    "pe_ratio": 51.5811,
+    "forward_pe": 50.95206,
+    "eps": 23.49,
+    "dividend_yield": 0,
+    "beta": 1.589,
+    "sector": "Communication Services",
+    "industry": "Entertainment"
+  },
+  "news": [
+    {
+      "title": "Lights, camera, no AI action: Hollywood hesitates on OpenAI's Sora video tool",
+      "summary": "OpenAI has spent months talking to the industry's largest studios such as Disney and Warner Bros but faces a hard sell after 2023 labour strikes.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.152089,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.scmp.com/tech/big-tech/article/3297402/openais-video-generation-tool-sora-sees-hollywood-resistance-amid-data-labour-concerns",
+      "provider": "South China Morning Post",
+      "provider_url": "https://www.scmp.com"
+    },
+    {
+      "title": "Here's what to expect when Disney reports earnings before the bell",
+      "summary": "Disney reports its fiscal first quarter earnings before the bell - here's what to expect.",
+      "sentiment": "Somewhat-bullish",
+      "sentiment_score": 0.304312,
+      "published_date": "2025-02-05T00:00:00Z",
+      "url": "https://www.cnbc.com/2025/02/05/disney-dis-earnings-q1-2025.html",
+      "provider": "CNBC",
+      "provider_url": "https://www.cnbc.com"
+    }
+  ],
+  "analyst_recommendation_score": 2.0
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "NFLX",
+  "summary": "NFLX's fundamentals are strong, with a relatively low P/E ratio and high EPS, indicating a potential for growth. The company's beta is slightly above the industry average, suggesting some volatility. However, the recent news and analyst recommendations suggest a somewhat bullish sentiment, with a high analyst recommendation score. Despite this, the company's high market capitalization and large volume of shares outstanding may limit its upside potential.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NFLX",
+  "approved": false,
+  "target_allocation_percent": 0.0,
+  "reasoning": "Although the company's fundamentals are strong, with a relatively low P/E ratio and high EPS, the recent news and analyst recommendations suggest a somewhat bullish sentiment. However, the high market capitalization and large volume of shares outstanding may limit its upside potential, and the industry's high competition and the recent labour strikes in the entertainment industry may pose a risk to the company's growth. Therefore, a conservative approach is recommended."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 09 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker"
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-02-05.
+
+                Here is the Security data:
+{
+  "company": "iPath Series B S&P 500 VIX Short-Term Futures ETN",
+  "ticker": "VXX",
+  "market_data": {
+    "price": 42.79999923706055,
+    "change": -0.94000244140625,
+    "percent_change": -2.149068142054995,
+    "volume": 3788800.0,
+    "day_high": 44.29999923706055,
+    "day_low": 42.70000076293945,
+    "market_cap": 42.79999923706055,
+    "summary": "The ETN offers exposure to futures contracts of specified maturities on the VIX index and not direct exposure to the VIX index or its spot level. The index is designed to provide investors with exposure to one or more maturities of futures contracts on the CBOE Volatility Index\u00ae."
+  },
+  "fundamentals": {
+    "pe_ratio": null,
+    "forward_pe": null,
+    "eps": null,
+    "dividend_yield": 0.0,
+    "beta": null,
+    "sector": null,
+    "industry": null
+  },
+  "news": [],
+  "analyst_recommendation_score": null
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "VXX",
+  "summary": "The iPath Series B S&P 500 VIX Short-Term Futures ETN (VXX) has experienced a significant decline in its price over the past few trading days, with a drop of 2.15% on February 5, 2025. This decline is largely attributed to the recent increase in the VIX index, which has risen to 24.5, indicating increased market volatility. Despite this, the ETN's price has not yet reached its historical lows, and its market capitalization remains relatively stable at $42.80. The lack of analyst recommendations and news articles suggests that the market is not overly concerned about the current volatility, and the company has not issued any statements regarding the recent price drop. Given these factors, I would recommend a HOLD position on VXX.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "VXX",
+  "approved": true,
+  "target_allocation_percent": 2.0,
+  "reasoning": "The recent decline in VXX's price is largely attributed to the increase in the VIX index, but the market capitalization remains relatively stable. The lack of analyst recommendations and news articles suggests that the market is not overly concerned about the current volatility. Given these factors, I recommend a HOLD position on VXX, allocating 2% of the portfolio to this security."
+}
+```
