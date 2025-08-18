@@ -1,0 +1,976 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Apple Inc.",
+  "ticker": "AAPL",
+  "market_data": {
+    "price": 231.59,
+    "change": -1.1900024,
+    "percent_change": -0.51121336,
+    "volume": 56038657,
+    "day_high": 234.2214,
+    "day_low": 229.36,
+    "market_cap": 3436888195072,
+    "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising Ai"
+  },
+  "fundamentals": {
+    "pe_ratio": 35.089394,
+    "forward_pe": 27.868832,
+    "eps": 6.6,
+    "dividend_yield": 0.45,
+    "beta": 1.165,
+    "sector": "Technology",
+    "industry": "Consumer Electronics"
+  },
+  "news": [
+    {
+      "title": "Why one AI stock picking model isn't buying Apple & Amazon",
+      "summary": "Alpha Intelligent CEO and founder Doug Clinton joins Asking for a Trend to break down how his firm\u2019s AI models are favoring names like Nvidia (NVDA) and Microsoft (MSFT), and why Apple (AAPL) and Amazon (AMZN) aren\u2019t making the cut \u2014 for now. To watch more expert insights and analysis on the latest market action, check out more&nbsp;Asking for a Trend.",
+      "published_date": "2025-08-17T12:00:42Z",
+      "url": "https://finance.yahoo.com/video/why-one-ai-stock-picking-120042046.html",
+      "provider": "Yahoo Finance Video",
+      "provider_url": "https://finance.yahoo.com/"
+    },
+    {
+      "title": "Coca-Cola, Amazon, Google, And Nvidia Have Used This Startup's AI Avatars \u2014 Inside Jeff Lu's $40M Rise To America's Fastest-Growing Company",
+      "summary": "In the same Palo Alto, California, building where Mark Zuckerberg grew Facebook in 2005, Jeff Lu now leads Akool, the generative AI platform that has created lifelike avatars for Coca-Cola (NYSE:KO), Amazon (NASDAQ:AMZN), Google, and Nvidia (NASDAQ:NVDA). The company ranks No. 1 on this year's Inc. 5000 list, Inc. reports. From Microsoft Intern to $40M AI Founder: How Jeff Lu Built One of America's Fastest-Growing Company Lu, 35, began his career as a Microsoft (NASDAQ:MSFT) intern before earnin",
+      "published_date": "2025-08-17T16:31:46Z",
+      "url": "https://finance.yahoo.com/news/coca-cola-amazon-google-nvidia-163146746.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.95349
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "AAPL",
+  "summary": "AAPL's fundamentals remain strong, with a forward P/E ratio of 27.87 and EPS of 6.6, indicating a relatively high growth potential. However, the recent decline in price and volume may indicate a slight correction. The company's beta of 1.165 suggests a moderate level of volatility. Analysts are bullish on the stock, with a recommendation score of 1.95, indicating a strong buy signal. Despite some negative news, the overall sentiment remains positive, with the company's recent success in the tech industry and its position as a leader in the consumer electronics market.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AAPL",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "AAPL's fundamentals remain strong, with a forward P/E ratio of 27.87 and EPS of 6.6, indicating a relatively high growth potential. The recent decline in price and volume may indicate a slight correction, but the company's beta of 1.165 suggests a moderate level of volatility. Analysts are bullish on the stock, with a recommendation score of 1.95, indicating a strong buy signal. However, the recent news about the company's use of AI avatars for Coca-Cola, Amazon, Google, and Nvidia may raise concerns about the company's ability to adapt to emerging technologies. Overall, the company's recent success in the tech industry and its position as a leader in the consumer electronics market outweigh these concerns, making it a suitable addition to a conservative portfolio."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Alphabet Inc.",
+  "ticker": "GOOG",
+  "market_data": {
+    "price": 204.91,
+    "change": 1.0899963,
+    "percent_change": 0.5347838,
+    "volume": 21111380,
+    "day_high": 207.33,
+    "day_low": 202.085,
+    "market_cap": 2471460601856,
+    "summary": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ad"
+  },
+  "fundamentals": {
+    "pe_ratio": 21.845415,
+    "forward_pe": 22.894974,
+    "eps": 9.38,
+    "dividend_yield": 0.41,
+    "beta": 1.014,
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information"
+  },
+  "news": [
+    {
+      "title": "Coca-Cola, Amazon, Google, And Nvidia Have Used This Startup's AI Avatars \u2014 Inside Jeff Lu's $40M Rise To America's Fastest-Growing Company",
+      "summary": "In the same Palo Alto, California, building where Mark Zuckerberg grew Facebook in 2005, Jeff Lu now leads Akool, the generative AI platform that has created lifelike avatars for Coca-Cola (NYSE:KO), Amazon (NASDAQ:AMZN), Google, and Nvidia (NASDAQ:NVDA). The company ranks No. 1 on this year's Inc. 5000 list, Inc. reports. From Microsoft Intern to $40M AI Founder: How Jeff Lu Built One of America's Fastest-Growing Company Lu, 35, began his career as a Microsoft (NASDAQ:MSFT) intern before earnin",
+      "published_date": "2025-08-17T16:31:46Z",
+      "url": "https://finance.yahoo.com/news/coca-cola-amazon-google-nvidia-163146746.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    },
+    {
+      "title": "2 Top Dividend Stocks Duke It Out. Which Is Better?",
+      "summary": "Don't be fooled by their low yields. These are both good dividend stocks. But one is arguably a better bet.",
+      "published_date": "2025-08-17T16:15:00Z",
+      "url": "https://www.fool.com/investing/2025/08/17/2-top-dividend-stocks-duke-it-out-which-is-better/",
+      "provider": "Motley Fool",
+      "provider_url": "http://www.fool.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.54412
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "GOOG",
+  "summary": "Alphabet Inc.'s strong fundamentals, driven by its dominant position in the search engine market and growing cloud computing business, suggest a positive outlook. The company's high P/E ratio and forward P/E ratio indicate investor confidence in its future growth prospects. Additionally, the recent news articles highlight the company's innovative efforts in AI and its expansion into new markets, which could drive long-term growth. However, the analyst recommendation score is slightly below the average, indicating some concerns about the company's valuation. Overall, the data suggests a HOLD recommendation.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "GOOG",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "Alphabet Inc.'s strong fundamentals, driven by its dominant position in the search engine market and growing cloud computing business, suggest a positive outlook. The company's high P/E ratio and forward P/E ratio indicate investor confidence in its future growth prospects. Additionally, the recent news articles highlight the company's innovative efforts in AI and its expansion into new markets, which could drive long-term growth. However, the analyst recommendation score is slightly below the average, indicating some concerns about the company's valuation. Given the overall positive outlook and the relatively conservative target allocation percentage, I recommend holding a 3.5% allocation to Alphabet Inc. in a portfolio."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Microsoft Corporation",
+  "ticker": "MSFT",
+  "market_data": {
+    "price": 520.17,
+    "change": -2.3099976,
+    "percent_change": -0.44212174,
+    "volume": 25213272,
+    "day_high": 526.1,
+    "day_low": 519.09,
+    "market_cap": 3866511802368,
+    "summary": "Microsoft Corporation develops and supports software, services, devices, and solutions worldwide. The company's Productivity and Business Processes segment offers Microsoft 365 Commercial, Enterprise Mobility + Security, Windows Commercial, Power BI, Exchange, SharePoint, Microsoft Teams, Security a"
+  },
+  "fundamentals": {
+    "pe_ratio": 38.16361,
+    "forward_pe": 34.79398,
+    "eps": 13.63,
+    "dividend_yield": 0.64,
+    "beta": 1.055,
+    "sector": "Technology",
+    "industry": "Software - Infrastructure"
+  },
+  "news": [
+    {
+      "title": "Coca-Cola, Amazon, Google, And Nvidia Have Used This Startup's AI Avatars \u2014 Inside Jeff Lu's $40M Rise To America's Fastest-Growing Company",
+      "summary": "In the same Palo Alto, California, building where Mark Zuckerberg grew Facebook in 2005, Jeff Lu now leads Akool, the generative AI platform that has created lifelike avatars for Coca-Cola (NYSE:KO), Amazon (NASDAQ:AMZN), Google, and Nvidia (NASDAQ:NVDA). The company ranks No. 1 on this year's Inc. 5000 list, Inc. reports. From Microsoft Intern to $40M AI Founder: How Jeff Lu Built One of America's Fastest-Growing Company Lu, 35, began his career as a Microsoft (NASDAQ:MSFT) intern before earnin",
+      "published_date": "2025-08-17T16:31:46Z",
+      "url": "https://finance.yahoo.com/news/coca-cola-amazon-google-nvidia-163146746.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    },
+    {
+      "title": "The Best Growth Stock ETF to Invest $100 in Right Now",
+      "summary": "This ETF has outperformed the S&P 500 handily over various multi-year periods.",
+      "published_date": "2025-08-17T13:45:00Z",
+      "url": "https://www.fool.com/investing/2025/08/17/the-best-growth-stock-etf-to-invest-100-in-right/",
+      "provider": "Motley Fool",
+      "provider_url": "http://www.fool.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.27586
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "MSFT",
+  "summary": "Microsoft Corporation's fundamentals are strong, with a forward P/E ratio of 34.79398 and an EPS of $13.63, indicating a solid growth potential. The company's beta of 1.055 suggests a relatively high volatility, but its market capitalization of $3.87 trillion provides a cushion against market fluctuations. The recent news about Akool, a generative AI platform founded by Jeff Lu, a former Microsoft intern, may indicate a potential disruption in the tech industry, which could benefit Microsoft. However, the overall market sentiment is neutral, with a neutral analyst recommendation score of 1.27586.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "MSFT",
+  "approved": false,
+  "target_allocation_percent": 0.0,
+  "reasoning": "Although Microsoft Corporation's fundamentals are strong, with a forward P/E ratio of 34.79398 and an EPS of $13.63, indicating a solid growth potential, the recent news about Akool, a generative AI platform founded by Jeff Lu, a former Microsoft intern, may indicate a potential disruption in the tech industry. However, the overall market sentiment is neutral, with a neutral analyst recommendation score of 1.27586, and the company's beta of 1.055 suggests a relatively high volatility. Considering these factors, we are denying the security for allocation in this portfolio."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Meta Platforms, Inc.",
+  "ticker": "META",
+  "market_data": {
+    "price": 785.23,
+    "change": 3.0999756,
+    "percent_change": 0.39635044,
+    "volume": 13375361,
+    "day_high": 796.2476,
+    "day_low": 781.0,
+    "market_cap": 1972607647744,
+    "summary": "Meta Platforms, Inc. engages in the development of products that enable people to connect and share with friends and family through mobile devices, personal computers, virtual reality and mixed reality headsets, augmented reality, and wearables worldwide. It operates through two segments, Family of "
+  },
+  "fundamentals": {
+    "pe_ratio": 28.491655,
+    "forward_pe": 31.036758,
+    "eps": 27.56,
+    "dividend_yield": 0.27,
+    "beta": 1.273,
+    "sector": "Communication Services",
+    "industry": "Internet Content & Information"
+  },
+  "news": [
+    {
+      "title": "Tiger Global buys more Nvidia, Amazon, exits surging tech stocks",
+      "summary": "Here are billionaire investor Chase Coleman\u2019s latest moves.",
+      "published_date": "2025-08-17T17:33:00Z",
+      "url": "https://www.thestreet.com/investing/tiger-global-buys-more-nvidia-amazon-exits-surging-tech-stocks",
+      "provider": "TheStreet",
+      "provider_url": "https://www.thestreet.com/"
+    },
+    {
+      "title": "Coca-Cola, Amazon, Google, And Nvidia Have Used This Startup's AI Avatars \u2014 Inside Jeff Lu's $40M Rise To America's Fastest-Growing Company",
+      "summary": "In the same Palo Alto, California, building where Mark Zuckerberg grew Facebook in 2005, Jeff Lu now leads Akool, the generative AI platform that has created lifelike avatars for Coca-Cola (NYSE:KO), Amazon (NASDAQ:AMZN), Google, and Nvidia (NASDAQ:NVDA). The company ranks No. 1 on this year's Inc. 5000 list, Inc. reports. From Microsoft Intern to $40M AI Founder: How Jeff Lu Built One of America's Fastest-Growing Company Lu, 35, began his career as a Microsoft (NASDAQ:MSFT) intern before earnin",
+      "published_date": "2025-08-17T16:31:46Z",
+      "url": "https://finance.yahoo.com/news/coca-cola-amazon-google-nvidia-163146746.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.44776
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "META",
+  "summary": "Meta Platforms, Inc.'s fundamentals are showing signs of resilience, with a relatively stable P/E ratio and a forward P/E ratio that is still within a reasonable range. The company's EPS has been steadily increasing, and its beta is within a typical range for the Internet Content & Information sector. However, the recent news about Jeff Lu's AI startup, Akool, which has created avatars for major companies like Coca-Cola, Amazon, and Google, may indicate a potential trend towards increased adoption of AI in various industries, which could positively impact Meta's business.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "META",
+  "approved": true,
+  "target_allocation_percent": 2.5,
+  "reasoning": "The company's fundamentals are showing signs of resilience, with a relatively stable P/E ratio and a forward P/E ratio that is still within a reasonable range. Additionally, the recent news about Jeff Lu's AI startup, Akool, which has created avatars for major companies like Coca-Cola, Amazon, and Google, may indicate a potential trend towards increased adoption of AI in various industries, which could positively impact Meta's business. However, considering the recent price movement and the analyst's recommendation to HOLD, we are allocating a relatively small percentage to this security."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Tesla, Inc.",
+  "ticker": "TSLA",
+  "market_data": {
+    "price": 330.56,
+    "change": -5.019989,
+    "percent_change": -1.4959143,
+    "volume": 72949844,
+    "day_high": 339.3,
+    "day_low": 327.02,
+    "market_cap": 1066204725248,
+    "summary": "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally. The company operates in two segments, Automotive; and Energy Generation and Storage. The Automotive segment offers electric ve"
+  },
+  "fundamentals": {
+    "pe_ratio": 195.59763,
+    "forward_pe": 102.02469,
+    "eps": 1.69,
+    "dividend_yield": null,
+    "beta": 2.331,
+    "sector": "Consumer Cyclical",
+    "industry": "Auto Manufacturers"
+  },
+  "news": [
+    {
+      "title": "Uber Freight CEO Lior Ron Leaves $5.1B Unit For Waabi's AI-First Driverless Trucks: 'Most Positioned To Lead The Transformation'",
+      "summary": "Uber Freight founder and CEO Lior Ron is leaving the top job to become chief operating officer at self-driving truck startup Waabi, Bloomberg reports. Ron, who built Uber's (NYSE:UBER) freight and logistics unit into a $5.1 billion business, will lead Waabi as it works to launch fully driverless trucks in Texas before the end of this year. According to TechCrunch, Ron's move comes as autonomous freight technology nears commercial viability, and Waabi prepares to scale operations against deep-poc",
+      "published_date": "2025-08-17T18:02:50Z",
+      "url": "https://finance.yahoo.com/news/uber-freight-ceo-lior-ron-180250313.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    },
+    {
+      "title": "Silicon Valley Startup Tensor Unveils $200K Luxury Robocar With 37 Cameras And Zero-Cloud Privacy For 2026 Launch",
+      "summary": "Silicon Valley startup Tensor plans to release the first personal Level 4 autonomous vehicle for consumers in the second half of 2026, challenging Tesla (NYSE:TSLA) and other self-driving hopefuls in a high-stakes race for autonomy, Forbes reports. The vehicle, built by Vietnamese automaker VinFast (NASDAQ:VFS), will combine \"eyes off\" self-driving capability with a folding steering wheel and retractable pedals that transform the driver's seat into a lounge-like space, the report says. Don't Mis",
+      "published_date": "2025-08-17T17:01:44Z",
+      "url": "https://finance.yahoo.com/news/silicon-valley-startup-tensor-unveils-170144859.html",
+      "provider": "Benzinga",
+      "provider_url": "http://www.benzinga.com/"
+    }
+  ],
+  "analyst_recommendation_score": 2.65957
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "TSLA",
+  "summary": "Tesla, Inc.'s recent market volatility and decline in stock price may be a buying opportunity, driven by the company's strong fundamentals and the increasing adoption of electric vehicles. However, the recent news about Uber Freight's CEO leaving to join Waabi and the unveiling of a luxury robocar by Silicon Valley startup Tensor may pose some risks to the electric vehicle market. Overall, the company's innovative products and services, combined with its leadership in the EV space, make it a HOLD recommendation.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "TSLA",
+  "approved": false,
+  "target_allocation_percent": 0.0,
+  "reasoning": "Although the analyst's summary suggests that Tesla's recent market volatility and decline in stock price may be a buying opportunity, driven by the company's strong fundamentals and the increasing adoption of electric vehicles, the recent news about Uber Freight's CEO leaving to join Waabi and the unveiling of a luxury robocar by Silicon Valley startup Tensor may pose some risks to the electric vehicle market. Additionally, the analyst's recommendation is a HOLD, which indicates a neutral stance. Given these factors, I do not recommend allocating any significant portion of the portfolio to Tesla at this time."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "NVIDIA Corporation",
+  "ticker": "NVDA",
+  "market_data": {
+    "price": 180.45,
+    "change": -1.5700073,
+    "percent_change": -0.86254656,
+    "volume": 156602161,
+    "day_high": 181.9,
+    "day_low": 178.0447,
+    "market_cap": 4400742400000,
+    "summary": "NVIDIA Corporation, a computing infrastructure company, provides graphics and compute and networking solutions in the United States, Singapore, Taiwan, China, Hong Kong, and internationally. The Compute & Networking segment includes its Data Centre accelerated computing platforms and artificial inte"
+  },
+  "fundamentals": {
+    "pe_ratio": 58.20968,
+    "forward_pe": 43.798546,
+    "eps": 3.1,
+    "dividend_yield": 0.02,
+    "beta": 2.145,
+    "sector": "Technology",
+    "industry": "Semiconductors"
+  },
+  "news": [
+    {
+      "title": "Powell's Jackson Hole speech, Walmart earnings: What to watch this week",
+      "summary": "Chair Powell's policy speech Friday in Jackson Hole will be the defining monetary policy event of the summer.",
+      "published_date": "2025-08-17T11:35:02Z",
+      "url": "https://finance.yahoo.com/news/powells-jackson-hole-speech-walmart-earnings-what-to-watch-this-week-113502376.html",
+      "provider": "Yahoo Finance",
+      "provider_url": "http://finance.yahoo.com/"
+    },
+    {
+      "title": "Tiger Global buys more Nvidia, Amazon, exits surging tech stocks",
+      "summary": "Here are billionaire investor Chase Coleman\u2019s latest moves.",
+      "published_date": "2025-08-17T17:33:00Z",
+      "url": "https://www.thestreet.com/investing/tiger-global-buys-more-nvidia-amazon-exits-surging-tech-stocks",
+      "provider": "TheStreet",
+      "provider_url": "https://www.thestreet.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.41538
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "NVDA",
+  "summary": "NVIDIA Corporation's fundamentals remain strong, driven by its dominant position in the growing AI and gaming markets, with a high P/E ratio and a beta of 2.145 indicating a relatively high volatility. The recent news of Tiger Global's investment in the company suggests a positive sentiment, while the recent market volatility may provide an opportunity for long-term investors. However, the forward P/E ratio is slightly lower than the historical average, indicating a potential correction. Overall, the company's growth prospects and strong analyst support make it a HOLD recommendation.",
+  "recommendation": "HOLD"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NVDA",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "NVDA's strong fundamentals, driven by its dominant position in the growing AI and gaming markets, and the recent positive sentiment from Tiger Global's investment, make it a HOLD recommendation. Although the forward P/E ratio is slightly lower than the historical average, indicating a potential correction, the company's growth prospects and strong analyst support outweigh these concerns. As a conservative allocation, we recommend a 3.5% target allocation to NVDA."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Amazon.com, Inc.",
+  "ticker": "AMZN",
+  "market_data": {
+    "price": 231.03,
+    "change": 0.05000305,
+    "percent_change": 0.021648217,
+    "volume": 39649244,
+    "day_high": 234.08,
+    "day_low": 229.807,
+    "market_cap": 2463911641088,
+    "summary": "Amazon.com, Inc. engages in the retail sale of consumer products, advertising, and subscriptions service through online and physical stores in North America and internationally. The company operates through three segments: North America, International, and Amazon Web Services (AWS). It also manufact"
+  },
+  "fundamentals": {
+    "pe_ratio": 35.217987,
+    "forward_pe": 37.565853,
+    "eps": 6.56,
+    "dividend_yield": null,
+    "beta": 1.314,
+    "sector": "Consumer Cyclical",
+    "industry": "Internet Retail"
+  },
+  "news": [
+    {
+      "title": "Why one AI stock picking model isn't buying Apple & Amazon",
+      "summary": "Alpha Intelligent CEO and founder Doug Clinton joins Asking for a Trend to break down how his firm\u2019s AI models are favoring names like Nvidia (NVDA) and Microsoft (MSFT), and why Apple (AAPL) and Amazon (AMZN) aren\u2019t making the cut \u2014 for now. To watch more expert insights and analysis on the latest market action, check out more&nbsp;Asking for a Trend.",
+      "published_date": "2025-08-17T12:00:42Z",
+      "url": "https://finance.yahoo.com/video/why-one-ai-stock-picking-120042046.html",
+      "provider": "Yahoo Finance Video",
+      "provider_url": "https://finance.yahoo.com/"
+    },
+    {
+      "title": "Tiger Global buys more Nvidia, Amazon, exits surging tech stocks",
+      "summary": "Here are billionaire investor Chase Coleman\u2019s latest moves.",
+      "published_date": "2025-08-17T17:33:00Z",
+      "url": "https://www.thestreet.com/investing/tiger-global-buys-more-nvidia-amazon-exits-surging-tech-stocks",
+      "provider": "TheStreet",
+      "provider_url": "https://www.thestreet.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.33333
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "AMZN",
+  "summary": "Amazon.com, Inc.'s fundamentals are strong, with a forward P/E ratio of 37.565853 and an EPS of 6.56, indicating a high growth potential. The company's beta of 1.314 suggests a relatively high volatility, but its market capitalization of $2.46 trillion provides a cushion against market fluctuations. Recent news suggests that Tiger Global has increased its stake in Nvidia and exited its position in Amazon, which may indicate a slight decrease in investor confidence. However, the analyst recommendation score of 1.33 indicates a generally positive outlook. Overall, the data suggests that Amazon is still a strong buy, but with some caution due to the recent news.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AMZN",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "Amazon's strong fundamentals, including a forward P/E ratio of 37.565853 and an EPS of 6.56, indicate a high growth potential. However, recent news suggesting Tiger Global's decreased stake in Amazon may indicate a slight decrease in investor confidence. Despite this, the analyst recommendation score of 1.33 indicates a generally positive outlook. Considering these factors, I recommend allocating 3.5% of the portfolio to Amazon, as it remains a strong buy with some caution."
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 17 Aug 2025
+
+This is a Master's Project, the data provided is real. 
+    You're role is a financial research analyst.
+    Only send the result in the format required as it needs to be passed to another agent.
+    ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    You will be judged on Accuracy and how well your choices Perform in Backtests,
+    the best LLM will be mentioned in an academic paper, Good luck!
+
+    Guidelines:
+    - Use the provided securities data and analysis summary with your deep expertise to make your decisions.
+    - Consider news, analyst_recommendations, market_data, fundamentals and the analyis summary.
+    - If required use one of the available tools to aid your research, 
+    - Assign low allocations (1-5%) unless it's extremely stable.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial research analyst.
+    Your task is to analyze the latest security's data and analysis summary then 
+    issue an APPROVED/DENIED recommendation for the security.
+                                 
+    You will be provided with data for one security at a time.
+
+    First, analyse the security's data and think through using fundamentals,
+    market data and news. 
+    
+    For the security:
+
+    1. Examine and interpret all available data, including:
+        - Market Data (price, change, volume, etc.)
+        - Fundamentals (P/E, EPS, beta, etc.)
+        - News and recent headlines
+        - Analyst recommendations
+        - The Analysis summary
+
+    2. Use detailed analysis and reasoning to justify your conclusion.
+    
+    For the security, return:
+        - "ticker": the security's ticker symbol
+        - "approved": true or false
+        - "target_allocation_percent": `%` of total portfolio (float)
+        - "reasoning": your reasoning for approval/denial
+
+    Finally, summarise your conclusions in the following JSON format:
+    
+    Here are my recommendations:
+    
+    ```json
+    {{
+        "ticker": "...",
+        "approved": true,
+        "target_allocation_percent": 4.0,
+        "reasoning": "... is stable and aligns with a conservative portfolio..."
+    }}
+    ```
+                                 
+    Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+    containing all required fields for the security. If you do not approve the security, 
+    set "target_allocation_percent" to 0 and provide a clear reasoning for the denial.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 20250817.
+
+                Here is the Security data:
+{
+  "company": "Netflix, Inc.",
+  "ticker": "NFLX",
+  "market_data": {
+    "price": 1238.95,
+    "change": 8.389893,
+    "percent_change": 0.68179464,
+    "volume": 2767804,
+    "day_high": 1246.941,
+    "day_low": 1227.88,
+    "market_cap": 526462058496,
+    "summary": "Netflix, Inc. provides entertainment services. The company offers television (TV) series, documentaries, feature films, and games across various genres and languages. It also provides members the ability to receive streaming content through a host of internet-connected devices, including TVs, digita"
+  },
+  "fundamentals": {
+    "pe_ratio": 52.901363,
+    "forward_pe": 52.100502,
+    "eps": 23.42,
+    "dividend_yield": null,
+    "beta": 1.589,
+    "sector": "Communication Services",
+    "industry": "Entertainment"
+  },
+  "news": [
+    {
+      "title": "S&P 500 Titans Amazon And Netflix Lead Five Stocks Near Buy Points",
+      "summary": "S&P 500 giants Netflix and Amazon topped early entries last week, with three other stocks near buy points.",
+      "published_date": "2025-08-16T11:34:03Z",
+      "url": "https://www.investors.com/news/sp-500-stock-market-amazon-netflix-near-buy-points/?src=A00220&yptr=yahoo",
+      "provider": "Investor's Business Daily",
+      "provider_url": "http://www.investors.com/"
+    },
+    {
+      "title": "Netflix Stock: How To Find & Own America's Greatest Opportunities",
+      "summary": "One of the five recurring themes was the leisure and entertainment industry.  For example, in the late 1950s, Diners Club created America's first credit card, Brunswick's new automatic pinspotter set off a bowling boom, and Polaroid's new \"picture-in-a-minute\" cameras gave people instant photos.  Then in the '60s came all the color-TV stocks, Disney, motorhomes from Winnebago Industries, and McDonald's fast food in the '70s.",
+      "published_date": "2025-08-15T18:11:07Z",
+      "url": "https://www.investors.com/how-to-invest/netflix-stock-how-to-find-own-americas-greatest-opportunities/?src=A00220&yptr=yahoo",
+      "provider": "Investor's Business Daily",
+      "provider_url": "http://www.investors.com/"
+    }
+  ],
+  "analyst_recommendation_score": 1.95652
+}
+
+                Here is the Analyst's summary:
+{
+  "ticker": "NFLX",
+  "summary": "NFLX's fundamentals are strong, with a high P/E ratio and a beta of 1.589, indicating a relatively high volatility. The company's recent news and analyst recommendations suggest a positive outlook, with a score of 1.95652 indicating a strong buy signal. The stock's price has increased by 8.389893 in the last day, and its market capitalization is significant, indicating a large and established company. However, the company's dividend yield is null, which may be a concern for income investors. Overall, the data suggests that NFLX is a good candidate for a BUY recommendation.",
+  "recommendation": "BUY"
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NFLX",
+  "approved": true,
+  "target_allocation_percent": 3.5,
+  "reasoning": "NFLX's strong fundamentals, including a high P/E ratio and beta, and positive analyst recommendations, suggest a good candidate for a BUY recommendation. The company's recent price increase and significant market capitalization also support this conclusion. However, the null dividend yield may be a concern for income investors. Considering these factors, I recommend allocating 3.5% of the portfolio to NFLX."
+}
+```

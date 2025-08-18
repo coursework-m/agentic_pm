@@ -1,4 +1,6 @@
 """Multi agent Portfolio Management"""
+import random
+import string
 from langgraph.checkpoint.postgres import PostgresSaver
 from langgraph.store.postgres import PostgresStore
 from utils.constants import TODAY, DB_URI
@@ -15,7 +17,9 @@ def daily_run(today=None,
               backtest=False,
               thread_id=None,
               llm=None,
-              react=False):
+              react=False,
+              end_date=None,
+              model_config=None):
     """Run the daily cycle of the Agentic PM workflow."""
 
     # Ensure the database URI is set correctly
@@ -36,7 +40,9 @@ def daily_run(today=None,
         if thread_id and backtest:
             config["configurable"]["thread_id"] = thread_id
         # Set the LLM configuration
+        config["configurable"]["model_config"] = model_config
         config["configurable"]["today"] = today
+        config["configurable"]["end_date"] = end_date
         config["configurable"]["store"] = store
         config["configurable"]["backtest"] = backtest
         config["configurable"]["llm"] = llm
@@ -54,9 +60,31 @@ def daily_run(today=None,
                     msg.pretty_print()
 
 if __name__ == "__main__":
-    # llm = get_llm('ollama')  # Use 'ollama' backend for LLM
-    model = get_llm('hf')  # Use 'hf' backend for LLM
+    # ollama ids
+    # mistral:v0.3
+    # llama3:latest
+    # qwen3:latest
+    # gemma3:latest
+    # deepseek-r1:latest
+    # gpt-oss:20b
+    # ///////////////////// #
+    # HF ids
+    # "meta-llama/Llama-3.2-3B-Instruct"
+    # "openai/gpt-oss-20b"
+    # "Qwen/Qwen3-4B"
+    # "Qwen/Qwen3-8B"
+    # "Qwen/Qwen3-4B-Thinking-2507-FP8"
+    # "google/gemma-3-4b-it"
+    llm_config = {
+        "model": "meta-llama/Llama-3.2-3B-Instruct",
+        "max_new_tokens": 4096,
+        "temperature": 0.15,
+        "backend": "hf" # Use 'ollama' backend for REACT LLM
+    }
+    model = get_llm(llm_config['backend'], llm_config['model'], llm_config)
     TIMEIT = True  # Set to True to enable timing
+    CODE = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
+    THREAD_ID = f"agent_run_daily_{CODE}"
     if TIMEIT:
         import time
         start_time = time.time()
@@ -64,9 +92,11 @@ if __name__ == "__main__":
             TODAY,
             False,
             backtest=False,
-            thread_id="agent_run_daily_003",
+            thread_id=THREAD_ID,
             llm=model,
-            react=False
+            react=False,
+            end_date=None,
+            model_config=llm_config
         )
         print(f"Execution time: {time.time() - start_time} seconds")
     else:
@@ -76,7 +106,9 @@ if __name__ == "__main__":
             TODAY,
             False,
             backtest=False,
-            thread_id="agent_run_daily_003",
+            thread_id=THREAD_ID,
             llm=model,
-            react=False
+            react=False,
+            end_date=None,
+            model_config=llm_config
         )

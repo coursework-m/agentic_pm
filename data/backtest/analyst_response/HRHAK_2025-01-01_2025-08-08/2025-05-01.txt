@@ -1,0 +1,984 @@
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "AAPL": {
+    "company": "Apple Inc.",
+    "ticker": "AAPL",
+    "market_data": {
+      "price": 213.32000732421875,
+      "change": 4.2400054931640625,
+      "percent_change": 2.0279345016412247,
+      "volume": 57365700.0,
+      "day_high": 214.55999755859375,
+      "day_low": 208.89999389648438,
+      "market_cap": 3165754209389.375,
+      "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, and HomePod. It also provides AppleCare support and cloud services; and operates various platforms, including the App Store that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts, as well as advertising services include third-party licensing arrangements and its own advertising platforms. In addition, the company offers various subscription-based services, such as Apple Arcade, a game subscription service; Apple Fitness+, a personalized fitness service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It distributes third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1976 and is headquartered in Cupertino, California."
+    },
+    "fundamentals": {
+      "pe_ratio": 34.75,
+      "forward_pe": 27.599277,
+      "eps": 6.6,
+      "dividend_yield": 0.47,
+      "beta": 1.165,
+      "sector": "Technology",
+      "industry": "Consumer Electronics"
+    },
+    "news": [
+      {
+        "title": "Peter Lynch Once Revealed Existence Of A One Liner So Loved By Warren Buffett That The Oracle Of Omaha Called Him To Borrow It: 'The One Line He Picked\u2026Has Been The Greatest Mistake' - Apple  ( NASDAQ:AAPL ) ",
+        "summary": "Peter Lynch, former manager of the Fidelity Magellan Fund and one of the most respected investors of the 20th century, once confessed that his greatest investing error was selling successful stocks too early.",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.13651,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/25/04/45123486/peter-lynch-once-said-his-biggest-investing-mistake-was-selling-too-soon-and-warren-buffett-loved-the-one-line-he",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      },
+      {
+        "title": "Apple Ordered To Ease App Store Rules In US - Epic Games CEO Tim Sweeney Proposes Peace Deal, Saying 'We'll Return Fortnite' And Drop All Litigation Only If... - Tencent Holdings  ( OTC:TCEHY ) ",
+        "summary": "Following a U.S. court ruling that found Apple Inc. AAPL violated the spirit of an injunction against anti-steering practices, Epic Games, backed by Tencent Holdings TCEHY, has offered to bring Fortnite back to the App Store if the tech giant fulfills this one condition.",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.123206,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/news/legal/25/04/45123864/apple-ordered-to-ease-app-store-rules-in-us-epic-games-ceo-tim-sweeney-proposes-peace-deal-saying-well",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      }
+    ],
+    "analyst_recommendation_score": 1.93182
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AAPL",
+  "summary": "AAPL's fundamentals are strong, with a high P/E ratio and a beta of 1.165, indicating a relatively high level of volatility. The company's recent news, including a court ruling that Apple must ease App Store rules and a proposal from Epic Games to bring Fortnite back to the App Store, may have a positive impact on the stock price. However, the neutral sentiment of the recent news articles suggests that the overall market sentiment is mixed. The analyst recommendation score of 1.93182 indicates a strong buy signal. Overall, I recommend a BUY recommendation for AAPL.",
+  "recommendation": "BUY"
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "GOOG": {
+    "company": "Alphabet Inc.",
+    "ticker": "GOOG",
+    "market_data": {
+      "price": 162.7899932861328,
+      "change": 0.269989013671875,
+      "percent_change": 0.16612663461369642,
+      "volume": 21904300.0,
+      "day_high": 163.94000244140625,
+      "day_low": 160.92999267578125,
+      "market_cap": 883949684380.8203,
+      "summary": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ads, Android, Chrome, devices, Gmail, Google Drive, Google Maps, Google Photos, Google Play, Search, and YouTube. It is also involved in the sale of apps and in-app purchases and digital content in the Google Play and YouTube; and devices, as well as in the provision of YouTube consumer subscription services. The Google Cloud segment offers AI infrastructure, Vertex AI platform, cybersecurity, data and analytics, and other services; Google Workspace that include cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet; and other services for enterprise customers. The Other Bets segment sells healthcare-related and internet services. The company was incorporated in 1998 and is headquartered in Mountain View, California."
+    },
+    "fundamentals": {
+      "pe_ratio": 21.56777,
+      "forward_pe": 22.579887,
+      "eps": 9.37,
+      "dividend_yield": 0.43,
+      "beta": 1.014,
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information"
+    },
+    "news": [
+      {
+        "title": "Teen's AI Health Startup Crushes It With $30 Million Forecast",
+        "summary": "Rejected by Ivy League Schools, Zach Yadegari has built a viral AI nutrition and fitness app-and it isn't slowing down.",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.146998,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://decrypt.co/317221/teens-ai-health-startup-30m-forecast",
+        "provider": "Decrypt.co",
+        "provider_url": "https://decrypt.co"
+      },
+      {
+        "title": "Robinhood beats Q1 estimates despite revenue, crypto trading dip",
+        "summary": "Trading platform Robinhood has still managed to beat Wall Street estimates as its first-quarter revenues fell and its crypto trading volume cooled from a record high in Q4.Robinhood's Q1 results shared on April 30 show revenues fell 8.6% from the previous quarter to $927 million, topping Zacks ...",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.139554,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://cointelegraph.com/news/robinhood-beats-estimates-q1-revenue-dip",
+        "provider": "Cointelegraph",
+        "provider_url": "https://cointelegraph.com"
+      }
+    ],
+    "analyst_recommendation_score": 1.54412
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "GOOG",
+  "summary": "Alphabet Inc.'s strong fundamentals, driven by its dominant position in the tech industry, and its ability to adapt to changing market trends, make it a compelling investment opportunity. The company's high P/E ratio and forward P/E ratio indicate a high growth potential, while its beta of 1.014 suggests a relatively stable volatility. However, the recent news about Robinhood's Q1 results and the overall market sentiment indicate a neutral to slightly bullish outlook.",
+  "recommendation": "BUY"
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "MSFT": {
+    "company": "Microsoft Corporation",
+    "ticker": "MSFT",
+    "market_data": {
+      "price": 425.3999938964844,
+      "change": -5.709991455078125,
+      "percent_change": -1.3244860126405398,
+      "volume": 58938100.0,
+      "day_high": 436.989990234375,
+      "day_low": 424.8999938964844,
+      "market_cap": 3162070438599.5312,
+      "summary": "Microsoft Corporation develops and supports software, services, devices, and solutions worldwide. The company's Productivity and Business Processes segment offers Microsoft 365 Commercial, Enterprise Mobility + Security, Windows Commercial, Power BI, Exchange, SharePoint, Microsoft Teams, Security and Compliance, and Copilot; Microsoft 365 Commercial products, such as Windows Commercial on-premises and Office licensed services; Microsoft 365 Consumer products and cloud services, such as Microsoft 365 Consumer subscriptions, Office licensed on-premises, and other consumer services; LinkedIn; Dynamics products and cloud services, such as Dynamics 365, cloud-based applications, and on-premises ERP and CRM applications. Its Intelligent Cloud segment provides Server products and cloud services, such as Azure and other cloud services, GitHub, Nuance Healthcare, virtual desktop offerings, and other cloud services; Server products, including SQL and Windows Server, Visual Studio and System Center related Client Access Licenses, and other on-premises offerings; Enterprise and partner services, including Enterprise Support and Nuance professional Services, Industry Solutions, Microsoft Partner Network, and Learning Experience. The company's Personal Computing segment provides Windows and Devices, such as Windows OEM licensing and Devices and Surface and PC accessories; Gaming services and solutions, such as Xbox hardware, content, and services, first- and third-party content Xbox Game Pass, subscriptions, and Cloud Gaming, advertising, and other cloud services; search and news advertising services, such as Bing and Copilot, Microsoft News and Edge, and third-party affiliates. It sells its products through OEMs, distributors, and resellers; and online and retail stores. The company was founded in 1975 and is headquartered in Redmond, Washington."
+    },
+    "fundamentals": {
+      "pe_ratio": 38.160816,
+      "forward_pe": 34.919064,
+      "eps": 13.68,
+      "dividend_yield": 0.64,
+      "beta": 1.055,
+      "sector": "Technology",
+      "industry": "Software - Infrastructure"
+    },
+    "news": [
+      {
+        "title": "Peter Lynch Once Revealed Existence Of A One Liner So Loved By Warren Buffett That The Oracle Of Omaha Called Him To Borrow It: 'The One Line He Picked\u2026Has Been The Greatest Mistake' - Apple  ( NASDAQ:AAPL ) ",
+        "summary": "Peter Lynch, former manager of the Fidelity Magellan Fund and one of the most respected investors of the 20th century, once confessed that his greatest investing error was selling successful stocks too early.",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.13651,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/25/04/45123486/peter-lynch-once-said-his-biggest-investing-mistake-was-selling-too-soon-and-warren-buffett-loved-the-one-line-he",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      },
+      {
+        "title": "The SMC: what to see at the Shanghai AI incubator visited by Xi Jinping",
+        "summary": "The Chinese president toured the Shanghai Foundation Model Innovation Centre on Tuesday to highlight the country's vast potential in AI.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.270428,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.scmp.com/tech/policy/article/3308589/smc-what-see-shanghai-ai-incubator-visited-xi-jinping",
+        "provider": "South China Morning Post",
+        "provider_url": "https://www.scmp.com"
+      }
+    ],
+    "analyst_recommendation_score": 1.27586
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "MSFT",
+  "summary": "Microsoft Corporation's fundamentals remain strong, with a forward P/E ratio of 34.92 and EPS of $13.68, indicating a relatively high growth potential. The company's beta of 1.055 suggests a moderate level of volatility. However, the recent news about Peter Lynch's investing mistake and the Chinese president's visit to the Shanghai AI incubator may have a neutral impact on the stock price. Analysts have given a score of 1.27586, indicating a generally positive outlook. Considering these factors, I recommend a HOLD recommendation for MSFT.",
+  "recommendation": "HOLD"
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "META": {
+    "company": "Meta Platforms, Inc.",
+    "ticker": "META",
+    "market_data": {
+      "price": 572.2100219726562,
+      "change": -19.8699951171875,
+      "percent_change": -3.355964488524931,
+      "volume": 31159000.0,
+      "day_high": 592.9500122070312,
+      "day_low": 570.5,
+      "market_cap": 1241100649257.8125,
+      "summary": "Meta Platforms, Inc. engages in the development of products that enable people to connect and share with friends and family through mobile devices, personal computers, virtual reality and mixed reality headsets, augmented reality, and wearables worldwide. It operates through two segments, Family of Apps (FoA) and Reality Labs (RL). The FoA segment offers Facebook, which enables people to build community through feed, reels, stories, groups, marketplace, and other; Instagram that brings people closer through instagram feed, stories, reels, live, and messaging; Messenger, a messaging application for people to connect with friends, family, communities, and businesses across platforms and devices through text, audio, and video calls; Threads, an application for text-based updates and public conversations; and WhatsApp, a messaging application that is used by people and businesses to communicate and transact in a private way. The RL segment provides virtual, augmented, and mixed reality related products comprising consumer hardware, software, and content that help people feel connected, anytime, and anywhere. The company was formerly known as Facebook, Inc. and changed its name to Meta Platforms, Inc. in October 2021. The company was incorporated in 2004 and is headquartered in Menlo Park, California."
+    },
+    "fundamentals": {
+      "pe_ratio": 27.8934,
+      "forward_pe": 30.407116,
+      "eps": 27.58,
+      "dividend_yield": 0.28,
+      "beta": 1.273,
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information"
+    },
+    "news": [
+      {
+        "title": "Alibaba's Qwen3 AI model family helps narrow US-China tech gap: analysts",
+        "summary": "It reflects Qwen's current position as the world's largest open-source AI ecosystem, surpassing Meta Platforms' Llama community.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.177802,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.scmp.com/tech/big-tech/article/3308571/alibabas-qwen3-ai-model-family-helps-narrow-tech-gap-between-china-and-us-analysts",
+        "provider": "South China Morning Post",
+        "provider_url": "https://www.scmp.com"
+      },
+      {
+        "title": "Pompliano Seeks $200M in SPAC IPO to Take Crypto Influence Public",
+        "summary": "Pompliano is banking on his online clout to navigate a tough SPAC market and revive digital asset dealmaking on Wall Street.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.316312,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://decrypt.co/317236/pompliano-seeks-200m-spac-ipo-crypto-influence-public",
+        "provider": "Decrypt.co",
+        "provider_url": "https://decrypt.co"
+      }
+    ],
+    "analyst_recommendation_score": 1.44118
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "META",
+  "summary": "Meta Platforms, Inc.'s fundamentals are strong, with a relatively low P/E ratio and a high EPS, indicating a potential for growth. However, the recent decline in price and the company's exposure to the tech industry's volatility may pose some risks. The recent news articles suggest a somewhat-bullish sentiment, but the analyst recommendation score is neutral, indicating a mixed view among analysts.",
+  "recommendation": "HOLD"
+}
+```
+
+Rationale:
+
+*   The P/E ratio of 27.8934 is relatively low compared to its historical average, indicating that the stock may be undervalued. The forward P/E ratio of 30.407116 is also relatively high, suggesting that investors expect the company to grow at a faster rate in the future.
+*   The EPS of 27.58 is relatively high, indicating strong profitability.
+*   The beta of 1.273 suggests that the stock is more volatile than the overall market, which may pose some risks.
+*   The recent decline in price may be a response to the company's exposure to the tech industry's volatility, but it also presents an opportunity to buy at a lower price.
+*   The somewhat-bullish sentiment in the news articles suggests that investors are optimistic about the company's future prospects, but the neutral analyst recommendation score indicates a mixed view among analysts.
+*   Overall, the strong fundamentals and relatively low P/E ratio suggest that the stock may be undervalued, but the risks associated with the tech industry's volatility and the neutral analyst recommendation score suggest that a HOLD recommendation is appropriate.
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "TSLA": {
+    "company": "Tesla, Inc.",
+    "ticker": "TSLA",
+    "market_data": {
+      "price": 280.5199890136719,
+      "change": 0.509979248046875,
+      "percent_change": 0.18212893477406028,
+      "volume": 99659000.0,
+      "day_high": 290.8699951171875,
+      "day_low": 279.80999755859375,
+      "market_cap": 904803194075.8281,
+      "summary": "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally. The company operates in two segments, Automotive; and Energy Generation and Storage. The Automotive segment offers electric vehicles, as well as sells automotive regulatory credits; and non-warranty after-sales vehicle, used vehicles, body shop and parts, supercharging, retail merchandise, and vehicle insurance services. This segment also provides sedans and sport utility vehicles through direct and used vehicle sales, a network of Tesla Superchargers, and in-app upgrades; purchase financing and leasing services; services for electric vehicles through its company-owned service locations and Tesla mobile service technicians; and vehicle limited warranties and extended service plans. The Energy Generation and Storage segment engages in the design, manufacture, installation, sale, and leasing of solar energy generation and energy storage products, and related services to residential, commercial, and industrial customers and utilities through its website, stores, and galleries, as well as through a network of channel partners. This segment also provides services and repairs to its energy product customers, including under warranty; and various financing options to its residential customers. The company was formerly known as Tesla Motors, Inc. and changed its name to Tesla, Inc. in February 2017. Tesla, Inc. was incorporated in 2003 and is headquartered in Austin, Texas."
+    },
+    "fundamentals": {
+      "pe_ratio": 196.22025,
+      "forward_pe": 101.74383,
+      "eps": 1.68,
+      "dividend_yield": 0,
+      "beta": 2.331,
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers"
+    },
+    "news": [
+      {
+        "title": "Tesla Board Explored Replacing Elon Musk As Tesla CEO A Month Ago: Report - Tesla  ( NASDAQ:TSLA ) ",
+        "summary": "Tesla Inc.'s TSLA board reportedly began searching for a successor to Elon Musk after the company faced significant financial setbacks.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.157356,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/25/04/45124373/tesla-board-explored-replacing-elon-musk-as-tesla-ceo-a-month-ago-report",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      },
+      {
+        "title": "'Someone Please Come Buy A Tesla. Anyone...' Says Ross Gerber As He Mocks Tesla's Desperate Incentives - Tesla  ( NASDAQ:TSLA ) ",
+        "summary": "Tesla TSLA is throwing out big incentives to move cars, but not everyone is impressed. In fact, longtime Tesla investor Ross Gerber is openly mocking the company's latest moves. Mode Mobile developed a smartphone called EarnPhone, which allows users to earn and save money by playing video games, ...",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.063558,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/news/25/04/45124700/someone-please-come-buy-a-tesla-anyone-says-ross-gerber-as-he-mocks-teslas-desperate-incentives",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      }
+    ],
+    "analyst_recommendation_score": 2.67391
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "TSLA",
+  "summary": "Tesla, Inc.'s recent financial struggles and the ongoing search for a new CEO may lead to a short-term correction, but the company's long-term fundamentals and growth potential remain strong. The company's innovative products, expanding energy business, and increasing adoption of electric vehicles suggest a resilient position in the market.",
+  "recommendation": "HOLD"
+}
+```
+
+Rationale:
+
+1. **Market Data Analysis**: The stock price has shown a slight increase of 0.51% over the past day, with a day high of 290.87 and a day low of 279.81. The volume is relatively high, indicating strong trading activity. While this could be a sign of investor confidence, it's essential to consider the company's underlying fundamentals.
+
+2. **Fundamental Analysis**: Tesla's PE ratio of 196.22 is significantly higher than the industry average, indicating that investors are willing to pay a premium for the company's growth potential. The forward PE ratio of 101.74 is also higher than the industry average, suggesting that investors expect the company to continue growing at a rapid pace. The EPS of 1.68 is relatively high, indicating strong profitability. However, the dividend yield is 0, which may be a concern for income investors.
+
+3. **News Analysis**: The recent news about Tesla's board exploring the possibility of replacing Elon Musk as CEO may lead to a short-term correction. However, this news does not necessarily impact the company's long-term prospects. The sentiment analysis from Benzinga shows a somewhat-bullish tone, indicating that investors remain optimistic about the company's future.
+
+4. **Analyst Recommendation**: The analyst recommendation score of 2.67 suggests that most analysts are bullish on the stock, indicating a strong buy signal.
+
+Considering these factors, the recommendation is to HOLD the stock, as the company's long-term fundamentals and growth potential remain strong despite the short-term uncertainty surrounding Elon Musk's leadership.
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "NVDA": {
+    "company": "NVIDIA Corporation",
+    "ticker": "NVDA",
+    "market_data": {
+      "price": 111.61000061035156,
+      "change": -1.470001220703125,
+      "percent_change": -1.299965685267105,
+      "volume": 236121500.0,
+      "day_high": 114.94000244140625,
+      "day_low": 111.30000305175781,
+      "market_cap": 2721900093743.25,
+      "summary": "NVIDIA Corporation, a computing infrastructure company, provides graphics and compute and networking solutions in the United States, Singapore, Taiwan, China, Hong Kong, and internationally. The Compute & Networking segment includes its Data Centre accelerated computing platforms and artificial intelligence solutions and software; networking; automotive platforms and autonomous and electric vehicle solutions; Jetson for robotics and other embedded platforms; and DGX Cloud computing services. The Graphics segment offers GeForce GPUs for gaming and PCs, the GeForce NOW game streaming service and related infrastructure, and solutions for gaming platforms; Quadro/NVIDIA RTX GPUs for enterprise workstation graphics; virtual GPU or vGPU software for cloud-based visual and virtual computing; automotive platforms for infotainment systems; and Omniverse software for building and operating industrial AI and digital twin applications. It also customized agentic solutions designed in collaboration with NVIDIA to accelerate enterprise AI adoption. The company's products are used in gaming, professional visualization, data center, and automotive markets. It sells its products to original equipment manufacturers, original device manufacturers, system integrators and distributors, independent software vendors, cloud service providers, consumer internet companies, add-in board manufacturers, distributors, automotive manufacturers and tier-1 automotive suppliers, and other ecosystem participants. NVIDIA Corporation was incorporated in 1993 and is headquartered in Santa Clara, California."
+    },
+    "fundamentals": {
+      "pe_ratio": 58.557693,
+      "forward_pe": 44.34466,
+      "eps": 3.12,
+      "dividend_yield": 0.02,
+      "beta": 2.145,
+      "sector": "Technology",
+      "industry": "Semiconductors"
+    },
+    "news": [
+      {
+        "title": "Alibaba's Qwen3 AI model family helps narrow US-China tech gap: analysts",
+        "summary": "It reflects Qwen's current position as the world's largest open-source AI ecosystem, surpassing Meta Platforms' Llama community.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.177802,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.scmp.com/tech/big-tech/article/3308571/alibabas-qwen3-ai-model-family-helps-narrow-tech-gap-between-china-and-us-analysts",
+        "provider": "South China Morning Post",
+        "provider_url": "https://www.scmp.com"
+      },
+      {
+        "title": "Peter Lynch Once Revealed Existence Of A One Liner So Loved By Warren Buffett That The Oracle Of Omaha Called Him To Borrow It: 'The One Line He Picked\u2026Has Been The Greatest Mistake' - Apple  ( NASDAQ:AAPL ) ",
+        "summary": "Peter Lynch, former manager of the Fidelity Magellan Fund and one of the most respected investors of the 20th century, once confessed that his greatest investing error was selling successful stocks too early.",
+        "sentiment": "Neutral",
+        "sentiment_score": 0.13651,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/25/04/45123486/peter-lynch-once-said-his-biggest-investing-mistake-was-selling-too-soon-and-warren-buffett-loved-the-one-line-he",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      }
+    ],
+    "analyst_recommendation_score": 1.41538
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NVDA",
+  "summary": "NVIDIA Corporation's fundamentals remain strong, with a high P/E ratio and a beta of 2.145, indicating a potential for growth. The company's recent news and analyst recommendations suggest a positive outlook. However, the recent decline in price may be a temporary correction. Overall, the company's diversified product portfolio and its position in the rapidly growing AI and gaming markets make it a good hold for long-term investors.",
+  "recommendation": "HOLD"
+}
+```
+
+Rationale:
+
+1. **Fundamentals:** NVIDIA's P/E ratio of 58.557693 is higher than the industry average, indicating that investors are expecting strong growth from the company. The forward P/E ratio of 44.34466 is also relatively high, suggesting that investors are optimistic about the company's future prospects. The beta of 2.145 indicates that the company's stock price is expected to be volatile, but this is not unusual for a technology company.
+
+2. **Market Data:** The recent decline in price may be a temporary correction, and the company's market capitalization of $2.7219 billion suggests that it has a strong financial position. The volume of 236 million shares traded is relatively high, indicating strong investor interest in the company.
+
+3. **News:** The recent news articles suggest a positive outlook for the company. The article from South China Morning Post highlights NVIDIA's Qwen3 AI model family, which is helping to narrow the tech gap between China and the US. This is a positive development for the company, as it suggests that its technology is being adopted by major players in the industry. The article from Benzinga mentions Peter Lynch, a well-known investor, who has praised NVIDIA's products and services.
+
+4. **Analyst Recommendation:** The analyst recommendation score of 1.41538 is above the industry average, indicating that most analysts are bullish on the company. This suggests that the majority of analysts believe that NVIDIA's stock has the potential to outperform the market.
+
+Overall, based on the analysis of the company's fundamentals, market data, news, and analyst recommendations, I recommend holding NVIDIA Corporation's stock. While the recent decline in price may be a temporary correction, the company's strong fundamentals, diversified product portfolio, and positive news suggest that it has a good chance of outperforming the market in the long term.
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "AMZN": {
+    "company": "Amazon.com, Inc.",
+    "ticker": "AMZN",
+    "market_data": {
+      "price": 190.1999969482422,
+      "change": -0.4300079345703125,
+      "percent_change": -0.22557201046847514,
+      "volume": 74266000.0,
+      "day_high": 191.80999755859375,
+      "day_low": 187.5,
+      "market_cap": 2028463868330.1094,
+      "summary": "Amazon.com, Inc. engages in the retail sale of consumer products, advertising, and subscriptions service through online and physical stores in North America and internationally. The company operates through three segments: North America, International, and Amazon Web Services (AWS). It also manufactures and sells electronic devices, including Kindle, fire tablets, fire TVs, echo, ring, blink, and eero; and develops and produces media content. In addition, the company offers programs that enable sellers to sell their products in its stores; and programs that allow authors, independent publishers, musicians, filmmakers, Twitch streamers, skill and app developers, and others to publish and sell content. Further, it provides compute, storage, database, analytics, machine learning, and other services, as well as advertising services through programs, such as sponsored ads, display, and video advertising. Additionally, the company offers Amazon Prime, a membership program. The company's products offered through its stores include merchandise and content purchased for resale and products offered by third-party sellers. It serves consumers, sellers, developers, enterprises, content creators, advertisers, and employees. Amazon.com, Inc. was incorporated in 1994 and is headquartered in Seattle, Washington."
+    },
+    "fundamentals": {
+      "pe_ratio": 33.946648,
+      "forward_pe": 36.209755,
+      "eps": 6.56,
+      "dividend_yield": 0,
+      "beta": 1.314,
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail"
+    },
+    "news": [
+      {
+        "title": "Microsoft, Apple And 3 Stocks To Watch Heading Into Thursday - Apple  ( NASDAQ:AAPL ) , Amazon.com  ( NASDAQ:AMZN ) ",
+        "summary": "With U.S. stock futures trading higher this morning on Thursday, some of the stocks that may grab investor focus today are as follows: Wall Street expects McDonald's Corporation MCD to report quarterly earnings at $2.66 per share on revenue of $6.09 billion before the opening bell, according to ...",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.266055,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.benzinga.com/25/05/45126562/microsoft-apple-and-3-stocks-to-watch-heading-into-thursday",
+        "provider": "Benzinga",
+        "provider_url": "https://www.benzinga.com"
+      },
+      {
+        "title": "Down Nearly 20%, This AI Giant Is the Best Bargain \"Magnificent Seven\" Stock Right Now",
+        "summary": "Stocks known as the \"Magnificent Seven\" led market gains last year as investors bet on a potential artificial intelligence ( AI ) revolution. This group of top tech stocks has been investing heavily in AI, and each member is well positioned to benefit from the AI growth story.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.290693,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.fool.com/investing/2025/05/01/down-nearly-20-this-ai-giant-is-the-best-bargain-m/",
+        "provider": "Motley Fool",
+        "provider_url": "https://www.fool.com"
+      }
+    ],
+    "analyst_recommendation_score": 1.31884
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "AMZN",
+  "summary": "Amazon.com, Inc.'s fundamentals are strong, with a high price-to-earnings ratio and a beta of 1.314, indicating a relatively high volatility. The company's recent news and analyst recommendations suggest a somewhat-bullish sentiment, with a score of 1.31884 indicating a strong buy recommendation. However, the stock's recent price drop of 0.22557201046847514% may indicate some caution. Considering these factors, I recommend a HOLD position on AMZN.",
+  "recommendation": "HOLD"
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "NFLX": {
+    "company": "Netflix, Inc.",
+    "ticker": "NFLX",
+    "market_data": {
+      "price": 1133.469970703125,
+      "change": 10.949951171875,
+      "percent_change": 0.9754793661896167,
+      "volume": 3499500.0,
+      "day_high": 1142.4200439453125,
+      "day_low": 1111.8299560546875,
+      "market_cap": 481640878906.5156,
+      "summary": "Netflix, Inc. provides entertainment services. The company offers television (TV) series, documentaries, feature films, and games across various genres and languages. It also provides members the ability to receive streaming content through a host of internet-connected devices, including TVs, digital video players, TV set-top boxes, and mobile devices. The company operates approximately in 190 countries. Netflix, Inc. was incorporated in 1997 and is headquartered in Los Gatos, California."
+    },
+    "fundamentals": {
+      "pe_ratio": 51.5811,
+      "forward_pe": 50.95206,
+      "eps": 23.49,
+      "dividend_yield": 0,
+      "beta": 1.589,
+      "sector": "Communication Services",
+      "industry": "Entertainment"
+    },
+    "news": [
+      {
+        "title": "Still Time to Buy Spotify  ( SPOT )  Stock After Q1 Earnings?",
+        "summary": "Despite missing its first quarter expectations on Tuesday, Spotify (SPOT) stock has risen +3% since its Q1 report to over $600 a share.",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.186344,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.zacks.com/stock/news/2459686/still-time-to-buy-spotify-spot-stock-after-q1-earnings",
+        "provider": "Zacks Commentary",
+        "provider_url": "https://www.zacks.com"
+      },
+      {
+        "title": "Bull of the Day: Spotify Technology S.A.  ( SPOT ) ",
+        "summary": "Spotify's 2025 outperformance is part of a tech-destroying 450% climb in the past three years as Wall Street celebrates its user and revenue growth and ability to start churning out profits ...",
+        "sentiment": "Somewhat-bullish",
+        "sentiment_score": 0.243866,
+        "published_date": "2025-05-01T00:00:00Z",
+        "url": "https://www.zacks.com/commentary/2459414/bull-of-the-day-spotify-technology-sa-spot",
+        "provider": "Zacks Commentary",
+        "provider_url": "https://www.zacks.com"
+      }
+    ],
+    "analyst_recommendation_score": 2.0
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "NFLX",
+  "summary": "NFLX's fundamentals are strong, with a high P/E ratio and a beta of 1.589, indicating a relatively high level of volatility. However, the company's recent news and analyst recommendations suggest a positive outlook. The sentiment analysis of the news articles indicates a somewhat-bullish tone, with a sentiment score of 0.186344 and 0.243866 respectively. The analyst recommendation score is 2.0, indicating a strong buy. Considering these factors, I recommend holding NFLX.",
+  "recommendation": "HOLD"
+}
+```
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+
+Cutting Knowledge Date: December 2023
+Today Date: 13 Aug 2025
+
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.<|eot_id|><|start_header_id|>user<|end_header_id|>
+
+Today's date is 2025-05-01.
+
+            Here is the securities data:
+{
+  "VXX": {
+    "company": "iPath Series B S&P 500 VIX Short-Term Futures ETN",
+    "ticker": "VXX",
+    "market_data": {
+      "price": 63.41999816894531,
+      "change": 0.6699981689453125,
+      "percent_change": 1.0677261656499004,
+      "volume": 4003600.0,
+      "day_high": 64.58000183105469,
+      "day_low": 62.56999969482422,
+      "market_cap": 63.41999816894531,
+      "summary": "The ETN offers exposure to futures contracts of specified maturities on the VIX index and not direct exposure to the VIX index or its spot level. The index is designed to provide investors with exposure to one or more maturities of futures contracts on the CBOE Volatility Index\u00ae."
+    },
+    "fundamentals": {
+      "pe_ratio": null,
+      "forward_pe": null,
+      "eps": null,
+      "dividend_yield": 0.0,
+      "beta": null,
+      "sector": null,
+      "industry": null
+    },
+    "news": [],
+    "analyst_recommendation_score": null
+  }
+}<|eot_id|><|start_header_id|>assistant<|end_header_id|>
+
+```json
+{
+  "ticker": "VXX",
+  "summary": "The iPath Series B S&P 500 VIX Short-Term Futures ETN (VXX) has shown a significant increase in price over the past few trading days, driven by rising market volatility. The current price of $63.42 is above its 50-day moving average, indicating a bullish trend. However, the lack of fundamental data, including EPS and PE ratio, makes it challenging to determine the underlying health of the company. Analyst recommendations are not available, and news headlines are limited. Given these factors, I recommend a cautious approach and suggest holding the security for now.",
+  "recommendation": "HOLD"
+}
+```
+
+Rationale:
+
+*   The price of VXX has increased by 1.07% over the past day, indicating a bullish trend.
+*   The price is above its 50-day moving average, suggesting that the trend is upward.
+*   However, the lack of fundamental data, including EPS and PE ratio, makes it challenging to determine the underlying health of the company.
+*   Analyst recommendations are not available, which can provide valuable insights into the market's expectations for the company's future performance.
+*   News headlines are limited, which can indicate a lack of significant events or announcements that could impact the company's stock price.
+*   Given these factors, a cautious approach is recommended, and holding the security for now seems to be the best course of action.

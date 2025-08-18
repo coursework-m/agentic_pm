@@ -99,7 +99,7 @@ researcher_prompt = HumanMessage(content="""You are a financial research analyst
     2. Use detailed analysis and reasoning to justify your conclusion.
     
     For the security, return:
-        - "ticker"
+        - "ticker": the security's ticker symbol
         - "approved": true or false
         - "target_allocation_percent": `%` of total portfolio (float)
         - "reasoning": your reasoning for approval/denial

@@ -9,8 +9,9 @@ from nodes.nodes import (
     researcher_node,
     tool_node,
     trader_node,
-    store_node,
     portfolio_node,
+    store_node,
+    performance_node
 )
 def build_workflow(store, checkpointer=None, checkpoint=False):
     """Builds the workflow for the Agentic PM project."""
@@ -23,6 +24,7 @@ def build_workflow(store, checkpointer=None, checkpoint=False):
     workflow.add_node("trader_node", trader_node)
     workflow.add_node("store_node", store_node)
     workflow.add_node("portfolio_node", portfolio_node)
+    workflow.add_node("performance_node", performance_node)
     workflow.add_node("router_node", router_node)
     workflow.set_entry_point("memory_node")
     workflow.add_conditional_edges("researcher_node", router_node, {
@@ -33,9 +35,16 @@ def build_workflow(store, checkpointer=None, checkpoint=False):
     workflow.add_edge("data_node", "analyst_node")
     workflow.add_edge("analyst_node", "researcher_node")
     workflow.add_edge("tool_node", "researcher_node")
-    workflow.add_edge("trader_node", "store_node")
-    workflow.add_edge("store_node", "portfolio_node")
-    workflow.add_edge("portfolio_node", END)
+    # Old flow
+    # workflow.add_edge("trader_node", "store_node")
+    # workflow.add_edge("store_node", "portfolio_node")
+    # workflow.add_edge("portfolio_node", END)
+    # New flow
+    # Trader → Portfolio → Store → END
+    workflow.add_edge("trader_node", "portfolio_node")
+    workflow.add_edge("portfolio_node", "store_node")
+    workflow.add_edge("store_node", "performance_node")
+    workflow.add_edge("performance_node", END)
 
     # Checkpointing and store handling
     if checkpoint:

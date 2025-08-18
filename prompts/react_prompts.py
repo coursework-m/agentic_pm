@@ -110,8 +110,8 @@ react_researcher_prompt = PromptTemplate(
     2. Use detailed analysis and reasoning to justify your conclusion.
     
     For each security, return:
-        - "ticker"
-        - "approved": true or false
+        - "ticker": the security's ticker symbol
+        - "approved": True or False
         - "target_allocation_percent": `%` of total portfolio (float)
         - "reasoning": your reasoning for approval/denial
 
@@ -122,7 +122,7 @@ react_researcher_prompt = PromptTemplate(
     ```json
     {{
         "ticker": "AAPL",
-        "approved": true,
+        "approved": True,
         "target_allocation_percent": 4.0,
         "reasoning": "AAPL is stable and aligns with a conservative portfolio..."
     }}

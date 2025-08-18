@@ -12,7 +12,7 @@ class CustomState(MessagesState, total=False):
     research_summary: List[Dict[str, Any]]
     portfolio: Dict[str, Any]
     portfolio_value: float
-    portfolio_history: Dict[str, Any]
+    portfolio_history: List[Dict[str, Any]]
     total_asset_value: float
     chat_history: List[Any]
     structured_response: List[Any]
@@ -20,11 +20,14 @@ class CustomState(MessagesState, total=False):
     holdings_value: float
     cash: float
     daily_realised_pnl: float
-    realized_pnl: float
+    cum_realised_pnl: float
     unrealised_pnl: float
     reasoning: List[str]
     total_market_value: float
     total_pnl: float
     analysis_response: str
     research_response: str
+    prices: Dict[str, Any]
     portfolio_summary: Dict[str, Any]
+    metrics: Dict[str, Any]
+    daily_pnl: float

@@ -16,21 +16,15 @@ class AnalystSchema(BaseModel):
     response: list
 
 
-def get_llm(backend: str = "hf", model_name: str = "gpt-oss:20b"):
+def get_llm(backend: str = "hf", model_name: str = "google/gemma-3-4b-it", llm_config=None):
     """Initialize and return the LLM model based on the configuration."""
-    # mistral:v0.3
-    # llama3:latest
-    # qwen3:latest
-    # gemma3:latest
-    # deepseek-r1:latest
-    # gpt-oss:20b
     tools = [fetch_economic_data, search_news, search]
     if backend == "ollama":
         llm = ChatOllama(
             # format="json",
             model=model_name,
-            temperature=0.15,
-            num_ctx=8192,
+            temperature=llm_config.get("temperature", 0.15),
+            num_ctx=llm_config.get("max_new_tokens", 8192),
             num_gpu=1
         )
         # llm = llm.bind_tools(tools)
@@ -46,8 +40,11 @@ def get_llm(backend: str = "hf", model_name: str = "gpt-oss:20b"):
             handle_parsing_errors=True
         )
         return llm_executor
-    elif backend == "hf":
-        model_name="meta-llama/Llama-3.2-3B-Instruct"
-        llm = load_llm(model_id=model_name)
+    if backend == "hf":
+        llm = load_llm(
+            model_id=model_name,
+            temperature=llm_config['temperature'],
+            max_new_tokens=llm_config['max_new_tokens']
+        )
         llm = llm.bind_tools(tools)
         return llm

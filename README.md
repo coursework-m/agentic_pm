@@ -57,7 +57,7 @@ Ensure you have a PostgreSQL database running and create a database for Agentic 
 - **LLM Setup:** Configure models in `models/llm_setup.py` and `models/hf_setup.py` to specify which LLMs to use.
 - **Tools:** Add or modify data tools in `tools/tools.py` to integrate additional data sources or utilities.
 - **Nodes:** Implement custom agent logic in `nodes/agent_nodes.py` to define how agents interact with data and make decisions.
-- **Workflow:** Adjust workflow orchestration in `workflow/workflow.py` to customize the sequence of agent interactions and data processing
+- **Workflow:** Adjust workflow orchestration in `workflow/workflow.py` to customise the sequence of agent interactions and data processing
 
 ## Usage
 
