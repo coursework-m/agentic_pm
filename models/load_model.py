@@ -27,7 +27,8 @@ def load_llm(model_id: str, temperature=0.15, max_new_tokens=2028):
         tokenizer=tokenizer,
         max_new_tokens=max_new_tokens,
         temperature=temperature,
-        do_sample=True
+        do_sample=True,
+        device_map={"": device}
     )
 
     wrapped_llm = HuggingFacePipeline(pipeline=pipe)

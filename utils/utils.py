@@ -7,6 +7,36 @@ from json import JSONDecodeError
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+def extract_last_json(response_text: str) -> dict:
+    """
+    Extract and parse the last JSON object found in a text response.
+
+    Args:
+        response_text (str): The full response containing text and JSON.
+
+    Returns:
+        dict: The last JSON object as a Python dictionary.
+    """
+    stack = []
+    start = None
+    last_json_str = None
+
+    for i, ch in enumerate(response_text):
+        if ch == "{":
+            if not stack:
+                start = i
+            stack.append(ch)
+        elif ch == "}":
+            stack.pop()
+            if not stack and start is not None:
+                last_json_str = response_text[start:i+1]
+                start = None  # reset for safety
+
+    if not last_json_str:
+        raise ValueError("No JSON object found in response.")
+
+    return json.loads(last_json_str)
+
 def reverse_regex_json_block(text):
     """Extract the last valid JSON block (by reversing the string)"""
     reversed_text = text[::-1]
@@ -36,3 +66,5 @@ def parse_summary(content: str):
         return reverse_regex_json_block(content)
     except (IndexError, JSONDecodeError, ValueError) as e:
         logger.info(f"[INFO] regex parser failed: {e} for content: {content}")
+        logger.info(f"[INFO] Falling back to last JSON extraction")
+        return extract_last_json(content)

@@ -6,10 +6,11 @@ from pathlib import Path
 from datetime import datetime, timedelta
 from models.llm_setup import get_llm
 from main import daily_run
-from utils.constants import OUTPUT_DIR6
+from utils.constants import OUTPUT_DIR
 
-def find_resume_date(thread_id, start_date, end_date):
+def find_resume_date(thread_id, start_date, end_date, model_name):
     """Find the last completed date"""
+    OUTPUT_DIR6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
     folder = Path(OUTPUT_DIR6) / thread_id
     print(f"Folder is {folder}")
     if not folder.exists():
@@ -43,7 +44,7 @@ def backtest(start_date=START_DATE,
     else:
         code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=5))
     thread_id=f"{code}_{start_date.strftime('%Y-%m-%d')}_{end_date.strftime('%Y-%m-%d')}"
-    date = find_resume_date(thread_id, start_date, end_date)
+    date = find_resume_date(thread_id, start_date, end_date, model_config['model'])
     print(f"Start date is {date}")
     while date <= end_date:
         print(f"While date is {date}")
@@ -91,11 +92,11 @@ if __name__ == '__main__':
     # gpt-oss:20b
     # ///////////////////// #
     # HF ids
-    # meta-llama/Llama-3.2-3B-Instruct
+    # "meta-llama/Llama-3.2-3B-Instruct"
     # "openai/gpt-oss-20b"
     # "Qwen/Qwen3-4B"
-    # "Qwen/Qwen3-8B"
-    # "Qwen/Qwen3-4B-Thinking-2507-FP8"
+    # "google/gemma-3-270m"
+    # "google/gemma-3-270m-it"
     # "google/gemma-3-4b-it"
     llm_config = {
         "model": "Qwen/Qwen3-4B",

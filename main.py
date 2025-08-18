@@ -61,22 +61,23 @@ def daily_run(today=None,
 
 if __name__ == "__main__":
     # ollama ids
-    # mistral:v0.3
-    # llama3:latest
-    # qwen3:latest
-    # gemma3:latest
-    # deepseek-r1:latest
-    # gpt-oss:20b
+    # "mistral:v0.3"
+    # "llama3:latest"
+    # "qwen3:latest"
+    # "gemma3:latest"
+    # "deepseek-r1:latest"
+    # "gpt-oss:20b" // too large to run on MacPro in a reasonable time
     # ///////////////////// #
     # HF ids
     # "meta-llama/Llama-3.2-3B-Instruct"
-    # "openai/gpt-oss-20b"
+    # "openai/gpt-oss-20b" // too large to run on MacPro in a reasonable time
     # "Qwen/Qwen3-4B"
-    # "Qwen/Qwen3-8B"
-    # "Qwen/Qwen3-4B-Thinking-2507-FP8"
-    # "google/gemma-3-4b-it"
+    # "google/gemma-3-270m" // Google models require a seperate
+    # "google/gemma-3-270m-it" // message structure
+    # "google/gemma-3-4b-it" // (not implemented yet)
+    # "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
     llm_config = {
-        "model": "meta-llama/Llama-3.2-3B-Instruct",
+        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
         "max_new_tokens": 4096,
         "temperature": 0.15,
         "backend": "hf" # Use 'ollama' backend for REACT LLM
