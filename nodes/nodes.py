@@ -140,15 +140,12 @@ def data_node(state: CustomState, config: dict) -> dict:
 def analyst_node(state: CustomState, config: dict) -> dict:
     """Call Analyst Node"""
     analyst_config = config
-    model_config = config.get("configurable", {}).get("model_config", {})
     today = config.get("configurable", {}).get("today", datetime.now())
     thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
     securities_data = state["securities_data"]
     llm = analyst_config["configurable"]["llm"]
-    OUTPUT_DIR3 = f"{OUTPUT_DIR}/analysts_summary"
-    os.makedirs(OUTPUT_DIR3, exist_ok=True)
-    OUTPUT_DIR7 = f"{OUTPUT_DIR}/analyst_response"
-    os.makedirs(OUTPUT_DIR7, exist_ok=True)
+    model_config = config.get("configurable", {}).get("model_config", {})
+    model_name = model_config["model"]
 
     analyst_summary = []
     analyst_responses = []
@@ -159,7 +156,7 @@ def analyst_node(state: CustomState, config: dict) -> dict:
         ticker_message = HumanMessage(
             content=f"""Today's date is {today}.\n
             Here is the securities data:\n{sec_data_str}""",
-            name=f"{model_config['model']} analyst node"
+            name=f"{model_name} analyst node"
         )
         analyst_messages = [analyst_system_prompt, analyst_prompt, ticker_message]
         analyst_response = llm.invoke(analyst_messages, analyst_config)
@@ -170,6 +167,10 @@ def analyst_node(state: CustomState, config: dict) -> dict:
         analyst_responses.append(analyst_response)
         contents.append(content)
 
+    OUTPUT_DIR3 = f"{OUTPUT_DIR}/{model_name}/analysts_summary"
+    os.makedirs(OUTPUT_DIR3, exist_ok=True)
+    OUTPUT_DIR7 = f"{OUTPUT_DIR}/{model_name}/analyst_response"
+    os.makedirs(OUTPUT_DIR7, exist_ok=True)
     filename = os.path.join(OUTPUT_DIR3 + f"/{thread_id}", f"{today}.json")
     os.makedirs(OUTPUT_DIR3 + f"/{thread_id}", exist_ok=True)
     os.makedirs(OUTPUT_DIR7 + f"/{thread_id}", exist_ok=True)
@@ -187,17 +188,14 @@ def analyst_node(state: CustomState, config: dict) -> dict:
 def researcher_node(state: CustomState, config: dict) -> dict:
     """Call Research Node"""
     researcher_config = config
-    model_config = config.get("configurable", {}).get("model_config", {})
     today = config.get("configurable", {}).get("today", datetime.now())
     thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
     securities_data = {k: v for d in state.get("securities_data", []) for k, v in d.items()}
     analysis_summary = state["analysis_summary"]
     llm = researcher_config["configurable"]["llm"]
     react = researcher_config["configurable"].get("react", False)
-    OUTPUT_DIR4 = f"{OUTPUT_DIR}/research_summary"
-    os.makedirs(OUTPUT_DIR4, exist_ok=True)
-    OUTPUT_DIR8 = f"{OUTPUT_DIR}/research_response"
-    os.makedirs(OUTPUT_DIR8, exist_ok=True)
+    model_config = config.get("configurable", {}).get("model_config", {})
+    model_name = model_config["model"]
     content = str
     research_summary = []
     research_responses = []
@@ -237,6 +235,10 @@ def researcher_node(state: CustomState, config: dict) -> dict:
         research_responses.append(research_response)
         contents.append(content)
 
+    OUTPUT_DIR4 = f"{OUTPUT_DIR}/{model_name}/research_summary"
+    os.makedirs(OUTPUT_DIR4, exist_ok=True)
+    OUTPUT_DIR8 = f"{OUTPUT_DIR}/{model_name}/research_response"
+    os.makedirs(OUTPUT_DIR8, exist_ok=True)
     filename = os.path.join(OUTPUT_DIR4 + f"/{thread_id}", f"{today}.json")
     os.makedirs(OUTPUT_DIR4 + f"/{thread_id}", exist_ok=True)
     os.makedirs(OUTPUT_DIR8 + f"/{thread_id}", exist_ok=True)
@@ -251,145 +253,6 @@ def researcher_node(state: CustomState, config: dict) -> dict:
         "messages": state["messages"] + research_responses
     }
 
-# def trader_node(state: CustomState, config: dict) -> dict:
-#     """Call Trader node with full rebalance logic"""
-#     try:
-#         research_summary = state["research_summary"]
-#     except KeyError as e:
-#         return {
-#             "messages": state["messages"] + [AIMessage(
-#                 content=f"Error parsing research summary: {e}", name="trader")]
-#         }
-#     today = config.get("configurable", {}).get("today", datetime.now())
-#     securities_data = {k: v for d in state.get("securities_data", []) for k, v in d.items()}
-#     analysis_summary = {rec["ticker"]: rec for rec in state.get("analysis_summary", [])}
-#     holdings = dict(state.get("holdings", {}))
-#     cash = state.get("cash", 100_000.0)
-#     realised_pnl = state.get("realised_pnl", 0.0)
-#     transactions = state.get("transactions", [])
-
-#     # Compute total portfolio value
-#     portfolio_value = cash + sum(
-#         holdings[t]["quantity"] * securities_data[t]["market_data"]["price"]
-#         for t in holdings if t in securities_data
-#     )
-
-#     for record in research_summary:
-#         if record['ticker']:
-#             ticker = record["ticker"]
-#         else:
-#             continue
-#         approved = record["approved"]
-#         allocation_pct = record.get("target_allocation_percent", 0.0) / 100.0
-#         price = securities_data.get(ticker, {}).get("market_data", {}).get("price", 0)
-
-#         if price is None or price <= 0.0:
-#             continue
-
-#         target_value = allocation_pct * portfolio_value
-#         holding = holdings.get(ticker, {"quantity": 0.0, "buy_price": price})
-#         current_qty = holding["quantity"]
-#         current_value = current_qty * price
-
-#         analyst_rec = analysis_summary.get(ticker, {}).get("recommendation", "HOLD")
-
-#         # --- SELL (Full or Rebalance) ---
-#         if approved and analyst_rec == "SELL":
-#             if current_qty > 0:
-#                 proceeds = current_qty * price
-#                 original_cost = current_qty * holding["buy_price"]
-#                 realised_pnl += proceeds - original_cost
-#                 cash += proceeds
-#                 transactions.append({
-#                     "ticker": ticker,
-#                     "type": "SELL",
-#                     "price": price,
-#                     "quantity": current_qty,
-#                     "total": proceeds,
-#                     "date": today
-#                 })
-#                 del holdings[ticker]
-#                 print(f"Sold {current_qty:.2f} of {ticker} (SELL recommendation)")
-#             continue
-
-#         if not approved:
-#             continue  # Skip unapproved tickers
-
-#         # Rebalance Logic
-#         diff = current_value - target_value
-
-#         if diff > 0.01:  # Over-allocated → SELL
-#             amount_to_sell = diff
-#             qty_to_sell = amount_to_sell / price
-#             qty_to_sell = min(qty_to_sell, current_qty)
-
-#             proceeds = qty_to_sell * price
-#             original_cost = qty_to_sell * holding["buy_price"]
-#             realised_pnl += proceeds - original_cost
-#             cash += proceeds
-#             remaining_qty = current_qty - qty_to_sell
-
-#             if remaining_qty <= 0:
-#                 del holdings[ticker]
-#             else:
-#                 holdings[ticker]["quantity"] = remaining_qty
-
-#             transactions.append({
-#                 "ticker": ticker,
-#                 "type": "SELL",
-#                 "price": price,
-#                 "quantity": qty_to_sell,
-#                 "total": proceeds,
-#                 "date": today
-#             })
-#             print(f"Rebalanced: Sold {qty_to_sell:.2f} of {ticker} (over-allocated)")
-
-#         elif diff < -0.01:  # Under allocated → BUY
-#             amount_to_buy = min(cash, -diff)
-#             qty_to_buy = amount_to_buy / price
-#             new_total_qty = current_qty + qty_to_buy
-#             new_total_cost = (current_qty * holding["buy_price"]) + (qty_to_buy * price)
-#             new_avg_price = new_total_cost / new_total_qty if new_total_qty > 0 else price
-
-#             holdings[ticker] = {
-#                 "quantity": new_total_qty,
-#                 "buy_price": new_avg_price,
-#                 "date": today
-#             }
-#             cash -= amount_to_buy
-
-#             transactions.append({
-#                 "ticker": ticker,
-#                 "type": "BUY",
-#                 "price": price,
-#                 "quantity": qty_to_buy,
-#                 "total": amount_to_buy,
-#                 "date": today
-#             })
-#             print(f"Rebalanced: Bought {qty_to_buy:.2f} of {ticker} (under-allocated)")
-
-#         else:
-#             print(f"No rebalancing needed for {ticker} (within target)")
-
-#     filename = os.path.join(OUTPUT_DIR5, f"{today}.json")
-#     with open(filename, "w", encoding="utf-8") as f:
-#         json.dump(transactions, f, indent=2)
-#     trader_message = HumanMessage(
-#         content=f"""Rebalanced portfolio.\nHoldings:\n```json\n{
-#             json.dumps(holdings, indent=2)
-#         }\n```\n
-#         Transactions:\n```json\n{json.dumps(transactions, indent=2)}\n```""",
-#         name="trader"
-#     )
-
-#     return {
-#         **state,
-#         "holdings": holdings,
-#         "cash": cash,
-#         "realised_pnl": realised_pnl,
-#         "transactions": transactions,
-#         "messages": state["messages"] + [trader_message],
-#     }
 
 def trader_node(state: CustomState, config: dict) -> dict:
     """Execute rebalancing and trades"""
@@ -526,87 +389,6 @@ def trader_node(state: CustomState, config: dict) -> dict:
         "transactions": transactions,
         "messages": state["messages"] + [trader_message],
     }
-
-# def portfolio_node(state: dict, config: dict) -> dict:
-#     """Save Portfolio Data and display a P&L summary."""
-
-#     holdings = state.get("holdings", {})
-#     transactions = state.get("transactions", [])
-#     securities_data = {k: v for d in state.get("securities_data", []) for k, v in d.items()}
-#     cash = state.get("cash", 0.0)
-#     realised_pnl = state.get("realised_pnl", 0.0)
-#     today = config.get("configurable", {}).get("today", datetime.now().strftime('%Y%m%d'))
-#     # Compute values
-#     total_market_value = 0.0
-#     unrealised_pnl = 0.0
-#     summary_lines = []
-
-#     for ticker, pos in holdings.items():
-#         quantity = pos.get("quantity", 0)
-#         buy_price = pos.get("buy_price", 0)
-#         market_price = securities_data.get(ticker, {}).get("market_data", {}).get("price", 0)
-
-#         if quantity <= 0 or market_price <= 0:
-#             continue
-
-#         market_value = quantity * market_price
-#         cost_basis = quantity * buy_price
-#         unrealised = market_value - cost_basis
-
-#         total_market_value += market_value
-#         unrealised_pnl += unrealised
-
-#         summary_lines.append(
-#             f"{ticker}: Qty={quantity:.2f}, Buy=${buy_price:.2f}, Market=${market_price:.2f}, "
-#             f"Value=${market_value:,.2f}, Unrealised PnL=${unrealised:,.2f}"
-#         )
-
-#     total_portfolio_value = total_market_value + cash
-#     total_pnl = realised_pnl + unrealised_pnl
-
-#     pnl_summary = (
-#         f"--- Portfolio Summary ---\n"
-#         f"Cash: ${cash:,.2f}\n"
-#         f"TotalMarket Value: ${total_market_value:,.2f}\n"
-#         f"Realised PnL: ${realised_pnl:,.2f}\n"
-#         f"Unrealised PnL: ${unrealised_pnl:,.2f}\n"
-#         f"Total Portfolio Value: ${total_portfolio_value:,.2f}\n"
-#         f"Total PnL: ${total_pnl:,.2f}\n"
-#         f"-------------------------\n\n" +
-#         "\n".join(summary_lines)
-#     )
-#     pnl_summary_dict = {}
-#     pnl_summary_dict = {
-#         "cash": cash,
-#         "total_market_value": total_market_value,
-#         "realised_pnl": realised_pnl,
-#         "unrealised_pnl": unrealised_pnl,
-#         "total_portfolio_value": total_portfolio_value,
-#         "total_pnl": total_pnl,
-#         "holdings": holdings,
-#         "transactions": transactions,
-#         "date": today,
-#         "portfolio_summary": pnl_summary,
-#     }
-
-#     # Save PnL summary to file
-#     filename = os.path.join(OUTPUT_DIR6, f"{today}.json")
-#     with open(filename, "w", encoding="utf-8") as f:
-#         json.dump(pnl_summary_dict, f, indent=2)
-#     print(f"Portfolio summary saved to {filename}")
-
-#     # Append message
-#     save_message = HumanMessage(
-#         content=f"Portfolio PnL.\n```text\n{pnl_summary}\n```",
-#         name="show_portfolio"
-#     )
-
-#     return {
-#         **state,
-#         "portfolio_history": pnl_summary_dict,
-#         **{key: value for key, value in pnl_summary_dict.items()},
-#         "messages": state["messages"] + [save_message]
-#     }
 
 def portfolio_node(state: CustomState, config: dict) -> dict:
     """Calculate portfolio metrics: realised PnL, unrealised PnL, and total value."""
