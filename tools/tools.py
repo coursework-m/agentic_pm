@@ -2,7 +2,6 @@
 import os
 import json
 import asyncio
-from pprint import pprint
 from datetime import datetime
 from typing import List, Dict
 import yfinance as yf
@@ -11,7 +10,7 @@ from bs4 import BeautifulSoup
 from tavily import TavilyClient
 from langchain_core.tools import tool
 from langchain_community.tools import DuckDuckGoSearchResults
-from utils.constants import API_KEY, BASE_URL, START_DATE, OUTPUT_DIR2
+from utils.constants import API_KEY, BASE_URL, START_DATE, OUTPUT_DIR
 
 async def get_ticker_data(ticker: str, delay: float = 2.5) -> Dict:
     """Fetches financial and news data for a single ticker using Yahoo Finance.
@@ -101,6 +100,8 @@ async def get_full_securities_data_async(
     # pprint(results)
     results = [{result["ticker"]: result} for result in results]
     # pprint(results)
+    OUTPUT_DIR2 = f"{OUTPUT_DIR}/securities_data"
+    os.makedirs(OUTPUT_DIR2, exist_ok=True)
     filename = os.path.join(OUTPUT_DIR2, f"{datetime.now().strftime('%Y%m%d')}.json")
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(results, f, indent=2)

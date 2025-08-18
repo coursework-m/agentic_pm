@@ -17,3 +17,12 @@ END_DATE = datetime.now().strftime('%Y%m%d')
 TODAY = datetime.now().strftime('%Y%m%d') # Today
 # API Base URL
 BASE_URL = "https://www.alphavantage.co/query"
+# Define the path for the backtest or forwardtest
+# This can be set to "backtest" or "forwardtest" based on the context
+BACKTEST = True # Set to True for backtesting, False for forward testing
+PATH = "backtest" if BACKTEST else "forwardtest"
+# Directory for saving output
+OUTPUT_DIR = f"./data/{PATH}"
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+OUTPUT_DIR10 = f"{OUTPUT_DIR}/messages"
+os.makedirs(OUTPUT_DIR10, exist_ok=True)

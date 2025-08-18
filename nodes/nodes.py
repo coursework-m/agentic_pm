@@ -20,16 +20,7 @@ from prompts.prompts import (
 )
 from prompts.react_prompts import react_researcher_prompt
 from utils.utils import parse_summary
-from utils.constants import TICKERS
-# Define the path for the backtest or forwardtest
-# This can be set to "backtest" or "forwardtest" based on the context
-BACKTEST = True # Set to True for backtesting, False for forward testing
-PATH = "backtest" if BACKTEST else "forwardtest"
-# Directory for saving output
-OUTPUT_DIR = f"./data/{PATH}"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-OUTPUT_DIR10 = f"{OUTPUT_DIR}/messages"
-os.makedirs(OUTPUT_DIR10, exist_ok=True)
+from utils.constants import TICKERS, OUTPUT_DIR
 
 def router_node(state: CustomState):
     """Should Continue Router"""
