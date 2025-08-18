@@ -263,6 +263,8 @@ def trader_node(state: CustomState, config: dict) -> dict:
     holdings = state.get("holdings", {})
     cash = state.get("cash", 0.0)
     transactions = state.get("transactions", [])
+    model_config = config.get("configurable", {}).get("model_config", {})
+    model_name = model_config["model"]
 
     prices = {
         ticker: data.get("market_data", {}).get("price") for ticker, data in securities_data.items()
@@ -366,7 +368,7 @@ def trader_node(state: CustomState, config: dict) -> dict:
         "daily_pnl": daily_pnl,
     })
 
-    OUTPUT_DIR5 = f"{OUTPUT_DIR}/transactions"
+    OUTPUT_DIR5 = f"{OUTPUT_DIR}/{model_name}/transactions"
     os.makedirs(OUTPUT_DIR5, exist_ok=True)
     filename = os.path.join(OUTPUT_DIR5 + f"/{thread_id}", f"{today}.json")
     os.makedirs(OUTPUT_DIR5 + f"/{thread_id}", exist_ok=True)
@@ -394,6 +396,8 @@ def portfolio_node(state: CustomState, config: dict) -> dict:
     """Calculate portfolio metrics: realised PnL, unrealised PnL, and total value."""
     today = config.get("configurable", {}).get("today", datetime.now().strftime('%Y%m%d'))
     thread_id = config.get("configurable", {}).get("thread_id", "default-thread")
+    model_config = config.get("configurable", {}).get("model_config", {})
+    model_name = model_config["model"]
     holdings = state.get("holdings", {})
     transactions = state.get("transactions", [])
     history = state.get("portfolio_history", [])
@@ -465,7 +469,7 @@ def portfolio_node(state: CustomState, config: dict) -> dict:
     )
 
     # Save PnL history to file
-    OUTPUT_DIR6 = f"{OUTPUT_DIR}/portfolio_history"
+    OUTPUT_DIR6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
     os.makedirs(OUTPUT_DIR6, exist_ok=True)
     filename = os.path.join(OUTPUT_DIR6 + f"/{thread_id}", f"{today}.json")
     os.makedirs(OUTPUT_DIR6 + f"/{thread_id}", exist_ok=True)
@@ -615,6 +619,8 @@ def performance_node(state: CustomState, config: dict, store) -> dict:
     today = config.get("configurable", {}).get("today", datetime.now().strftime('%Y%m%d'))
     backtest = config.get("configurable", {}).get("backtest", datetime.now().strftime('%Y%m%d'))
     end_date = config.get("configurable", {}).get("end_date", datetime.now().strftime('%Y%m%d'))
+    model_config = config.get("configurable", {}).get("model_config", {})
+    model_name = model_config["model"]
     metrics = {}
     performance_message = HumanMessage(
         content=(
@@ -712,6 +718,8 @@ def performance_node(state: CustomState, config: dict, store) -> dict:
         # metrics["cagr"] = cagr
         # metrics["calmar_ratio"] = calmar_ratio
         # Save Performance Metrics history to file as JSON
+        OUTPUT_DIR9 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
+        os.makedirs(OUTPUT_DIR9, exist_ok=True)
         filename = os.path.join(OUTPUT_DIR9 + f"/{thread_id}", f"{today}.json")
         os.makedirs(OUTPUT_DIR9 + f"/{thread_id}", exist_ok=True)
         with open(filename, "w", encoding="utf-8") as f:
