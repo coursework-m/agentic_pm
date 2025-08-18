@@ -24,5 +24,5 @@ PATH = "backtest" if BACKTEST else "forwardtest"
 # Directory for saving output
 OUTPUT_DIR = f"./data/{PATH}"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
-OUTPUT_DIR10 = f"{OUTPUT_DIR}/messages"
-os.makedirs(OUTPUT_DIR10, exist_ok=True)
+# OUTPUT_DIR10 = f"{OUTPUT_DIR}/messages"
+# os.makedirs(OUTPUT_DIR10, exist_ok=True)
