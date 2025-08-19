@@ -10,8 +10,8 @@ from utils.constants import OUTPUT_DIR
 
 def find_resume_date(thread_id, start_date, end_date, model_name):
     """Find the last completed date"""
-    OUTPUT_DIR6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
-    folder = Path(OUTPUT_DIR6) / thread_id
+    output_dir6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
+    folder = Path(output_dir6) / thread_id
     print(f"Folder is {folder}")
     if not folder.exists():
         return start_date
@@ -83,7 +83,7 @@ def backtest(start_date=START_DATE,
             date += timedelta(days=1)
 
 if __name__ == '__main__':
-        # ollama ids
+    # ollama ids
     # mistral:v0.3
     # llama3:latest
     # qwen3:latest
@@ -92,21 +92,22 @@ if __name__ == '__main__':
     # gpt-oss:20b
     # ///////////////////// #
     # HF ids
-    # "meta-llama/Llama-3.2-3B-Instruct"
     # "openai/gpt-oss-20b"
+    # "meta-llama/Llama-3.2-3B-Instruct"
     # "Qwen/Qwen3-4B"
     # "google/gemma-3-270m"
-    # "google/gemma-3-270m-it"
     # "google/gemma-3-4b-it"
+    # "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
     llm_config = {
-        "model": "Qwen/Qwen3-4B",
-        "max_new_tokens": 4096,
+        "model": "google/gemma-3-4b-it",
+        "max_new_tokens": 2028,
         "temperature": 0.15,
         "backend": "hf" # Use 'ollama' backend for REACT LLM
     }
     # To run a backtest, set BACKTEST to True in utils/constants.py
     hf_llm = get_llm(llm_config['backend'], llm_config['model'], llm_config)
-    PREVIOUS = None # reuse from previous run
+    PREVIOUS = "UZB81" # reuse GWEN3 backtest from previous run
+    PREVIOUS = "F8DNU" # reuse Gemma3 from previous run
     TIMEIT = True  # Set to True to enable timing
     if TIMEIT:
         start_time = time.time()

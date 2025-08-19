@@ -77,8 +77,8 @@ if __name__ == "__main__":
     # "google/gemma-3-4b-it" // (not implemented yet)
     # "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
     llm_config = {
-        "model": "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B",
-        "max_new_tokens": 4096,
+        "model": "google/gemma-3-4b-it",
+        "max_new_tokens": 2028,
         "temperature": 0.15,
         "backend": "hf" # Use 'ollama' backend for REACT LLM
     }

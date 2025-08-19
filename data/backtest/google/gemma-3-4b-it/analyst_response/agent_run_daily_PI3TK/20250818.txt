@@ -1,0 +1,808 @@
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "AAPL": {
+    "company": "Apple Inc.",
+    "ticker": "AAPL",
+    "market_data": {
+      "price": 230.89,
+      "change": -0.699997,
+      "percent_change": -0.302257,
+      "volume": 36051605,
+      "day_high": 233.12,
+      "day_low": 230.11,
+      "market_cap": 3426499952640,
+      "summary": "Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising Ai"
+    },
+    "fundamentals": {
+      "pe_ratio": 34.983334,
+      "forward_pe": 27.784595,
+      "eps": 6.6,
+      "dividend_yield": 0.45,
+      "beta": 1.165,
+      "sector": "Technology",
+      "industry": "Consumer Electronics"
+    },
+    "news": [
+      {
+        "title": "Bank of America suggests the era of the biggest stocks dominating markets 'may be done'",
+        "summary": "After years of large-cap outperformance, Bank of America believes the stock market may be ripe for a regime shift.",
+        "published_date": "2025-08-18T20:13:36Z",
+        "url": "https://finance.yahoo.com/news/bank-of-america-suggests-the-era-of-the-biggest-stocks-dominating-markets-may-be-done-201336264.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      },
+      {
+        "title": "Sam Altman Says There\u2019s an AI Bubble. What Wall Street Thinks.",
+        "summary": "OpenAI CEO Sam Altman told reporters that he thinks the AI market is in a bubble. Not everyone is concerned.",
+        "published_date": "2025-08-18T20:48:00Z",
+        "url": "https://www.barrons.com/articles/ai-stock-bubble-wall-street-8208c9f1?siteid=yhoof2&yptr=yahoo",
+        "provider": "Barrons.com",
+        "provider_url": "http://www.barrons.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.95349
+  }
+}
+model
+```json
+{
+  "ticker": "AAPL",
+  "summary": "Apple's fundamentals show a relatively high P/E ratio of 34.98, indicating the stock may be overvalued compared to its earnings. However, the forward P/E of 27.78 is slightly lower, suggesting future earnings expectations are a bit more reasonable. The dividend yield of 0.45% is attractive, and the beta of 1.165 indicates moderate volatility relative to the market. Recent news highlights concerns about an AI bubble, potentially impacting the tech sector.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "GOOG": {
+    "company": "Alphabet Inc.",
+    "ticker": "GOOG",
+    "market_data": {
+      "price": 204.29,
+      "change": -0.62001,
+      "percent_change": -0.302577,
+      "volume": 12957793,
+      "day_high": 206.14,
+      "day_low": 203.42,
+      "market_cap": 2463982419968,
+      "summary": "Alphabet Inc. offers various products and platforms in the United States, Europe, the Middle East, Africa, the Asia-Pacific, Canada, and Latin America. It operates through Google Services, Google Cloud, and Other Bets segments. The Google Services segment provides products and services, including ad"
+    },
+    "fundamentals": {
+      "pe_ratio": 21.779316,
+      "forward_pe": 22.825699,
+      "eps": 9.38,
+      "dividend_yield": 0.41,
+      "beta": 1.014,
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information"
+    },
+    "news": [
+      {
+        "title": "Alphabet and Robinhood: The bull vs. bear case",
+        "summary": "Washington Crossing Advisors senior portfolio manager Chad Morganlander joins Market Domination host Josh Lipton to outline his bull case for Alphabet (GOOG, GOOGL) and his bearish view on Robinhood (HOOD). To watch more expert insights and analysis on the latest market action, check out more Market Domination.",
+        "published_date": "2025-08-18T20:30:33Z",
+        "url": "https://finance.yahoo.com/video/alphabet-robinhood-bull-vs-bear-203033016.html",
+        "provider": "Yahoo Finance Video",
+        "provider_url": "https://finance.yahoo.com/"
+      },
+      {
+        "title": "Solar stocks, Tesla, TeraWulf & Google: Trending Tickers",
+        "summary": "Sunrun (RUN) stock was upgraded to Outperform from Sector Perform by RBC Capital Markets as the US Treasury Department and Internal Revenue Service (IRS) released favorable guidance on clean energy tax credit qualifications. Other clean energy names like First Solar (FSLR) and Enphase (ENPH) are also getting a boost. Tesla (TSLA) is reportedly offering leasing companies discounts of up to 40% to clear inventory in the UK, according to The Times.  Bitcoin miner TeraWulf (WULF) is gaining attention after Alphabet's (GOOG, GOOGL) Google increased its stake in the company to 14%. To watch more expert insights and analysis on the latest market action, check out more&nbsp;Market Catalysts.",
+        "published_date": "2025-08-18T15:04:33Z",
+        "url": "https://finance.yahoo.com/video/solar-stocks-tesla-terawulf-google-150433953.html",
+        "provider": "Yahoo Finance Video",
+        "provider_url": "https://finance.yahoo.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.54412
+  }
+}
+model
+```json
+{
+  "ticker": "GOOG",
+  "summary": "Alphabet's fundamentals show a P/E ratio of 21.78, a forward P/E of 22.83, and an EPS of $9.38. The company has a beta of 1.014, indicating moderate volatility relative to the market. The dividend yield is 0.41%.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "MSFT": {
+    "company": "Microsoft Corporation",
+    "ticker": "MSFT",
+    "market_data": {
+      "price": 517.1,
+      "change": -3.07001,
+      "percent_change": -0.590193,
+      "volume": 23621420,
+      "day_high": 522.82,
+      "day_low": 514.02,
+      "market_cap": 3843691905024,
+      "summary": "Microsoft Corporation develops and supports software, services, devices, and solutions worldwide. The company's Productivity and Business Processes segment offers Microsoft 365 Commercial, Enterprise Mobility + Security, Windows Commercial, Power BI, Exchange, SharePoint, Microsoft Teams, Security a"
+    },
+    "fundamentals": {
+      "pe_ratio": 37.93837,
+      "forward_pe": 34.588627,
+      "eps": 13.63,
+      "dividend_yield": 0.64,
+      "beta": 1.055,
+      "sector": "Technology",
+      "industry": "Software - Infrastructure"
+    },
+    "news": [
+      {
+        "title": "Bank of America suggests the era of the biggest stocks dominating markets 'may be done'",
+        "summary": "After years of large-cap outperformance, Bank of America believes the stock market may be ripe for a regime shift.",
+        "published_date": "2025-08-18T20:13:36Z",
+        "url": "https://finance.yahoo.com/news/bank-of-america-suggests-the-era-of-the-biggest-stocks-dominating-markets-may-be-done-201336264.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      },
+      {
+        "title": "Big Tech's AI Hiring Spree Is Shaking Up Silicon Valley",
+        "summary": "The fight for AI dominance isn't just about chips and models anymore it's changing the very DNA of how Big Tech hires.",
+        "published_date": "2025-08-18T21:33:34Z",
+        "url": "https://finance.yahoo.com/news/big-techs-ai-hiring-spree-213334427.html",
+        "provider": "GuruFocus.com",
+        "provider_url": "http://www.gurufocus.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.27586
+  }
+}
+model
+```json
+{
+  "ticker": "MSFT",
+  "summary": "Microsoft's fundamentals show a relatively high P/E ratio of 37.94, suggesting the stock may be overvalued compared to its earnings. However, the forward P/E of 34.59 is slightly lower, indicating potential future growth expectations. The company has a beta of 1.055, indicating it's slightly more volatile than the market.  The dividend yield of 0.64% is attractive, but not exceptionally high. Analyst recommendation score of 1.28 is moderately positive.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "META": {
+    "company": "Meta Platforms, Inc.",
+    "ticker": "META",
+    "market_data": {
+      "price": 767.37,
+      "change": -17.86,
+      "percent_change": -2.27449,
+      "volume": 16433095,
+      "day_high": 775.805,
+      "day_low": 756.5601,
+      "market_cap": 1927740915712,
+      "summary": "Meta Platforms, Inc. engages in the development of products that enable people to connect and share with friends and family through mobile devices, personal computers, virtual reality and mixed reality headsets, augmented reality, and wearables worldwide. It operates through two segments, Family of "
+    },
+    "fundamentals": {
+      "pe_ratio": 27.843615,
+      "forward_pe": 30.330832,
+      "eps": 27.56,
+      "dividend_yield": 0.27,
+      "beta": 1.273,
+      "sector": "Communication Services",
+      "industry": "Internet Content & Information"
+    },
+    "news": [
+      {
+        "title": "GoodRx, Meta, CVS: Trending Tickers",
+        "summary": "GoodRx (GDRX) stock surges on news that the company is partnering with Novo Nordisk (NVO) to offer lower prices on GLP-1 drugs. Meta (META) is reportedly planning its fourth artificial intelligence (AI) restructuring in six months, according to The Information. CVS (CVS) was upgraded to Buy from UBS following two strong quarters and growth prospects. To watch more expert insights and analysis on the latest market action, check out more&nbsp;Market Domination.",
+        "published_date": "2025-08-18T20:25:54Z",
+        "url": "https://finance.yahoo.com/video/goodrx-meta-cvs-trending-tickers-202554419.html",
+        "provider": "Yahoo Finance Video",
+        "provider_url": "https://finance.yahoo.com/"
+      },
+      {
+        "title": "Dow Jones Futures: Meta, Palantir Are Big Losers; Palo Alto Jumps On Earnings",
+        "summary": "Dow Jones Futures: Meta stock and Palantir Technologies were big losers Monday, while Palo Alto jumped on earnings late.",
+        "published_date": "2025-08-18T21:05:41Z",
+        "url": "https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-meta-stock-palantir-palo-alto-panw/?src=A00220&yptr=yahoo",
+        "provider": "Investor's Business Daily",
+        "provider_url": "http://www.investors.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.44776
+  }
+}
+model
+```json
+{
+  "ticker": "META",
+  "summary": "Meta Platforms is currently trading at $767.37 with a -2.27% change. The company's fundamentals show a P/E ratio of 27.84, a forward P/E of 30.33, and an EPS of $27.56. The beta is 1.273, indicating moderate volatility relative to the market. The dividend yield is 0.27%. Recent news highlights a planned AI restructuring and a partnership with GoodRx and Novo Nordisk.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "TSLA": {
+    "company": "Tesla, Inc.",
+    "ticker": "TSLA",
+    "market_data": {
+      "price": 335.16,
+      "change": 4.60001,
+      "percent_change": 1.39158,
+      "volume": 56683707,
+      "day_high": 336.27,
+      "day_low": 329.59,
+      "market_cap": 1081041813504,
+      "summary": "Tesla, Inc. designs, develops, manufactures, leases, and sells electric vehicles, and energy generation and storage systems in the United States, China, and internationally. The company operates in two segments, Automotive; and Energy Generation and Storage. The Automotive segment offers electric ve"
+    },
+    "fundamentals": {
+      "pe_ratio": 198.31952,
+      "forward_pe": 103.44444,
+      "eps": 1.69,
+      "dividend_yield": null,
+      "beta": 2.331,
+      "sector": "Consumer Cyclical",
+      "industry": "Auto Manufacturers"
+    },
+    "news": [
+      {
+        "title": "Solar stocks, Tesla, TeraWulf & Google: Trending Tickers",
+        "summary": "Sunrun (RUN) stock was upgraded to Outperform from Sector Perform by RBC Capital Markets as the US Treasury Department and Internal Revenue Service (IRS) released favorable guidance on clean energy tax credit qualifications. Other clean energy names like First Solar (FSLR) and Enphase (ENPH) are also getting a boost. Tesla (TSLA) is reportedly offering leasing companies discounts of up to 40% to clear inventory in the UK, according to The Times.  Bitcoin miner TeraWulf (WULF) is gaining attention after Alphabet's (GOOG, GOOGL) Google increased its stake in the company to 14%. To watch more expert insights and analysis on the latest market action, check out more&nbsp;Market Catalysts.",
+        "published_date": "2025-08-18T15:04:33Z",
+        "url": "https://finance.yahoo.com/video/solar-stocks-tesla-terawulf-google-150433953.html",
+        "provider": "Yahoo Finance Video",
+        "provider_url": "https://finance.yahoo.com/"
+      },
+      {
+        "title": "Cheaper Tesla Leases Hit UK as Sales Slide",
+        "summary": "Musk's EV maker turns to 40% discounts to clear cars",
+        "published_date": "2025-08-18T21:32:40Z",
+        "url": "https://finance.yahoo.com/news/cheaper-tesla-leases-hit-uk-213240712.html",
+        "provider": "GuruFocus.com",
+        "provider_url": "http://www.gurufocus.com/"
+      }
+    ],
+    "analyst_recommendation_score": 2.65957
+  }
+}
+model
+```json
+{
+  "ticker": "TSLA",
+  "summary": "Tesla's fundamentals show a very high P/E ratio (198.32) and forward P/E ratio (103.44), suggesting the stock is significantly overvalued based on current earnings. The beta of 2.33 indicates a higher volatility compared to the market. Recent news highlights aggressive discounting of leases in the UK to clear inventory, which is a concerning sign of weak demand.",
+  "recommendation": "SELL"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "NVDA": {
+    "company": "NVIDIA Corporation",
+    "ticker": "NVDA",
+    "market_data": {
+      "price": 182.01,
+      "change": 1.56,
+      "percent_change": 0.864504,
+      "volume": 129675956,
+      "day_high": 182.935,
+      "day_low": 180.6045,
+      "market_cap": 4438786834432,
+      "summary": "NVIDIA Corporation, a computing infrastructure company, provides graphics and compute and networking solutions in the United States, Singapore, Taiwan, China, Hong Kong, and internationally. The Compute & Networking segment includes its Data Centre accelerated computing platforms and artificial inte"
+    },
+    "fundamentals": {
+      "pe_ratio": 58.712902,
+      "forward_pe": 44.177185,
+      "eps": 3.1,
+      "dividend_yield": 0.02,
+      "beta": 2.145,
+      "sector": "Technology",
+      "industry": "Semiconductors"
+    },
+    "news": [
+      {
+        "title": "Bank of America suggests the era of the biggest stocks dominating markets 'may be done'",
+        "summary": "After years of large-cap outperformance, Bank of America believes the stock market may be ripe for a regime shift.",
+        "published_date": "2025-08-18T20:13:36Z",
+        "url": "https://finance.yahoo.com/news/bank-of-america-suggests-the-era-of-the-biggest-stocks-dominating-markets-may-be-done-201336264.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      },
+      {
+        "title": "Powell's Jackson Hole speech, Walmart earnings: What to watch this week",
+        "summary": "Chair Powell's policy speech Friday in Jackson Hole will be the defining monetary policy event of the summer.",
+        "published_date": "2025-08-17T11:35:02Z",
+        "url": "https://finance.yahoo.com/news/powells-jackson-hole-speech-walmart-earnings-what-to-watch-this-week-113502376.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.41538
+  }
+}
+model
+```json
+{
+  "ticker": "NVDA",
+  "summary": "NVIDIA's fundamentals show a high P/E ratio (58.71) and a beta of 2.145, indicating significant volatility and growth expectations. The forward P/E of 44.18 is also elevated. While EPS is solid at $3.1, the company's valuation is a concern. Recent news from Bank of America suggests a potential shift in market dominance away from large-cap stocks, which could impact NVIDIA's outperformance.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "AMZN": {
+    "company": "Amazon.com, Inc.",
+    "ticker": "AMZN",
+    "market_data": {
+      "price": 231.49,
+      "change": 0.460007,
+      "percent_change": 0.199111,
+      "volume": 25174688,
+      "day_high": 231.905,
+      "day_low": 228.33,
+      "market_cap": 2468817666048,
+      "summary": "Amazon.com, Inc. engages in the retail sale of consumer products, advertising, and subscriptions service through online and physical stores in North America and internationally. The company operates through three segments: North America, International, and Amazon Web Services (AWS). It also manufact"
+    },
+    "fundamentals": {
+      "pe_ratio": 35.288113,
+      "forward_pe": 37.64065,
+      "eps": 6.56,
+      "dividend_yield": null,
+      "beta": 1.314,
+      "sector": "Consumer Cyclical",
+      "industry": "Internet Retail"
+    },
+    "news": [
+      {
+        "title": "Bank of America suggests the era of the biggest stocks dominating markets 'may be done'",
+        "summary": "After years of large-cap outperformance, Bank of America believes the stock market may be ripe for a regime shift.",
+        "published_date": "2025-08-18T20:13:36Z",
+        "url": "https://finance.yahoo.com/news/bank-of-america-suggests-the-era-of-the-biggest-stocks-dominating-markets-may-be-done-201336264.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      },
+      {
+        "title": "Target is probably still missing the mark: Opening Bid top takeaway",
+        "summary": "Buckle up. It could be an eventful week in markets.",
+        "published_date": "2025-08-18T15:07:22Z",
+        "url": "https://finance.yahoo.com/news/target-is-probably-still-missing-the-mark-opening-bid-top-takeaway-150722793.html",
+        "provider": "Yahoo Finance",
+        "provider_url": "http://finance.yahoo.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.33333
+  }
+}
+model
+```json
+{
+  "ticker": "AMZN",
+  "summary": "Amazon's fundamentals show a high P/E ratio of 35.29, reflecting investor optimism but also potential overvaluation. The forward P/E of 37.64 further supports this view. EPS of $6.56 is respectable, but doesn't significantly offset the high valuation.  The beta of 1.314 indicates moderate volatility relative to the market. The company operates in a competitive sector (Internet Retail) within the Consumer Cyclical sector.",
+  "recommendation": "HOLD"
+}
+```
+user
+This is a Master's Project, the data provided is real.
+    You're role is a financial data analyst.
+    Your job is to analyse the latest market data and issue a recommendation for each stock.
+    You will have access to ALL the relevant information required to make each recommendation. 
+
+    Guidelines:
+    - Analyse securities data and give BUY/HOLD/SELL recommendations.
+    - Use news, analyst_recommendations, market_data, fundamentals and your deep expertise to make your recommendations.
+    - Only send the result in the format required as it needs to be passed to another agent.
+    - ALWAYS ACT AS IF THIS WAS A REAL WORLD ENVIRONMENT, i.e Use careful analysis.
+    - You will be judged on Accuracy and how well the recommendations Perform in Backtests,
+    - The best Agent will be mentioned in an academic paper, Good luck!
+
+
+        You are a financial data analyst. Your task is to analyse the security's latest data and issue a
+        BUY, HOLD, or SELL recommendation for the security.
+        
+        You will be provided with data for one security at a time.
+
+        First, analyse the security's data and think through using fundamentals, 
+        market data and news. Then, for the security:
+
+        1. Examine and interpret all available data, including:
+            - Market Data (price, change, volume, etc.)
+            - Fundamentals (P/E, EPS, beta, etc.)
+            - News and recent headlines
+            - Analyst recommendations
+
+        2. Use detailed analysis and reasoning to justify your conclusion.
+
+        Finally, summarise your conclusions in the following JSON format:
+        
+        Here are my recommendations:
+
+        ```json
+        {{
+            "ticker": "...",
+            "summary": "....'s fundamentals are ...",
+            "recommendation": "HOLD"
+        }}
+        ```
+        Ensure your JSON is valid and is surounded by the ```json {{...}}```block shown while 
+        containing all required fields for the security.
+        
+
+Today's date is 20250818.
+
+            Here is the securities data:
+{
+  "NFLX": {
+    "company": "Netflix, Inc.",
+    "ticker": "NFLX",
+    "market_data": {
+      "price": 1245.09,
+      "change": 6.14001,
+      "percent_change": 0.495582,
+      "volume": 2104042,
+      "day_high": 1251.1599,
+      "day_low": 1235.45,
+      "market_cap": 529071112192,
+      "summary": "Netflix, Inc. provides entertainment services. The company offers television (TV) series, documentaries, feature films, and games across various genres and languages. It also provides members the ability to receive streaming content through a host of internet-connected devices, including TVs, digita"
+    },
+    "fundamentals": {
+      "pe_ratio": 53.163532,
+      "forward_pe": 52.358704,
+      "eps": 23.42,
+      "dividend_yield": null,
+      "beta": 1.589,
+      "sector": "Communication Services",
+      "industry": "Entertainment"
+    },
+    "news": [
+      {
+        "title": "Duolingo Stock Rises. Why AI Fears Are Overblown, Analysts Say.",
+        "summary": "Shares of  Duolingo Duolingo  were rising sharply Monday after the language-learning platform got a duo of buy ratings on Wall Street.  Fears of encroachment from generative artificial intelligence are overblown, the analysts agreed.  Ygal Arounian of Citi Research initiated coverage of the stock with a Buy rating and a $400 price target in a research note Monday, arguing that Duolingo has long-term staying power in the education-technology space.",
+        "published_date": "2025-08-18T15:29:00Z",
+        "url": "https://www.barrons.com/articles/duolingo-stock-buy-ai-fears-858be431?siteid=yhoof2&yptr=yahoo",
+        "provider": "Barrons.com",
+        "provider_url": "http://www.barrons.com/"
+      },
+      {
+        "title": "Should You Invest in Netflix (NFLX) Based on Bullish Wall Street Views?",
+        "summary": "The average brokerage recommendation (ABR) for Netflix (NFLX) is equivalent to a Buy. The overly optimistic recommendations of Wall Street analysts make the effectiveness of this highly sought-after metric questionable. So, is it worth buying the stock?",
+        "published_date": "2025-08-18T13:30:03Z",
+        "url": "https://finance.yahoo.com/news/invest-netflix-nflx-based-bullish-133003916.html",
+        "provider": "Zacks",
+        "provider_url": "http://www.zacks.com/"
+      }
+    ],
+    "analyst_recommendation_score": 1.95652
+  }
+}
+model
+```json
+{
+  "ticker": "NFLX",
+  "summary": "Netflix's fundamentals show a high P/E ratio (53.16) and forward P/E ratio (52.36), indicating the stock is currently expensive relative to its earnings. The beta of 1.589 suggests it's slightly more volatile than the market. The EPS of $23.42 is respectable, but doesn't fully justify the high valuation.",
+  "recommendation": "HOLD"
+}
+```

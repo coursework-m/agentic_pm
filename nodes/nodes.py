@@ -22,6 +22,15 @@ from prompts.react_prompts import react_researcher_prompt
 from utils.utils import parse_summary
 from utils.constants import TICKERS, OUTPUT_DIR
 
+def normalise_messages(messages, model_name):
+    """Normalise the messages for the specified model."""
+    if "gemma" in model_name.lower():
+        # flatten system + multiple users into one user message
+        user_content = "\n\n".join([m.content for m in messages])
+        # print(f"[DEBUG] Normalised messages for {model_name}: {user_content}")
+        return [HumanMessage(content=user_content)]
+    return messages
+
 def router_node(state: CustomState):
     """Should Continue Router"""
     last_message = state["messages"][-1]
@@ -93,9 +102,9 @@ def data_node(state: CustomState, config: dict) -> dict:
     if backtest:
         try:
             # For backtest, we load the pre-saved securities data
-            OUTPUT_DIR2 = f"{OUTPUT_DIR}/securities_data"
-            os.makedirs(OUTPUT_DIR2, exist_ok=True)
-            filename = os.path.join(OUTPUT_DIR2, f"{today}.json")
+            output_dir2 = f"{OUTPUT_DIR}/securities_data"
+            os.makedirs(output_dir2, exist_ok=True)
+            filename = os.path.join(output_dir2, f"{today}.json")
             if not os.path.exists(filename):
                 raise FileNotFoundError(f"Backtest data file not found: {filename}")
             with open(filename, "r", encoding="utf-8") as f:
@@ -149,7 +158,10 @@ def analyst_node(state: CustomState, config: dict) -> dict:
             Here is the securities data:\n{sec_data_str}""",
             name=f"{model_name} analyst node"
         )
-        analyst_messages = [analyst_system_prompt, analyst_prompt, ticker_message]
+        analyst_messages = normalise_messages(
+            [analyst_system_prompt, analyst_prompt, ticker_message],
+            model_name
+        )
         analyst_response = llm.invoke(analyst_messages, analyst_config)
         content = analyst_response.content
         parsed = parse_summary(content)
@@ -158,16 +170,16 @@ def analyst_node(state: CustomState, config: dict) -> dict:
         analyst_responses.append(analyst_response)
         contents.append(content)
 
-    OUTPUT_DIR3 = f"{OUTPUT_DIR}/{model_name}/analysts_summary"
-    os.makedirs(OUTPUT_DIR3, exist_ok=True)
-    OUTPUT_DIR7 = f"{OUTPUT_DIR}/{model_name}/analyst_response"
-    os.makedirs(OUTPUT_DIR7, exist_ok=True)
-    filename = os.path.join(OUTPUT_DIR3 + f"/{thread_id}", f"{today}.json")
-    os.makedirs(OUTPUT_DIR3 + f"/{thread_id}", exist_ok=True)
-    os.makedirs(OUTPUT_DIR7 + f"/{thread_id}", exist_ok=True)
+    output_dir3 = f"{OUTPUT_DIR}/{model_name}/analysts_summary"
+    os.makedirs(output_dir3, exist_ok=True)
+    output_dir7 = f"{OUTPUT_DIR}/{model_name}/analyst_response"
+    os.makedirs(output_dir7, exist_ok=True)
+    filename = os.path.join(output_dir3 + f"/{thread_id}", f"{today}.json")
+    os.makedirs(output_dir3 + f"/{thread_id}", exist_ok=True)
+    os.makedirs(output_dir7 + f"/{thread_id}", exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(analyst_summary, f, indent=2)
-    with open(f"{OUTPUT_DIR7}/{thread_id}/{today}.txt", "w", encoding="utf-8") as f:
+    with open(f"{output_dir7}/{thread_id}/{today}.txt", "w", encoding="utf-8") as f:
         f.write("\n".join(contents))
     return {
         **state,
@@ -217,7 +229,10 @@ def researcher_node(state: CustomState, config: dict) -> dict:
                 Here is the Analyst's summary:\n{analyst_data_str}""",
                 name=f"{model_config['model']} researcher node"
             )
-            research_messages = [researcher_system_prompt, researcher_prompt, ticker_message]
+            research_messages = normalise_messages(
+                [researcher_system_prompt, researcher_prompt, ticker_message],
+                model_name
+            )
             research_response = llm.invoke(research_messages, researcher_config)
             content = research_response.content
 
@@ -226,16 +241,16 @@ def researcher_node(state: CustomState, config: dict) -> dict:
         research_responses.append(research_response)
         contents.append(content)
 
-    OUTPUT_DIR4 = f"{OUTPUT_DIR}/{model_name}/research_summary"
-    os.makedirs(OUTPUT_DIR4, exist_ok=True)
-    OUTPUT_DIR8 = f"{OUTPUT_DIR}/{model_name}/research_response"
-    os.makedirs(OUTPUT_DIR8, exist_ok=True)
-    filename = os.path.join(OUTPUT_DIR4 + f"/{thread_id}", f"{today}.json")
-    os.makedirs(OUTPUT_DIR4 + f"/{thread_id}", exist_ok=True)
-    os.makedirs(OUTPUT_DIR8 + f"/{thread_id}", exist_ok=True)
+    output_dir4 = f"{OUTPUT_DIR}/{model_name}/research_summary"
+    os.makedirs(output_dir4, exist_ok=True)
+    output_dir8 = f"{OUTPUT_DIR}/{model_name}/research_response"
+    os.makedirs(output_dir8, exist_ok=True)
+    filename = os.path.join(output_dir4 + f"/{thread_id}", f"{today}.json")
+    os.makedirs(output_dir4 + f"/{thread_id}", exist_ok=True)
+    os.makedirs(output_dir8 + f"/{thread_id}", exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(research_summary, f, indent=2)
-    with open(f"{OUTPUT_DIR8}/{thread_id}/{today}.txt", "w", encoding="utf-8") as f:
+    with open(f"{output_dir8}/{thread_id}/{today}.txt", "w", encoding="utf-8") as f:
         f.write("\n".join(contents))
     return {
         **state,
@@ -359,10 +374,10 @@ def trader_node(state: CustomState, config: dict) -> dict:
         "daily_pnl": daily_pnl,
     })
 
-    OUTPUT_DIR5 = f"{OUTPUT_DIR}/{model_name}/transactions"
-    os.makedirs(OUTPUT_DIR5, exist_ok=True)
-    filename = os.path.join(OUTPUT_DIR5 + f"/{thread_id}", f"{today}.json")
-    os.makedirs(OUTPUT_DIR5 + f"/{thread_id}", exist_ok=True)
+    output_dir5 = f"{OUTPUT_DIR}/{model_name}/transactions"
+    os.makedirs(output_dir5, exist_ok=True)
+    filename = os.path.join(output_dir5 + f"/{thread_id}", f"{today}.json")
+    os.makedirs(output_dir5 + f"/{thread_id}", exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(transactions, f, indent=2)
 
@@ -460,10 +475,10 @@ def portfolio_node(state: CustomState, config: dict) -> dict:
     )
 
     # Save PnL history to file
-    OUTPUT_DIR6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
-    os.makedirs(OUTPUT_DIR6, exist_ok=True)
-    filename = os.path.join(OUTPUT_DIR6 + f"/{thread_id}", f"{today}.json")
-    os.makedirs(OUTPUT_DIR6 + f"/{thread_id}", exist_ok=True)
+    output_dir6 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
+    os.makedirs(output_dir6, exist_ok=True)
+    filename = os.path.join(output_dir6 + f"/{thread_id}", f"{today}.json")
+    os.makedirs(output_dir6 + f"/{thread_id}", exist_ok=True)
     with open(filename, "w", encoding="utf-8") as f:
         json.dump(snapshot, f, indent=2)
     print(f"Portfolio history saved to {filename}")
@@ -709,14 +724,14 @@ def performance_node(state: CustomState, config: dict, store) -> dict:
         # metrics["cagr"] = cagr
         # metrics["calmar_ratio"] = calmar_ratio
         # Save Performance Metrics history to file as JSON
-        OUTPUT_DIR9 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
-        os.makedirs(OUTPUT_DIR9, exist_ok=True)
-        filename = os.path.join(OUTPUT_DIR9 + f"/{thread_id}", f"{today}.json")
-        os.makedirs(OUTPUT_DIR9 + f"/{thread_id}", exist_ok=True)
+        output_dir9 = f"{OUTPUT_DIR}/{model_name}/portfolio_history"
+        os.makedirs(output_dir9, exist_ok=True)
+        filename = os.path.join(output_dir9 + f"/{thread_id}", f"{today}.json")
+        os.makedirs(output_dir9 + f"/{thread_id}", exist_ok=True)
         with open(filename, "w", encoding="utf-8") as f:
             json.dump(metrics, f, indent=2)
         # Save metrics_df as CSV
-        metrics_df.to_csv(OUTPUT_DIR9 + f"/{thread_id}/{today}.csv")
+        metrics_df.to_csv(output_dir9 + f"/{thread_id}/{today}.csv")
         print(f"Performance metrics saved to {filename}")
 
         # Store metrics
