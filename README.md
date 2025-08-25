@@ -13,7 +13,7 @@ Not to be used to make real-world finacial decisions - this is a Masters Project
 - **Checkpointing and State Persistence:** Uses PostgreSQL for workflow checkpointing, enabling users to save and resume workflows, ensuring no loss of progress.
 - **Daily Automation:** Supports scheduled daily runs for continuous portfolio management, allowing the system to adapt to changing market conditions.
 - **Data Fetching Scripts:** Automated scripts to fetch and update market and research data, ensuring the system has the latest information for analysis.
-- **Customizable Prompts:** Users can easily modify agent instructions and behavior through prompt templates, allowing for flexible and tailored agent interactions.
+- **Customisable Prompts:** Users can easily modify agent instructions and behavior through prompt templates, allowing for flexible and tailored agent interactions.
 - **Extensible Tools:** Integrates with external data sources and custom tools for market data, news, and more, enabling users to expand the system's capabilities as needed.
 - **Multi-Agent Workflow:** Modular nodes for memory, data ingestion, analysis, research, trading, and portfolio management.
 - **LLM Integration:** Uses state-of-the-art LLMs (e.g., Llama 3) for financial analysis and decision-making.
