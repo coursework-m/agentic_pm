@@ -2,7 +2,7 @@
 
 Agentic Portfolio Management (Agentic PM) is a multi-agent system for automated portfolio management, leveraging large language models (LLMs) and real-world financial data. The system simulates a team of agents (analyst, researcher, trader, etc.) collaborating to analyse market data, generate recommendations, and manage a portfolio, with a focus on accuracy and backtest performance.
 
-## Disclaimer:
+## Disclaimer
 Not to be used to make real-world finacial decisions - this is a Masters Project and is not intended to be used for investment or trading or any kind. For Research and academic work only.
 
 ## Features
