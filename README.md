@@ -111,3 +111,4 @@ This project is licensed under the MIT License. See the LICENSE file for details
 - Inspired by the principles of multi-agent systems and automated trading.
 - Utilises advanced LLMs for financial analysis and decision-making.
 - Thanks to the open-source community for tools and libraries that made this possible.
+- AI was used to document the readme, debug code, comment tools, provide syntax examples and understand various python libraries
